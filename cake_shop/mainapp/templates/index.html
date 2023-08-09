@@ -1,0 +1,536 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="hero">
+    <div class="container hero__container">
+      <!-- <form class="hero__form">
+        <button class="hero__form__button">все катигории</button>
+        <div class="hero__form__search request">
+          <input class="request__input" type="text" placeholder="Поиск по товарам">
+          <button class="request__button">Найти</button>
+        </div>
+      </form> -->
+      <!-- <div class="modal-window">привет</div> -->
+      <div class="swiper hero__container__swiper">
+        <!-- Additional required wrapper -->
+        <div class="hero__content">
+        </div>
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">
+            <h1 class="hero__title">Пятничная распродажа сдидки до 70%</h1>
+            <p class="hero__description">Есть над чем задуматься: торты из натуральных домашних продуктов премиум класса
+            </p>
+            <picture>
+              <source srcset="amg/hero1024-1.png" media="(max-width: 1024px)">
+              <source srcset="amg/hero768-1.png" media="(max-width: 768px)">
+              <source srcset="amg/hero320-1.png" media="(max-width: 320px)">
+              <img class="swiper__img" src="img/swiper-tort.png" alt="">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <h1 class="hero__title">При закезе 1000 тортов торт в подарок</h1>
+            <p class="hero__description">Есть над чем задуматься: базовые сценарии поведения пользователей и по сей
+              день
+              остаются уделом проектантов</p>
+            <picture>
+              <source srcset="amg/hero1024-2.png" media="(max-width: 1024px)">
+              <source srcset="amg/hero768-2.png" media="(max-width: 768px)">
+              <source srcset="amg/hero320-2.png" media="(max-width: 320px)">
+              <img class="swiper__img" src="img/swiper-tort2.png" alt="">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <h1 class="hero__title">Самые вкусные торты в мире на заказ</h1>
+            <p class="hero__description">Есть над чем задуматься: базовые сценарии поведения пользователей и по сей
+              день
+              остаются уделом проектантов</p>
+            <picture>
+              <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+              <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+              <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+              <img class="swiper__img" src="img/swiper-tort3.png" alt="">
+            </picture>
+          </div>
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+  <section class="about">
+    <div class="container">
+      <h2 class="second__level__heading">О нас</h2>
+      <p class="about-description paragraph">Добро пожаловать на сайт Tortik-vip.ru! Мы рады представить Вам нашу уютную кондитерскую, находящуюся в прекрасном городе Саянск. У нас Вы найдете широкий выбор натуральных продуктов для сладких угощений.
+
+        Мы гордимся тем, что каждый из наших десертов, тортов и пирожных готовится с использованием только самых свежих и качественных ингредиентов. Мы тщательно следим за процессом производства и готовим каждую выпечку с любовью и заботой, чтобы удовлетворить даже самых взыскательных гурманов.
+        
+        У нас Вы можете заказать торт или другое сладкое угощение для любого праздника или специального мероприятия. 
+        Сотрудничество с нами гарантирует Вам не только высокое качество и свежесть продуктов, но и внимательное отношение к каждому заказу. Мы стараемся учесть все пожелания наших клиентов и создать для них идеальные сладости.
+        
+        Посетите нашу кондитерскую в городе Саянск или ознакомьтесь с нашим ассортиментом на сайте Tortik-vip.ru. Мы с радостью ответим на все Ваши вопросы и поможем выбрать идеальное лакомство для Вашего особого случая. Ждем Вас в Tortik-vip.ru</p>
+    </div>
+  </section>
+  <section class="list">
+    <div class="container">
+      <h2 class="second__level__heading">Торты</h2>
+      <ul class="list__cakes">
+
+        {% for cake in cakes %}
+          <li class="test">
+            <a href="{% url 'detail' cake.id %}">
+              <picture>
+                <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+                <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+                <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+                <img class="list__img" src="{{ cake.image.url }}" alt="">
+              </picture>
+              <ul class="style-one">
+                <li class="style-three">{{ cake.price }} р</li>
+                <li class="style-four">/ {{ cake.quantity }} штук</li>
+              </ul>
+              <p class="section-seven-description2">{{ cake.title }}</p>
+              <p class="section-six-description3">{{ cake.ingredients }}</p>
+              <a href="" class="list__button button">В корзину</a>
+              <ul class="star">
+                <li class="star1"></li>
+                <li class="star2"></li>
+                <li class="star3"></li>
+                <li class="star4"></li>
+                <li class="star5"></li>
+              </ul>
+            </a>
+          </li>
+          {% endfor %}
+      </ul>
+
+    </div>
+
+    <div class="container">
+      <h2 class="second__level__heading">Пироженное</h2>
+      <ul class="list__cakes__two">
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake1.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake2.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake3.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake4.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake5.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake6.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake7.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 449 р</li>
+            <li class="style-four">/ 5 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное Макаронс</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img__one" src="img/cake/cake9.jpg" alt="">
+          </picture>
+          <div class="">Посмотреть все варианты</div>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test none ">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake10.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test none">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake11.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test none">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake12.JPG" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test none">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake13.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test none">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake14.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+        <li class="test none">
+          <picture>
+            <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+            <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+            <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+            <img class="list__img" src="img/cake/cake15.jpg" alt="">
+          </picture>
+          <ul class="style-one">
+            <li class="style-three"> 1 698 р</li>
+            <li class="style-four">/ 10 штук</li>
+          </ul>
+          <p class="section-seven-description2">Пироженное чудо</p>
+          <p class="section-six-description3">Крем, какао</p>
+          <a href="" class="list__button button">В корзину</a>
+          <ul class="star">
+            <li class="star1"></li>
+            <li class="star2"></li>
+            <li class="star3"></li>
+            <li class="star4"></li>
+            <li class="star5"></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="contacts">
+    <div class="container contacts__indent__two">
+      <h2 class="second__level__heading contacts__indent">Контакты</h2>
+      <div class="box-two">
+        <ul class="contact">
+          <li class="flex">
+            <strong class="contact__bold contact__address">Адрес</strong>
+            <p class="contact__info contact__info__new">Иркутская область, город Саянск, микр. Южный д.45</p>
+          </li>
+          <li class="contacts__line"> </li>
+          <li class="no__flex">
+            <strong class="contact__bold">Телефоны</strong>
+            <a href="" class="contact__tell">+7 (902) 769-51-55</a>
+          </li>
+          <a href="" class="contact__tell__two">+7 (987) 605-45-55</a>
+          <li class="contacts__line"></li>
+          <li class="no__flex">
+            <strong class="contact__bold contact__email">E-mail</strong>
+            <a href="" class="contact__email__one">evdok68cv@mail.ru</a>
+            <p class="contact__email__info">По вопросам бронирования</p>
+            <a href="" class="contact__email__two">evg1720@mail.ru</a>
+            <p class="contact__email__info">Техническая поддержка</p>
+          </li>
+          <li class="contacts__line"> </li>
+          <li class="flex">
+            <strong class="contact__bold">График</strong>
+            <p class="contact__info">Понедельник - пятница,</p>
+          </li>
+          <p class="contact__info__time">с 10:00 до 19:00</p>
+          <li class="contacts__line"></li>
+          <li class="form-wrapper">
+            <a href="#" class="btn-six">Построить маршрут</a>
+          </li>
+        </ul>
+        <div class="contact__picture"></div>
+      </div>
+    </div>
+  </section>
+  <section class="questions section-offset">
+    <div class="container">
+      <h2 class="questions__title second__level__heading ">Часто задаваемые вопросы</h2>
+      <ul class="list accordion-container">
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Из чего формируется конечная стоимость проекта?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Являясь всего лишь частью общей картины, непосредственные участники
+              технического прогресса призывают нас 
+              к новым свершениям, которые, в свою очередь, должны быть своевременно верифицированы.
+              Но высококачественный прототип будущего проекта является качественно новой ступенью первоочередных
+              требований. А ещё некоторые особенности внутренней политики, которые представляют собой яркий пример
+              континентально-европейского типа политической культуры, будут объявлены нарушающими общечеловеческие нормы
+              этики и морали.</p>
+          </div>
+        </li>
+        <li class="list__item item ac ">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">У меня есть свой проект. Сможем ли мы его доработать /
+              реализовать?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Я выбираю между разными компаниями. В чём ваше
+              отличие?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Могу ли я делегировать вам работу / согласование
+              с подрядчиком /
+              организацией?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Могу ли я вернуть деньги на каком-либо из этапов
+              работ?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+  {% endblock %}
