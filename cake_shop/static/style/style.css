@@ -1,0 +1,24 @@
+@import "normalize.css";
+@import "fonts.css";
+@import "main.css";
+@import "varialdes.css";
+
+/*---components---*/
+@import "componets/header.css";
+@import "componets/hero.css";
+@import "componets/about.css";
+@import "componets/list.css";
+@import "componets/questions.css";
+@import "componets/contacts.css";
+@import "componets/footer.css";
+@import "componets/slide__carts.css";
+a {
+    text-decoration: none;
+}
+.hero__form {
+    color: antiquewhite;
+}
+body {
+    background-color: #ebebeb;
+}
+

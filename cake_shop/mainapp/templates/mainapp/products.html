@@ -1,0 +1,34 @@
+{% for product in products %}
+    {% if product.category == product_category %}
+        <li class="test product">
+            <a href="/pages/card__one.html">
+                <div href="#" class="product__image">
+                    <div class="product__switch image-switch">
+                        {% for img in img_products %}
+                            {% if img.product == product %}
+                                <div class="image-switch__item">
+                                    <div class="image-switch__img"><img src="{{ img.image.url }}" alt="Макбук"></div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <ul class="product__image-pagination image-pagination" aria-hidden="true"></ul>
+                </div>
+                <ul class="style-one">
+                    <li class="style-three">{{ product.price }} р</li>
+                    <li class="style-four">/ {{ product.quantity }} штук</li>
+                </ul>
+                <p class="section-seven-description2">{{ product.name }}</p>
+                <p class="section-six-description3">{{ product.ingredients }}</p>
+                <a href="" class="list__button button">В корзину</a>
+                <ul class="star">
+                    <li class="star1"></li>
+                    <li class="star2"></li>
+                    <li class="star3"></li>
+                    <li class="star4"></li>
+                    <li class="star5"></li>
+                </ul>
+            </a>
+        </li>
+    {% endif %}
+{% endfor %}
