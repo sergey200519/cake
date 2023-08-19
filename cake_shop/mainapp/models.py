@@ -13,7 +13,6 @@ class ProductCategories(models.Model):
 
 class Products(models.Model):
     name = models.TextField(verbose_name="Название", blank=True, unique=True)
-    # image = models.ImageField(verbose_name="Фото", upload_to='cakes_images', blank=True)
     ingredients = models.CharField(verbose_name="Ингредиенты", max_length=128)
     quantity = models.PositiveIntegerField(verbose_name="Количество", default=0)
     price = models.DecimalField(verbose_name="Цена", max_digits=10, decimal_places=2)

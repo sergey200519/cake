@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "mainapp",
-    "authapp"
+    "authapp",
+
+    "phonenumber_field"
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,5 @@ SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
 )
+
+AUTH_USER_MODEL = "authapp.User"
