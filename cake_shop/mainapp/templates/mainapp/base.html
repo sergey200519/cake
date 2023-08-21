@@ -48,10 +48,18 @@
             <div>
             </div>
           </div>
-          <div class="bottom">
-            <button class="header__menu-button button button__indent" id="open__search__form"><a href="{% url 'authapp:login' %}">Вход</a></button>
-            <button class="header__menu-button button" id="open__search__form">Регистрация</button>
-          </div>
+          {% if not user.is_authenticated %}
+            <div class="bottom">
+              <button class="header__menu-button button button__indent" id="open__search__form"><a href="{% url 'authapp:login' %}">Вход</a></button>
+              <button class="header__menu-button button" id="open__search__form"><a href="{% url 'authapp:register' %}">Регистрация</a></button>
+            </div>
+            {% else %}
+            <p>{{ user.username }}</p>
+            <button class=" button button__indent" id="open__search__form"><a href="{% url 'authapp:logout' %}">Выход</a></button>
+          {% endif %}
+          {% if user.is_staff or user.is_superuser %}
+          <button class=" button button__indent" id="open__search__form"><a href="">Админка</a></button>
+          {% endif %}
         </div>
       </div>
     </div>

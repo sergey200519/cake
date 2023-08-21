@@ -1,0 +1,52 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <form action="{% url 'authapp:register' %}" method="post">
+        {% csrf_token %}
+                    <label  for="{{ form.first_name.id_for_label }}">Имя</label>
+                    {{ form.first_name }}
+
+<br>
+
+                    <label  for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                    {{ form.last_name }}
+    
+                    <br>
+
+                    <label  for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                {{ form.username }}
+                
+<br>
+
+                <label  for="{{ form.email.id_for_label }}">Адрес электронной
+                    почты</label>
+                    {{ form.email }}
+
+
+<br>
+
+                    <label  for="{{ form.password1.id_for_label }}">Пароль</label>
+                    {{ form.password1 }}
+    
+                    <br>
+
+                    <label  for="{{ form.password2.id_for_label }}">Подтверждение
+                        пароля</label>
+                    {{ form.password2 }}
+
+<br>
+
+<label  for="{{ form.phone.id_for_label }}">Телефон</label>
+{{ form.phone }}
+
+
+<br>
+
+                    <label  for="{{ form.image.id_for_label }}">Фото</label>
+                    {{ form.image }}
+            <input class="btn btn-primary btn-block" type="submit" value="Создать аккаунт">
+
+    </form>
+
+{% endblock %}
