@@ -7,6 +7,7 @@ from django.urls import reverse
 
 
 from authapp.forms import UserLoginForm, UserRegisterForm
+from authapp.models import User
 
 # Create your views here.
 
