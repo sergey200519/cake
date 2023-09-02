@@ -58,7 +58,7 @@
             <button class=" button button__indent" id="open__search__form"><a href="{% url 'authapp:logout' %}">Выход</a></button>
           {% endif %}
           {% if user.is_staff or user.is_superuser %}
-          <button class=" button button__indent" id="open__search__form"><a href="">Админка</a></button>
+          <button class=" button button__indent" id="open__search__form"><a href="{% url 'adminapp:index' %}">Админка</a></button>
           {% endif %}
         </div>
       </div>

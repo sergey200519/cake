@@ -1,0 +1,12 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <form action="{% url 'adminapp:product_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ formset.as_p }}
+        <button type="submit" class="btn">create</button>
+    </form>
+
+{% endblock %}

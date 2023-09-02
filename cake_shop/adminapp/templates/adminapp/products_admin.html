@@ -1,0 +1,33 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>продукты</h1>
+    <a href="{% url 'adminapp:index' %}">Адмика</a>
+    <a href="{% url 'adminapp:product_create' %}">create product</a>
+    <table border=1>
+        <thead>
+          <tr>
+            <td>name</td>
+            <td>ingredients</td>
+            <td>price</td>
+            <td>category</td>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.ingredients }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.category }}</td>
+                <td><a href="{% url 'mainapp:detail' product.id %}">Просмотр</a></td>
+                <td><a href="{% url 'adminapp:product_update' product.id %}">Изменить</a></td>
+                <td><a href="{% url 'adminapp:product_remove' product.id %}">удалить</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+      
+{% endblock %}

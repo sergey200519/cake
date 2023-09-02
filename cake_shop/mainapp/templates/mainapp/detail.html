@@ -1,0 +1,14 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block content %}
+{% for image in img_products %}
+    <img src="{{ image.image.url }}" width="300px">
+{% endfor %}
+
+<p>{{products.name}}</p>
+<p>{{products.price}} руб</p>
+<p>{{products.quantity}}</p>  
+<p>{{products.category}}</p>  
+
+{% endblock %}
