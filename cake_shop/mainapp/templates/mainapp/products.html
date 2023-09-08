@@ -20,7 +20,7 @@
                 </ul>
                 <p class="section-seven-description2">{{ product.name }}</p>
                 <p class="section-six-description3">{{ product.ingredients }}</p>
-                <a href="" class="list__button button">В корзину</a>
+                <a data-href="{% url 'basketapp:basket_add' product.id %}" class="list__button button basket_add">В корзину</a>
                 <ul class="star">
                     <li class="star1"></li>
                     <li class="star2"></li>

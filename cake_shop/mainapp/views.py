@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from mainapp.models import ProductCategories, Products, ImgProducts
+from basketapp.models import Basket
 
 from django.views.generic import DetailView
 
@@ -11,7 +12,8 @@ def index(request):
         "title": "Главная",
         "product_categories": ProductCategories.objects.all(),
         "products": Products.objects.all(),
-        "img_products": ImgProducts.objects.all()
+        "img_products": ImgProducts.objects.all(),
+        "basket": Basket.objects.all()
     }
     return  render(request,'mainapp/index.html', context=context)
 

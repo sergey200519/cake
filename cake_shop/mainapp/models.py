@@ -17,6 +17,7 @@ class Products(models.Model):
     quantity = models.PositiveIntegerField(verbose_name="Количество", default=0)
     price = models.DecimalField(verbose_name="Цена", max_digits=10, decimal_places=2)
     category = models.ForeignKey(ProductCategories, on_delete=models.CASCADE, verbose_name="Категория")
+    description = models.TextField(verbose_name="Описание", blank=True)
 
     def __str__(self):
         return f"{self.name} | {self.category}"

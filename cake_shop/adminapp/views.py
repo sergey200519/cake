@@ -39,8 +39,9 @@ def admin_product_create(request):
             ingredients = data["ingredients"]
             quantity = data["quantity"]
             price = data["price"]
+            description = data["description"]
             category = ProductCategories.objects.get(id=data["category"])
-            new_product = Products.objects.create(name=name, ingredients=ingredients, quantity=quantity, price=price, category=category)
+            new_product = Products.objects.create(name=name, ingredients=ingredients, quantity=quantity, price=price, description=description, category=category)
 
             for uploaded_file in request.FILES.getlist("files"):
                 # print(f"test ---> {uploaded_file}")
@@ -79,6 +80,7 @@ def admin_product_update(request, pk):
         "ingredients": product.ingredients,
         "quantity": product.quantity,
         "price": product.price,
+        "description": product.description,
         "category": (product.category.id, product.category.name)
     }
     print(data)
@@ -92,6 +94,7 @@ def admin_product_update(request, pk):
             product.ingredients = data["ingredients"]
             product.quantity = data["quantity"]
             product.price = data["price"]
+            product.description = data["description"]
             product.category = ProductCategories.objects.get(id=data["category"])
             product.save()
 
