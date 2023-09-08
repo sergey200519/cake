@@ -1,7 +1,7 @@
 {% for product in products %}
     {% if product.category == product_category %}
         <li class="test product">
-            <a href="/pages/card__one.html">
+            <a href="{% url 'mainapp:detail' product.id %}">
                 <div href="#" class="product__image">
                     <div class="product__switch image-switch">
                         {% for img in img_products %}
@@ -31,4 +31,4 @@
             </a>
         </li>
     {% endif %}
-{% endfor %}
+{% endfor %} 

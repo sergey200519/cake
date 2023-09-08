@@ -10,23 +10,39 @@ from mainapp.models import Products, ProductCategories, ImgProducts
 
 from adminapp.forms import CreateProductForm, ImageForm, BaseArticleFormSet, UploadFileForm
 
+from adminapp.models import Applications
+
+from django.contrib.auth.decorators import user_passes_test
+
+from mainapp.mixin import CustomDispatchMixin
+
 import ast
 
 
 
 # Create your views here.
-class IndexTemplateView(TemplateView):
+
+class IndexTemplateView(TemplateView, CustomDispatchMixin):
     template_name = "adminapp/admin.html"
-    title = "Главня страница aдминки"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Главня страница aдминки"
+        return context
 
 
-class ProductsListView(ListView):
+class ProductsListView(ListView, CustomDispatchMixin):
     model = Products
     template_name = "adminapp/products_admin.html"
-    title =  "Админка | Товары"
     context_object_name = "products"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Товары"
+        return context
+    
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_product_create(request):
     if request.method == "POST":
         form = CreateProductForm(request.POST, request.FILES)
@@ -66,12 +82,12 @@ def admin_product_create(request):
     return render(request,"adminapp/product_create.html",context)
 
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def admin_product_remove(request, pk):
     Products.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:products"))
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def admin_product_update(request, pk):
     product = Products.objects.get(id=pk)
     files = ImgProducts.objects.filter(product=pk)
@@ -114,33 +130,47 @@ def admin_product_update(request, pk):
 
     return render(request,"adminapp/product_update.html",context)
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def admin_product_img_remove(request, pk, id):
     ImgProducts.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:product_update", args=[id]))
 
 
-class CategoriesListView(ListView):
+class CategoriesListView(ListView, CustomDispatchMixin):
     model = ProductCategories
     template_name = "adminapp/categories_admin.html"
-    title =  "Админка | Категории"
     context_object_name = "product_categories"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Категории"
+        return context
+    
 
-class CategoryCreateView(CreateView):
+
+class CategoryCreateView(CreateView, CustomDispatchMixin):
     model = ProductCategories
     fields = ["name"]
     template_name = "adminapp/category_create.html"
-
     success_url = reverse_lazy("adminapp:categories")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | создание категории"
+        return context
+    
 
-class CategoryUpdateView(UpdateView):
+
+class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     model = ProductCategories
     fields = ["name"]
     template_name = "adminapp/category_update.html"
-
     success_url = reverse_lazy("adminapp:categories")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | изменение категории"
+        return context
 
 
 # class CategoryDeleteView(DeleteView):
@@ -148,6 +178,26 @@ class CategoryUpdateView(UpdateView):
 #     template_name = "adminapp/category_update.html"
 #     success_url = reverse_lazy("adminapp:categories")
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_category_remove(request, pk):
     ProductCategories.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:categories"))
+
+
+class ApplicationsListView(ListView, CustomDispatchMixin):
+    model = Applications
+    template_name = "adminapp/reports_admin.html"
+    title =  "Админка | Заявки"
+
+    
+
+
+class ApplicationsDeleteView(DeleteView, CustomDispatchMixin):
+    model = Applications
+    template_name = "adminapp/report_detail.html"
+    success_url = reverse_lazy("adminapp:reports")
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_applications_remove(request, pk):
+    Applications.objects.get(id=pk).delete()
+    return HttpResponseRedirect(reverse("adminapp:reports"))

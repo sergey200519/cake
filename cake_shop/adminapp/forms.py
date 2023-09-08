@@ -2,6 +2,7 @@ from django import forms
 from django.forms import BaseFormSet
 
 from mainapp.models import Products, ProductCategories, ImgProducts
+from adminapp.models import Applications
 
 
 def get_categories_for_ChoiceField():
@@ -68,3 +69,16 @@ class MultipleFileField(forms.FileField):
 
 class UploadFileForm(forms.Form):
     files = MultipleFileField(required=False)
+
+
+class ApplicationsForm(forms.ModelForm):
+
+    class Meta:
+        model = Applications
+        fields = ("email", "report")
+
+    # def __init__(self,*args,**kwargs):
+    #     super(UserAdminRegisterForm, self).__init__(*args,**kwargs)
+    #     self.fields['username'].widget.attrs['placeholder'] = 'Введите имя пользователя'
+    #     self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
+    #     self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'

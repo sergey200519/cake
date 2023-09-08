@@ -109,10 +109,12 @@
 
       <div class="footer__form">
         <h2 class="footer__title title">Оставить заявку</h2>
-        <form action="https://jsonplaceholder.typicode.com/posts">
-          <input type="text" placeholder="Фамилия, имя и отчество*">
+        <form action="{% url 'mainapp:index' %}" method="post" id="report_form">
+          {% csrf_token %}
+          {{ report_form.as_p }}
+          {% comment %} <input type="text" placeholder="Фамилия, имя и отчество*">
           <input type="text" placeholder="E-mail*">
-          <textarea placeholder="Сообщение"></textarea>
+          <textarea placeholder="Сообщение"></textarea> {% endcomment %}
           <button class="footer-button button">Отправить данные</button>
           <div class="footer__line"></div>
         </form>
@@ -131,9 +133,6 @@
   <script src="{% static 'style/accordion.min.js' %}"></script>
   <script type="module" defer src="{% static 'script/product.js' %}"></script>
   <script type="module" src="{% static 'script/script.js' %}"></script>
-  <script>
-    console.log("================================")
-  </script>
 </body>
 
 </html>

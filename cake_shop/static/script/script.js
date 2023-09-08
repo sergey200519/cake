@@ -1,5 +1,6 @@
 import { MoreList } from "./moreList.js"
 import { add_baskets } from "./basket.js"
+import { add_report } from "./report.js";
 
 // const modalWindowBtn = document.querySelector('.hero__form__button')
 // modalWindowBtn.addEventListener('click', test)
@@ -31,4 +32,4 @@ const swiper = new Swiper('.swiper', {
 // new MoreList(".list__cakes__two", 8, clouse_it)
 
 add_baskets()
-
+// add_report()
