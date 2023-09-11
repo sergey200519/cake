@@ -21,9 +21,11 @@ class Basket(models.Model):
         return Basket.objects.filter(user=self.user)
 
     def total_sum(self):
+        print("sum")
         baskets = self.get_basket()
         return sum(basket.sum() for basket in baskets)
 
     def total_quantity(self):
+        print("qqqqqqqqqqqqqqqqqqqqqqqqqq")
         baskets = self.get_basket()
         return sum(basket.quantity for basket in baskets)

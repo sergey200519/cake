@@ -27,7 +27,7 @@ def index(request):
         "product_categories": ProductCategories.objects.all(),
         "products": Products.objects.all(),
         "img_products": ImgProducts.objects.all(),
-        "basket": Basket.objects.all(),
+        "basket": Basket.objects.filter(user=request.user),
         "report_form": report_form
     }
     return  render(request,'mainapp/index.html', context=context)

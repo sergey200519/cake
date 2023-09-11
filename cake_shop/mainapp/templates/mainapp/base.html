@@ -42,7 +42,7 @@
               </a></li>
           </ul>
         </nav>
-        <button class="header__recycle"><a href="{% url 'basketapp:basket' %}"><img class="header__recycle__svg" src="{% static 'img/recycle.svg' %}" alt=""></a></button>
+        <button class="header__recycle"><a href="{% url 'basketapp:basket' %}"><img class="header__recycle__svg" src="{% static 'img/recycle.svg' %}" alt=""></a><p id="basket_num">{{ basket.0.total_quantity }}</p></button>
         <div class="contact__one">
           <div class="top">
             <div>

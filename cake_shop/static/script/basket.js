@@ -1,3 +1,7 @@
+function editBasketNum(num) {
+    document.querySelector("#basket_num").textContent = num
+}
+
 function add_baskets() {
     
     let products = document.querySelectorAll(".product")
@@ -11,7 +15,20 @@ function add_baskets() {
 
             request.open("GET", url, true);
             request.send();
+
+            request.addEventListener("readystatechange", () => {
+                let ans = request.responseText
+                let doc = new DOMParser().parseFromString(ans, "text/html")
+                let num = doc.querySelector("#basket_num")
+                if (num != null) {
+                    editBasketNum(num.textContent)
+                }
+                
+            })
         })
     })
 }
+
+
+
 export { add_baskets };

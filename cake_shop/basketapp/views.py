@@ -12,7 +12,7 @@ from mainapp.models import Products
 def basket(request):
     context = {
         "title": "корзина",
-        "baskets": Basket.objects.all()
+        "baskets": Basket.objects.filter(user=request.user)
     }
     return  render(request,'basketapp/basket.html', context=context)
 
@@ -23,12 +23,15 @@ def basket_add(request,id):
     product = Products .objects.get(id=id)
     baskets = Basket.objects.filter(user=user_select,product=product)
 
+
     if baskets:
         basket = baskets.first()
         basket.quantity +=1
         basket.save()
     else:
         Basket.objects.create(user=user_select,product=product,quantity=1)
+    baskett = Basket.objects.filter(user=request.user)
+    quantity = baskett[0].total_quantity()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
