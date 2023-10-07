@@ -141,3 +141,12 @@ TEMPLATE_DIRS = (
 )
 
 AUTH_USER_MODEL = "authapp.User"
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'oborok05@bk.ru'
+EMAIL_HOST_PASSWORD = 'BRC4m4EaMW1bSJPap7ww-'

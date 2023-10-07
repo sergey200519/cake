@@ -70,6 +70,11 @@ class MultipleFileField(forms.FileField):
 class UploadFileForm(forms.Form):
     files = MultipleFileField(required=False)
 
+    def __init__(self,*args,**kwargs):
+        super(UploadFileForm, self).__init__(*args,**kwargs)
+        self.fields['files'].widget.attrs['multiple'] = 'multiple'
+
+
 
 class ApplicationsForm(forms.ModelForm):
 
