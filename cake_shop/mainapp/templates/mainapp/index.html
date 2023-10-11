@@ -1,0 +1,204 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'style/accordion.min.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+  <link rel="stylesheet" href="{% static 'style/style.css' %}">
+{% endblock %}
+
+{% block content %}
+  <section class="hero">
+      <div class="container hero__container">
+        <div class="swiper hero__container__swiper">
+          <!-- Additional required wrapper -->
+          <div class="hero__content">
+          </div>
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <h1 class="hero__title">Пятничная распродажа сдидки до 70%</h1>
+              <p class="hero__description">Есть над чем задуматься: торты из натуральных домашних продуктов премиум класса
+              </p>
+              <picture>
+                <source srcset="amg/hero1024-1.png" media="(max-width: 1024px)">
+                <source srcset="amg/hero768-1.png" media="(max-width: 768px)">
+                <source srcset="amg/hero320-1.png" media="(max-width: 320px)">
+                <img class="swiper__img" src="{% static 'img/swiper-tort.png' %}" alt="">
+              </picture>
+            </div>
+            <div class="swiper-slide">
+              <h1 class="hero__title">При закезе 1000 тортов торт в подарок</h1>
+              <p class="hero__description">Есть над чем задуматься: базовые сценарии поведения пользователей и по сей
+                день
+                остаются уделом проектантов</p>
+              <picture>
+                <source srcset="amg/hero1024-2.png" media="(max-width: 1024px)">
+                <source srcset="amg/hero768-2.png" media="(max-width: 768px)">
+                <source srcset="amg/hero320-2.png" media="(max-width: 320px)">
+                <img class="swiper__img" src="{% static 'img/swiper-tort2.png' %}" alt="">
+              </picture>
+            </div>
+            <div class="swiper-slide">
+              <h1 class="hero__title">Самые вкусные торты в мире на заказ</h1>
+              <p class="hero__description">Есть над чем задуматься: базовые сценарии поведения пользователей и по сей
+                день
+                остаются уделом проектантов</p>
+              <picture>
+                <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
+                <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
+                <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
+                <img class="swiper__img" src="{% static 'img/swiper-tort3.png' %}" alt="">
+              </picture>
+            </div>
+          </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+    <section class="about">
+      <div class="container">
+        <h2 class="second__level__heading">О нас</h2>
+        <p class="about-description paragraph">Добро пожаловать на сайт Tortik-vip.ru! Мы рады представить Вам нашу уютную кондитерскую, находящуюся в прекрасном городе Саянск. У нас Вы найдете широкий выбор натуральных продуктов для сладких угощений.
+
+          Мы гордимся тем, что каждый из наших десертов, тортов и пирожных готовится с использованием только самых свежих и качественных ингредиентов. Мы тщательно следим за процессом производства и готовим каждую выпечку с любовью и заботой, чтобы удовлетворить даже самых взыскательных гурманов.
+
+          У нас Вы можете заказать торт или другое сладкое угощение для любого праздника или специального мероприятия. 
+          Сотрудничество с нами гарантирует Вам не только высокое качество и свежесть продуктов, но и внимательное отношение к каждому заказу. Мы стараемся учесть все пожелания наших клиентов и создать для них идеальные сладости.
+
+          Посетите нашу кондитерскую в городе Саянск или ознакомьтесь с нашим ассортиментом на сайте Tortik-vip.ru. Мы с радостью ответим на все Ваши вопросы и поможем выбрать идеальное лакомство для Вашего особого случая. Ждем Вас в Tortik-vip.ru</p>
+      </div>
+    </section>
+
+    <section class="list">
+      
+      {% for product_category in product_categories %}
+          <div class="container">        
+              <h2 class="second__level__heading">{{ product_category.name }}</h2>
+              <ul class="list__cakes">
+                  {% include 'mainapp/products.html' %}
+              </ul>
+          </div>
+      {% endfor %}
+      
+  </section>
+  <section class="contacts">
+    <div class="container contacts__indent__two">
+      <h2 class="second__level__heading contacts__indent">Контакты</h2>
+      <div class="box-two">
+        <ul class="contact">
+          <li class="flex">
+            <strong class="contact__bold contact__address">Адрес</strong>
+            <p class="contact__info contact__info__new">Иркутская область, город Саянск, микр. Южный д.45</p>
+          </li>
+          <li class="contacts__line"> </li>
+          <li class="no__flex">
+            <strong class="contact__bold">Телефоны</strong>
+            <a href="" class="contact__tell">+7 (902) 769-51-55</a>
+          </li>
+          <a href="" class="contact__tell__two">+7 (987) 605-45-55</a>
+          <li class="contacts__line"></li>
+          <li class="no__flex">
+            <strong class="contact__bold contact__email">E-mail</strong>
+            <a href="" class="contact__email__one">evdok68cv@mail.ru</a>
+            <p class="contact__email__info">По вопросам бронирования</p>
+            <a href="" class="contact__email__two">evg1720@mail.ru</a>
+            <p class="contact__email__info">Техническая поддержка</p>
+          </li>
+          <li class="contacts__line"> </li>
+          <li class="flex">
+            <strong class="contact__bold">График</strong>
+            <p class="contact__info">Понедельник - пятница,</p>
+          </li>
+          <p class="contact__info__time">с 10:00 до 19:00</p>
+          <li class="contacts__line"></li>
+          <li class="form-wrapper">
+            <a href="#" class="btn-six">Построить маршрут</a>
+          </li>
+        </ul>
+        <div class="contact__picture"></div>
+      </div>
+    </div>
+  </section>
+  <section class="questions section-offset">
+    <div class="container">
+      <h2 class="questions__title second__level__heading ">Часто задаваемые вопросы</h2>
+      <ul class="list accordion-container">
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Из чего формируется конечная стоимость проекта?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Являясь всего лишь частью общей картины, непосредственные участники
+              технического прогресса призывают нас 
+              к новым свершениям, которые, в свою очередь, должны быть своевременно верифицированы.
+              Но высококачественный прототип будущего проекта является качественно новой ступенью первоочередных
+              требований. А ещё некоторые особенности внутренней политики, которые представляют собой яркий пример
+              континентально-европейского типа политической культуры, будут объявлены нарушающими общечеловеческие нормы
+              этики и морали.</p>
+          </div>
+        </li>
+        <li class="list__item item ac ">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">У меня есть свой проект. Сможем ли мы его доработать /
+              реализовать?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Я выбираю между разными компаниями. В чём ваше
+              отличие?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Могу ли я делегировать вам работу / согласование
+              с подрядчиком /
+              организацией?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+        <li class="list__item item ac">
+          <button class="item__top botton">
+            <span class="item__question ac-header ac-trigger">Могу ли я вернуть деньги на каком-либо из этапов
+              работ?</span>
+            <span class="item__top__btn btn botton__plus-2"></span>
+          </button>
+          <div class="item__bottom">
+            <p class="list__item__text ac-panel">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae ut
+              ipsa consectetur similique mollitia eius fugit aperiam magni, corrupti laboriosam, vel delectus laudantium
+              amet itaque reprehenderit et consequatur aspernatur pariatur?</p>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+{% endblock %}
+
+
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="{% static 'style/accordion.min.js' %}"></script>
+  <script type="module" defer src="{% static 'script/product.js' %}"></script>
+  <script type="module" src="{% static 'script/script.js' %}"></script>
+{% endblock %}
