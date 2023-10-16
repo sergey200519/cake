@@ -1,0 +1,136 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{% static "style/swiper.css" %}">
+    <link rel="stylesheet" href="{% static "style/componets/card_detail.css" %}">
+{% endblock style %}
+
+{% block content %}
+    <main class="main container">
+        <section class="main__left section_swiper">
+          <div class="swiper-container gallery-top">
+            <div class="swiper-wrapper">
+              {% for image in img_products %}
+                <div class="swiper-slide" style="background-image:url({{ image.image.url }})"></div>
+              {% endfor %}
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div>
+          </div>
+          <div class="swiper-container gallery-thumbs">
+            <div class="swiper-wrapper">
+                {% for image in img_products %}
+                <div class="swiper-slide" style="background-image:url({{ image.image.url }})"></div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+        <section class="main__right">
+          <div class="main__list__category">
+            <p class="main__right__categorytext">--- {{ products.category }} ---</p>
+          </div>
+          <h2 class="main__list__name">{{ products.name }}</h2>
+          <div class="main__right__ingredient">
+            <p class="main__list__compound">{{ products.ingredients }}</p>
+          </div>
+          <div class="main__right__weight">
+            <p class="main__right__weighttext">Вес товара, г</p>
+            <ul class="main__weight__list flex">
+              <li class="main__weight__link tabs-nav__btn--active" data-path="one" tabindex="0">400</li>
+              <li class="main__weight__link" data-path="two" tabindex="0">600</li>
+              <li class="main__weight__link" data-path="three" tabindex="0">800</li>
+              <li class="main__weight__link" data-path="four" tabindex="0">1000</li>
+              <li class="main__weight__link" data-path="five" tabindex="0">2000</li>
+            </ul>
+            <div class="main__weight__container tabs-item tabs-item--active" data-target="one"><div class="card__item__two">{{ products.price_four_hundred }} руб.</div>
+              <div class="main__right__article">
+                <p class="main__right__articletext">Артикул: {{ products.article_four_hundred }}</p>
+              </div>
+            </div>
+            <div class="main__weight__container tabs-item" data-target="two"><div class="card__item__two">{{ products.price_six_hundred }} руб.</div>
+              <div class="main__right__article">
+                <p class="main__right__articletext">Артикул: {{ products.article_six_hundred }}</p>
+              </div>
+            </div>
+            <div class="main__weight__container tabs-item" data-target="three"><div class="card__item__two">{{ products.price_eight_hundred }} руб.</div>
+              <div class="main__right__article">
+                <p class="main__right__articletext">Артикул: {{ products.article_eight_hundred }}</p>
+              </div>
+            </div>
+            <div class="main__weight__container tabs-item" data-target="four"><div class="card__item__two">{{ products.price_one_thousand }} руб.</div>
+              <div class="main__right__article">
+                <p class="main__right__articletext">Артикул: {{ products.article_one_thousand }}</p>
+              </div>
+            </div>
+            <div class="main__weight__container tabs-item" data-target="five"><div class="card__item__two">{{ products.price_two_thousand }} руб.</div>
+              <div class="main__right__article">
+                <p class="main__right__articletext">Артикул: {{ products.article_two_thousand }}</p>
+              </div>
+            </div>
+            <div class="main__button flex">
+              <a class="main__righ__button button" href="#">В корзину</a>
+              <a class="main__righ__buttontwo buttontwo" href="">Купить</a>
+            </div>
+          </div>
+          <div class="main__right__discription">
+            <p class="main__list__text">{{ products.description }}</p>
+          </div>
+        </section>
+      </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "script/swiper.js" %}"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var galleryThumbs = new Swiper('.gallery-thumbs', {
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+        });
+        var galleryTop = new Swiper('.gallery-top', {
+            spaceBetween: 10,
+            navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+            },
+            thumbs: {
+            swiper: galleryThumbs
+            }
+        });
+    </script>
+    <script src="{% static "script/detaile.js" %}"></script>
+{% endblock scripts %}
+
+
+
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      freeMode: true,
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true,
+    });
+    var galleryTop = new Swiper('.gallery-top', {
+      spaceBetween: 10,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      thumbs: {
+        swiper: galleryThumbs
+      }
+    });
+  </script>
+  <script src="/script/detaile.js"></script>
+</body>
+
+</html>

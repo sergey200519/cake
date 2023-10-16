@@ -50,3 +50,10 @@ class ImgProducts(models.Model):
 
     class Meta:
         verbose_name_plural = "Фото к продуктам"
+
+
+
+class SwiperSlides(models.Model):
+    img = models.ImageField(upload_to='slides_images', verbose_name="Фото", blank=True)
+    title = models.TextField(verbose_name="Заголовок")
+    description = models.TextField(verbose_name="Описание")

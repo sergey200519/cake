@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -5,6 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- пропорция-->
+  <link rel="stylesheet" href="{% static 'style/style.css' %}">
   {% block style %}
   {% endblock %}
   <title>{{ title }}</title>
@@ -17,11 +20,11 @@
             <button class="header__burger__btn" id="burger">
               <span></span><span></span><span></span>
             </button>
-            <a href="#">
+            <a href="{% url "mainapp:index" %}">
               <picture class="header__logo">
                 <source srcset="amg/Logo320.svg" media="(max-width: 320px)">
                 <source srcset="amg/Logo1024.svg" media="(max-width: 1024px)">
-                <img class="header__logo__img" src="img/header-logonew.png" alt="#">
+                <img class="header__logo__img" src="{% static 'img/header-logonew.png' %}" alt="#">
               </picture>
             </a>
             <nav class="header__menu">
@@ -49,8 +52,17 @@
                 </div>
               </div>
               <div class="header__bottoms">
-                <a class="button__indent__a button button__indent" id="open__search__form" href="#">Вход</a>
-                <a class="button__indent__a button button__indent" id="open__search__formtwo" href="#">Регистрация</a>
+                {% if not user.is_authenticated %}
+                    <a class="button__indent__a button button__indent" id="open__search__form" href="{% url 'authapp:login' %}">Вход</a>
+                    <a class="button__indent__a button button__indent" id="open__search__formtwo" href="{% url 'authapp:register' %}">Регистрация</a>
+                  
+                {% else %}
+                  <p>{{ user.username }}</p>
+                  <a class="button__indent__a button button__indent" id="" href="{% url 'authapp:logout' %}">Выход</a>
+                {% endif %}
+                {% if user.is_staff or user.is_superuser %}
+                  <a class="button__indent__a button button__indent" href="{% url 'adminapp:index' %}">Админка</a>
+                {% endif %}
               </div>
             </div>
           </div>

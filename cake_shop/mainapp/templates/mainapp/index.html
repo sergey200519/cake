@@ -4,59 +4,41 @@
 {% block style %}
   <link rel="stylesheet" href="{% static 'style/accordion.min.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-  <link rel="stylesheet" href="{% static 'style/style.css' %}">
 {% endblock %}
 
 {% block content %}
-  <section class="hero">
-      <div class="container hero__container">
-        <div class="swiper hero__container__swiper">
-          <!-- Additional required wrapper -->
-          <div class="hero__content">
-          </div>
-          <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide">
-              <h1 class="hero__title">Пятничная распродажа сдидки до 70%</h1>
-              <p class="hero__description">Есть над чем задуматься: торты из натуральных домашних продуктов премиум класса
-              </p>
-              <picture>
-                <source srcset="amg/hero1024-1.png" media="(max-width: 1024px)">
-                <source srcset="amg/hero768-1.png" media="(max-width: 768px)">
-                <source srcset="amg/hero320-1.png" media="(max-width: 320px)">
-                <img class="swiper__img" src="{% static 'img/swiper-tort.png' %}" alt="">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <h1 class="hero__title">При закезе 1000 тортов торт в подарок</h1>
-              <p class="hero__description">Есть над чем задуматься: базовые сценарии поведения пользователей и по сей
-                день
-                остаются уделом проектантов</p>
-              <picture>
-                <source srcset="amg/hero1024-2.png" media="(max-width: 1024px)">
-                <source srcset="amg/hero768-2.png" media="(max-width: 768px)">
-                <source srcset="amg/hero320-2.png" media="(max-width: 320px)">
-                <img class="swiper__img" src="{% static 'img/swiper-tort2.png' %}" alt="">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <h1 class="hero__title">Самые вкусные торты в мире на заказ</h1>
-              <p class="hero__description">Есть над чем задуматься: базовые сценарии поведения пользователей и по сей
-                день
-                остаются уделом проектантов</p>
-              <picture>
-                <source srcset="amg/hero1024-3.png" media="(max-width: 1024px)">
-                <source srcset="amg/hero768-3.png" media="(max-width: 768px)">
-                <source srcset="amg/hero320-3.png" media="(max-width: 320px)">
-                <img class="swiper__img" src="{% static 'img/swiper-tort3.png' %}" alt="">
-              </picture>
-            </div>
-          </div>
-          <!-- If we need pagination -->
-          <div class="swiper-pagination"></div>
-        </div>
+  <section class="login none">
+    <form class="login__form" action="{% url 'authapp:login' %}" method="post">
+      {% csrf_token %}
+      <p class="login__form__close">x</p>
+      <h1 class="login__form__title">Вход</h1>
+      {% comment %} <div class="login__form__group flex">
+        <input class="login__form__input" id="login__tel" placeholder=" " type="login" required>
+        <label class="login__form__label" for="">Телефон</label>
       </div>
-    </section>
+      <div class="login__form__group flex">
+        <input class="login__form__input" placeholder=" " type="password" required>
+        <label class="login__form__label" for="">Пароль</label>
+      </div> {% endcomment %}
+      <div class="login__form__group flex">
+        {{ login_form.username }}
+        <label for="{{ login_form.username.id_for_label }}" class="login__form__label">Введите имя пользователя</label>
+        
+      </div>
+      <div class="login__form__group flex">
+        {{ login_form.password }}
+        <label for="{{ login_form.password.id_for_label }}" class="login__form__label">Введите пароль</label>
+        
+      </div>
+      {% comment %} <a class="login__form__button button" id="login__btn" type="submit">Войти</a> {% endcomment %}
+      <input type="submit" value="Войти" class="login__form__button button">
+    </form>
+  </section>
+
+
+
+  
+    {% include 'mainapp/swiper.html' %}
     <section class="about">
       <div class="container">
         <h2 class="second__level__heading">О нас</h2>
@@ -201,4 +183,5 @@
   <script src="{% static 'style/accordion.min.js' %}"></script>
   <script type="module" defer src="{% static 'script/product.js' %}"></script>
   <script type="module" src="{% static 'script/script.js' %}"></script>
+  <script src="{% static 'script/login.js' %}"></script>
 {% endblock %}

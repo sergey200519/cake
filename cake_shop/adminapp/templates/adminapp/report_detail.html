@@ -1,0 +1,14 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>заявка</h1>
+    <a href="{% url 'adminapp:index' %}">Адмика</a>
+    <br>
+    <br>
+    <br>
+    <p>{{ applications.email }}</p>
+    <p>{{ applications.report }}</p>
+    <a href="{% url 'adminapp:reports' %}">exit</a>
+      
+{% endblock %}

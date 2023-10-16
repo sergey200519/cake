@@ -32,6 +32,7 @@ header {
     text-align: center;
     line-height: 1;
     border-radius: 10px;
+    font-family: 'MullerRegular';
     cursor: pointer;
     color: var(--gold-color);
     font-weight: 400;

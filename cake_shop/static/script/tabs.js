@@ -6,8 +6,6 @@ class Tabs {
 
         let self = this;
         this.tabsBtn.forEach(function (element) {
-            // console.log(this);
-            
             element.addEventListener('click', (e) => {
                 self.render(e)
             });

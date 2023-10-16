@@ -13,7 +13,10 @@
 @import "componets/footer.css";
 @import "componets/slide__carts.css";
 
-@import "/pages/card__one.css";
+@import "componets/login.css"; 
+
+@import "/style/admin.css";
+
 a {
     text-decoration: none;
 }
