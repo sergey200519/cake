@@ -11,8 +11,8 @@ class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
     
-        self.fields["username"].widget.attrs["class"] = "login__form__input"
-        self.fields["password"].widget.attrs["class"] = "login__form__input"
+        self.fields["username"].widget.attrs["class"] = "login__form__input formInput"
+        self.fields["password"].widget.attrs["class"] = "login__form__input formInput"
 
 class UserRegisterForm(UserCreationForm):
 

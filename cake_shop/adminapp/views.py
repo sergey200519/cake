@@ -141,7 +141,6 @@ def admin_product_update(request, pk):
         "article_two_thousand": product.article_two_thousand,
         "price_two_thousand": product.price_two_thousand
     }
-    print(data)
     if request.method == "POST":
         
         form = CreateProductForm(request.POST, request.FILES)

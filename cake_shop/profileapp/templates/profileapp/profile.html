@@ -1,0 +1,17 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+{{ user.first_name }}
+<br>
+{{ user.last_name }}
+<br>
+{{ user.date_of_birth|date:"M d, Y" }}
+<br>
+{{ user.gender }}
+<br>
+{{ user.phone }}
+<br>
+{{ user.email }}
+<a href="{% url 'profileapp:profile_edit' user.id %}">Изменить</a>
+{% endblock %}

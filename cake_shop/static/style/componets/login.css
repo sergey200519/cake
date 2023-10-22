@@ -67,8 +67,9 @@
 
 }
 
-.login__form__input:focus ~ .login__form__label {
+/* .form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown) ~  .form__label {
     top: -18px;
     font-size: 12px;
     color: var(--gray);
-}
+} */

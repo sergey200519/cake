@@ -18,4 +18,4 @@ class User(AbstractUser):
     phone = PhoneNumberField(unique=True, blank=True, verbose_name="Номер телефона")
     email = models.EmailField(unique=True, blank=True, verbose_name="Электроная почта")
     gender = models.CharField(verbose_name='пол',choices=GENDER_CHOICES,blank=True,max_length=2)
-    date = models.DateField(auto_now=False, auto_now_add=True, blank=True) 
+    date_of_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождение")

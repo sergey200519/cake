@@ -57,7 +57,7 @@
                     <a class="button__indent__a button button__indent" id="open__search__formtwo" href="{% url 'authapp:register' %}">Регистрация</a>
                   
                 {% else %}
-                  <p>{{ user.username }}</p>
+                  <a href="{% url "profileapp:profile_list" %}">{{ user.username }}</p>
                   <a class="button__indent__a button button__indent" id="" href="{% url 'authapp:logout' %}">Выход</a>
                 {% endif %}
                 {% if user.is_staff or user.is_superuser %}

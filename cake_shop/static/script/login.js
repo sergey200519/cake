@@ -1,3 +1,5 @@
+import { changeLabel } from "./forms.js";
+
 // function noDigits(event) {
 //     let re = /^[\d\+][\d\(\)\ -]{4,14}\d$/;
 //     let valid = re.test(event.target.value);
@@ -12,11 +14,29 @@
 //     //   event.preventDefault();
 //   }
 // document.querySelector("#login__tel").addEventListener("input", noDigits)
+let inputs;
+
+function start() {
+    inputs = document.querySelectorAll(".formInput")
+    inputs.forEach(input => {
+        changeLabel(input)
+        input.addEventListener("focus", (e) =>  {
+            changeLabel(e.target)
+        })
+        input.addEventListener("blur", (e) => {
+            changeLabel(e.target)
+        })
+    })
+}
+
+
 
 document.querySelector("#open__search__form").addEventListener("click", (e) => {
     e.preventDefault();
     document.querySelector(".login").classList.remove("none")
+    start()
 })
+
 
 
 document.querySelector(".login__form__close").addEventListener("click", () => {

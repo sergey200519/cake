@@ -1,0 +1,29 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    <form action="{% url 'profileapp:profile_edit' user.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ formset.as_p }}
+        <button type="submit" class="btn">save</button>
+
+    </form>
+    <button class="btn"><a href="{% url 'profileapp:profile_list' %}">exit</a></button>
+    <script>
+        {% comment %} let a = document.querySelector("#id_files")
+        a = {{ files_t | safe }}
+        a.forEach((file) => {
+            const myFile = new File(['Hello World!'], 'myFile.txt', {
+                type: 'text/plain',
+                lastModified: new Date(),
+            });
+        
+            // Now let's create a DataTransfer to get a FileList
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(myFile);
+            fileInput.files = dataTransfer.files;
+        })
+         {% endcomment %}
+    </script>
+{% endblock %}
