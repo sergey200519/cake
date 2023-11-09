@@ -1,3 +1,5 @@
+import { Tabs  } from "./tabs.js"
+
 // const products = document.querySelectorAll('.product');
 
 // if (products) {
@@ -45,3 +47,10 @@ if (products) {
 		}
 	});
 }
+
+
+
+
+document.querySelectorAll(".product").forEach((product) => {
+    new Tabs(product)
+})

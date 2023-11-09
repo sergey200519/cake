@@ -139,6 +139,7 @@ footer .container {
 .footer-button {
   width: 160px;
   margin-left: 125px;
+  padding: 0.6em 1.2em;
 }
 
 .smail:focus {

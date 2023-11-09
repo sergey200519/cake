@@ -22,12 +22,27 @@ class CreateProductForm(forms.Form):
     
     name = forms.CharField(label="Наименование продукта", widget=forms.Textarea, required=True)
     ingredients = forms.CharField(max_length=128, required=True)
-    quantity = forms.IntegerField(min_value=0, required=True)
-    price = forms.FloatField(min_value=0, required=True)
-    # category = forms.ChoiceField(choices=get_categories_for_ChoiceField(), required=True)
+    # price = forms.FloatField(min_value=0, required=True)
     description = forms.CharField(widget=forms.Textarea, required=True)
     category = forms.ModelChoiceField(queryset=ProductCategories.objects.all(), required=True)
-    
+
+    article_four_hundred = forms.IntegerField(max_value=10000, required=True)
+    price_four_hundred = forms.FloatField(min_value=0, required=True)
+
+    article_six_hundred = forms.IntegerField(max_value=10000, required=True)
+    price_six_hundred = forms.FloatField(min_value=0, required=True)
+
+    article_eight_hundred = forms.IntegerField(max_value=10000, required=True)
+    price_eight_hundred = forms.FloatField(min_value=0, required=True)
+
+    article_one_thousand = forms.IntegerField(max_value=10000, required=True)
+    price_one_thousand = forms.FloatField(min_value=0, required=True)
+
+    article_two_thousand = forms.IntegerField(max_value=10000, required=True)
+    price_two_thousand = forms.FloatField(min_value=0, required=True)
+
+
+
     # class Meta:
     #     model = Products
     #     fields = ('name','ingredients','price','category')

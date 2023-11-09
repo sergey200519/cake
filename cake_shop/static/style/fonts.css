@@ -39,6 +39,8 @@
 @font-face {
   font-family: 'MullerBold';
   src: url("../fonts/MullerBold.woff");
+  font-weight: normal;
+  font-weight: 700;
 
 }
 
@@ -47,6 +49,7 @@
   src: url("../fonts/MullerMedium.woff");
   font-style: normal;
   font-weight: normal;
+  font-weight: 400; /*толщина шрифта*/
 }
 
 @font-face {
@@ -54,4 +57,6 @@
   src: url("../fonts/MullerRegular.woff");
   font-style: normal;
   font-weight: normal;
+  font-weight: 400; 
+
 }

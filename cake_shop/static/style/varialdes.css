@@ -14,15 +14,18 @@
   --orenge-hover: #FFB84D;
   --orange-active: #E1670E;
 
-  --green: #97EE3F;
+  --green: #028e15;
+  --white-green:#47bd51;
 
   --gold-x: #f7f5f0;
   --gold-color: #CC9933;
   --light-gold: #F0BF5F;
   --brown-cold: #A47312;
+  --dark-brown:#7f590e;
   --light-brown: #FFCC66;
   --white-white: #dfdbdb;
   --white-gray: #666;
+  --gray-gray: #919191;
   --grey-color: #999;
   --light-black: #333;
 }

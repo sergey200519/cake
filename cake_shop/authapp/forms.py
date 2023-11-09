@@ -6,18 +6,19 @@ class UserLoginForm(AuthenticationForm):
 
     class Meta:
         model = User
-        fields = ("username", "password")
+        fields = ("phone", "password")
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs["placeholder"] = "Ведите имя пользователя"
-        self.fields["password"].widget.attrs["placeholder"] = "Ведите пароль"
+    
+        self.fields["username"].widget.attrs["class"] = "login__form__input formInput"
+        self.fields["password"].widget.attrs["class"] = "login__form__input formInput"
 
 class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username','password1','password2','last_name','first_name','email', "phone",  "image")
+        fields = ('username','password1','password2','last_name','first_name','email', "phone")
 
     def __init__(self,*args,**kwargs):
         super(UserRegisterForm, self).__init__(*args,**kwargs)

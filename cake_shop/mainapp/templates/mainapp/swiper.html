@@ -1,0 +1,29 @@
+{% load static %}
+
+<section class="hero">
+    <div class="container hero__container">
+      <div class="swiper hero__container__swiper">
+        <!-- Additional required wrapper -->
+        <div class="hero__content">
+        </div>
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+
+          {% for slide in swiper_slides %}
+            <div class="swiper-slide">
+                <h1 class="hero__title">{{ slide.title }}</h1>
+                <p class="hero__description">{{ slide.description }}</p>
+                <picture>
+                <source srcset="amg/hero1024-1.png" media="(max-width: 1024px)">
+                <source srcset="amg/hero768-1.png" media="(max-width: 768px)">
+                <source srcset="amg/hero320-1.png" media="(max-width: 320px)">
+                <img class="swiper__img" src="{{ slide.img.url }}" alt="">
+                </picture>
+            </div>
+          {% endfor %}
+
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>

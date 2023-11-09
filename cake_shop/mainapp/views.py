@@ -1,44 +1,42 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
-
-from mainapp.models import ProductCategories, Products, ImgProducts
-from basketapp.models import Basket
-from adminapp.models import Applications
-from adminapp.forms import ApplicationsForm
-
+from django.shortcuts import render
 from django.views.generic import DetailView
+from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides
 
-from django.core.mail import EmailMultiAlternatives
+from django.contrib import auth
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
+from authapp.forms import UserLoginForm, UserRegisterForm
 
 # Create your views here.
 def index(request):
+    # if request.method == "POST":
+    #     login_form = UserLoginForm(data=request.POST)
+    #     if login_form.is_valid():
+    #         username = request.POST.get("username")
+    #         password = request.POST.get("password")
+    #         user = auth.authenticate(username=username, password=password)
+    #         if user.is_active:
+    #             auth.login(request, user)
+    #             return HttpResponseRedirect(reverse("mainapp:index"))
+    #     else:
+    #         print(form.errors)
+    # else:
+    login_form = UserLoginForm()
 
-    if request.method == "POST":
-        report_form = ApplicationsForm(request.POST)
-        if report_form.is_valid():
-            report_form.save()
-            msg = EmailMultiAlternatives(subject="test", to=["oborok05@bk.ru",])
-            msg.attach_alternative("html_content", "text/html")
-            msg.send()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        print("log-------------------")
-    else:
-        basket = Basket.objects.all()
-        print("-------------------")
-
-    report_form = ApplicationsForm()
+    # context = {
+    #     "title": "Вход",
+    #     "form": form
+    # }
     context = {
         "title": "Главная",
+        "swiper_slides": SwiperSlides.objects.all(),
         "product_categories": ProductCategories.objects.all(),
         "products": Products.objects.all(),
         "img_products": ImgProducts.objects.all(),
-        "basket": basket,
-        "report_form": report_form
+        "login_form": login_form
     }
     return  render(request,'mainapp/index.html', context=context)
 
@@ -52,5 +50,3 @@ class ProductDetail(DetailView):
         context["title"] = context["products"].name
         context["img_products"] = ImgProducts.objects.filter(product=self.kwargs["pk"])
         return context
-
-

@@ -16,8 +16,10 @@ from django.contrib.auth.decorators import user_passes_test
 
 from mainapp.mixin import CustomDispatchMixin
 
-import ast
+import ast, json
 
+
+from django.core import serializers
 
 
 # Create your views here.
@@ -53,11 +55,31 @@ def admin_product_create(request):
             data = form.data
             name = data["name"]
             ingredients = data["ingredients"]
-            quantity = data["quantity"]
-            price = data["price"]
             description = data["description"]
             category = ProductCategories.objects.get(id=data["category"])
-            new_product = Products.objects.create(name=name, ingredients=ingredients, quantity=quantity, price=price, description=description, category=category)
+
+            article_four_hundred = data["article_four_hundred"]
+            price_four_hundred = data["price_four_hundred"]
+
+            article_six_hundred = data["article_six_hundred"]
+            price_six_hundred = data["price_six_hundred"]
+
+            article_eight_hundred = data["article_eight_hundred"]
+            price_eight_hundred = data["price_eight_hundred"]
+
+            article_one_thousand = data["article_one_thousand"]
+            price_one_thousand = data["price_one_thousand"]
+
+            article_two_thousand = data["article_two_thousand"]
+            price_two_thousand = data["price_two_thousand"]
+
+
+            new_product = Products.objects.create(name=name, ingredients=ingredients, description=description, category=category, \
+                article_four_hundred=article_four_hundred, price_four_hundred=price_four_hundred, \
+                article_six_hundred=article_six_hundred, price_six_hundred=price_six_hundred, \
+                article_eight_hundred=article_eight_hundred, price_eight_hundred=price_eight_hundred, \
+                article_one_thousand=article_one_thousand, price_one_thousand=price_one_thousand, \
+                article_two_thousand=article_two_thousand, price_two_thousand=price_two_thousand)
 
             for uploaded_file in request.FILES.getlist("files"):
                 # print(f"test ---> {uploaded_file}")
@@ -71,9 +93,16 @@ def admin_product_create(request):
     form = CreateProductForm(request.POST, request.FILES)
     formset = UploadFileForm(request.POST, request.FILES)
 
+    json_serializer = serializers.get_serializer("json")()
+    products_json = json_serializer.serialize(Products.objects.all(), ensure_ascii=True)
+
+    products_json = []
+    for item in Products.objects.all():
+        products_json.append([item.article_four_hundred, item.article_six_hundred, item.article_eight_hundred, item.article_one_thousand, item.article_two_thousand])
 
     context = {
         "title": "Админка | Регистрация",
+        "data": json.dumps(products_json),
         "form": CreateProductForm(),
         # "formset": ImageFormSet
         "formset": formset
@@ -94,12 +123,24 @@ def admin_product_update(request, pk):
     data = {
         "name": product.name,
         "ingredients": product.ingredients,
-        "quantity": product.quantity,
-        "price": product.price,
         "description": product.description,
-        "category": (product.category.id, product.category.name)
+        "category": (product.category.id, product.category.name),
+
+        "article_four_hundred": product.article_four_hundred,
+        "price_four_hundred": product.price_four_hundred,
+
+        "article_six_hundred": product.article_six_hundred,
+        "price_six_hundred": product.price_six_hundred,
+
+        "article_eight_hundred": product.article_eight_hundred,
+        "price_eight_hundred": product.price_eight_hundred,
+
+        "article_one_thousand": product.article_one_thousand,
+        "price_one_thousand": product.price_one_thousand,
+
+        "article_two_thousand": product.article_two_thousand,
+        "price_two_thousand": product.price_two_thousand
     }
-    print(data)
     if request.method == "POST":
         
         form = CreateProductForm(request.POST, request.FILES)
@@ -108,10 +149,23 @@ def admin_product_update(request, pk):
             data = form.data
             product.name = data["name"]
             product.ingredients = data["ingredients"]
-            product.quantity = data["quantity"]
-            product.price = data["price"]
             product.description = data["description"]
             product.category = ProductCategories.objects.get(id=data["category"])
+
+            product.article_four_hundred = data["article_four_hundred"]
+            product.price_four_hundred = data["price_four_hundred"]
+
+            product.article_six_hundred = data["article_six_hundred"]
+            product.price_six_hundred = data["price_six_hundred"]
+
+            product.article_eight_hundred = data["article_eight_hundred"]
+            product.price_eight_hundred = data["price_eight_hundred"]
+
+            product.article_one_thousand = data["article_one_thousand"]
+            product.price_one_thousand = data["price_one_thousand"]
+
+            product.article_two_thousand = data["article_two_thousand"]
+            product.price_two_thousand = data["price_two_thousand"]
             product.save()
 
             for uploaded_file in request.FILES.getlist("files"):

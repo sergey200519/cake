@@ -1,6 +1,7 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
+
 {% block content %}
     <form action="{% url 'authapp:login' %}" method="post">
         {% csrf_token %}
@@ -10,4 +11,4 @@
         {{ form.password }}
         <button type="submit">Вход</button>
     </form>
-{% endblock %}
+{% endblock %} 

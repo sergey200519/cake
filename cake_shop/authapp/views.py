@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -9,29 +8,41 @@ from django.urls import reverse
 from authapp.forms import UserLoginForm, UserRegisterForm
 from authapp.models import User
 
-# Create your views here.
+from django.db.models import Q
 
+# Create your views here.
 def login(request):
+    
     if request.method == "POST":
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            user = auth.authenticate(username=username, password=password)
-            if user.is_active:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse("mainapp:index"))
+            pass
         else:
             print(form.errors)
     else:
         form = UserLoginForm()
 
+    username = request.POST.get("username")
+    password = request.POST.get("password")
+    print(f"form is valid {username} and password is {password}")
+    user = auth.authenticate(request, phone=username)
+    user = User.objects.get(
+                 Q(email=username) | Q(phone=username)
+             )
+    print(user)
+    if user is not None:
+        pwd_valid = user.check_password(password)
+        print(user, pwd_valid)
+        if pwd_valid and user.is_active:
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse("mainapp:index"))
 
-    context = {
-        "title": "Вход",
-        "form": form
-    }
-    return  render(request, "authapp/login.html", context=context)
+
+    # context = {
+    #     "title": "Вход",
+    #     "form": form
+    # }
+    # return  render(request, "authapp/login.html", context=context)
 
 def register(request):
     if request.method == "POST":

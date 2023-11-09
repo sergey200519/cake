@@ -10,7 +10,6 @@
           <tr>
             <td>name</td>
             <td>ingredients</td>
-            <td>price</td>
             <td>category</td>
           </tr>
         </thead>
@@ -19,7 +18,6 @@
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.ingredients }}</td>
-                <td>{{ product.price }}</td>
                 <td>{{ product.category }}</td>
                 <td><a href="{% url 'mainapp:detail' product.id %}">Просмотр</a></td>
                 <td><a href="{% url 'adminapp:product_update' product.id %}">Изменить</a></td>
