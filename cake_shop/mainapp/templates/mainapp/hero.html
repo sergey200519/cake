@@ -1,0 +1,32 @@
+{% load static %}
+
+
+<section class="hero">
+  <div class="container hero__container">
+    <div class="swiper hero__container__swiper mb-50">
+      <div class="hero__content">
+      </div>
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        
+        {% for slide in swiper_slides %}
+            <div class="swiper-slide">
+                <h1 class="hero__title">{{ slide.title }}</h1>
+                <p class="hero__description">{{ slide.description }}</p>
+                <picture>
+                <img class="swiper__img" src="{{ slide.img.url }}" alt="">
+                </picture>
+            </div>
+          {% endfor %}
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
+    </div>
+  </div>
+</section>
