@@ -1,9 +1,12 @@
 @media (max-width: 576px) {
+    .width-200 {
+        width: 100% !important;
+    }
 
     .header__menu__list {
         width: 320px;
         top: 0px;
-        left: -320px;
+        left: -325px;
         border-radius: 0px 0px 16px 16px;
     }
 
@@ -13,6 +16,9 @@
 
     .header__item:nth-child(1) {
         padding: 95px 20px 20px 20px;
+    }
+    .header__menu__list {
+        height: 360px;
     }
 
     .container {
@@ -61,7 +67,12 @@
     }
 
     .list__weight__link {
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .list__more,
+    .list__close{
+        height: 526px;
     }
 
     .contact {

@@ -167,7 +167,7 @@
 
 
 .list__more:not(.onclick) {
-  background: url("../../img/logo__three.svg") no-repeat;
+  background: url("/img/logo__three.svg") no-repeat;
   /* background-size: contain; */
   background-size: cover;
   background-position: center;
@@ -178,9 +178,42 @@
   transition: 0.3s;
 }
 
+.list__more:not(.onclick)::after {
+  content: "Посмотреть все варианты";
+  position: absolute;
+  bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--brown-cold);
+  font-family: 'MullerRegular';
+  font-weight: 500;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+}
+.list__close:not(.onclick)::after {
+  content: "Закрыть";
+  position: absolute;
+  bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--brown-cold);
+  font-family: 'MullerRegular';
+  font-weight: 500;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: normal;
+}
+
 .list__close {
   position: relative;
-  background: url("../../img/logo__three.svg") no-repeat;
+  background: url("/img/logo__three.svg") no-repeat;
   /* background-size: contain; */
   background-size: cover;
   background-position: center;
@@ -190,7 +223,7 @@
 }
 
 .list__close:hover {
-  /* background: url("../../img/footer-logo.png") no-repeat; */
+  /* background: url("//img/footer-logo.png") no-repeat; */
   background-color: var(--gold-x);
 }
 
@@ -360,13 +393,13 @@
 
 
 .list__more__details:hover+.svg-one,
-.svg-one:hover
-  {
+.svg-one:hover {
   transform: translateX(10px);
   transition: transform .5s ease-in-out;
-  
+
 }
-.list__more__details:hover+.svg-one path{
+
+.list__more__details:hover+.svg-one path {
   stroke: var(--white-green);
 }
 
@@ -383,7 +416,8 @@
 .list__more__details:active {
   color: var(--brown-cold);
 }
-.list__more__details:active+.svg-one path{
+
+.list__more__details:active+.svg-one path {
   stroke: var(--brown-cold);
 }
 
@@ -406,6 +440,7 @@
 .svg-one {
   transition: transform .5s ease-in-out;
 }
+
 .svg-one {
   stroke: red;
 }
@@ -426,28 +461,33 @@
 .card__item {
   margin-bottom: 10px;
 }
-.list__star{
+
+.list__star {
   width: 18px;
 }
-.list__star:hover{
+
+.list__star:hover {
   background-color: red;
   transition: .3s;
 }
-.list__star__number{
+
+.list__star__number {
   color: var(--black-color);
   font-weight: 700;
   font-size: 16px;
   font-family: 'MullerBold';
   font-weight: normal;
 }
-.list__reviews{
+
+.list__reviews {
   justify-content: space-between;
 }
 
 .list__link__item:not(:first-child) {
   margin-left: 5px;
 }
-.list__link__rating{
+
+.list__link__rating {
   display: inline-block;
   color: var(--black-color);
   font-weight: 700;
@@ -456,20 +496,24 @@
   font-weight: normal;
   margin-top: 2px;
 }
-.list__link__reviews{
+
+.list__link__reviews {
   font-family: 'MullerRegular';
   font-size: 16px;
   color: var(--light-gold);
 }
-.list__link__reviews:hover{
+
+.list__link__reviews:hover {
   color: var(--brown-cold);
   transition: 0.3s;
 }
+
 .list__link__reviews:active {
   border-bottom: 2px solid var(--black);
   color: var(--black);
 }
-.mt-2{
+
+.mt-2 {
   margin-top: 2px;
-  
+
 }

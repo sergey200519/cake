@@ -23,6 +23,7 @@ body {
   text-align: center;
   line-height: 1;
   border-radius: 10px;
+  font-family: 'MullerRegular';
   cursor: pointer;
   color: var(--gold-color);
   font-weight: 400;
@@ -301,36 +302,37 @@ body {
   margin-bottom: 3rem;
 }
 
-.registrationlist {
+.reviews {
   flex-grow: 1;
 }
 
-.registrationlist__table {
+.reviews__table {
   margin: auto;
   /*----Центрирование по центру---*/
-  width: 70%;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 16px var(--brown-cold);
   border-collapse: collapse;
   /*--Убрать сетку--*/
 }
 
-.registrationlist__table td,
+.reviews__table td,
 .products__table tr {
   text-align: center;
-  padding: 5px 10px;
+  padding: 10px;
 }
 
-.registrationlist__table__header {
+.reviews__table__header {
   border-radius: 10px;
   box-shadow: 0 4px 16px var(--brown-cold);
 }
 
-.registrationlist__header__regular {
+.reviews__header__regular {
+  font-family: 'MullerRegular';
   font-size: 14px;
 }
 
-.registrationlist__header__bold {
+.reviews__header__bold {
   font-size: 14px;
   font-weight: 700;
 }
@@ -357,35 +359,35 @@ tbody tr:nth-child(odd):hover {
   box-shadow: 0 4px 16px var(--dark-brown);
 }
 
-.registrationlist_a {
+.reviews_a {
   color: var(--gray-gray);
 }
 
-.registrationlist_a:hover {
+.reviews_a:hover {
   color: var(--dark-green);
 }
-.registrationlist_a:focus {
+.reviews_a:focus {
   transition: background 0.3s ease, color 0.2s linear;
 }
 
-.registrationlist_a:active {
+.reviews_a:active {
   color: var(--dark-brown);
 }
 
-.registrationlist__info {
+.reviews__info {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.registrationlist__link {
+.reviews__link {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 50px;
 }
 
-.registrationlist__link__item {
+.reviews__link__item {
   display: block;
   outline: 2px solid var(--green);
   border-radius: 5px;
@@ -399,28 +401,26 @@ tbody tr:nth-child(odd):hover {
   cursor: pointer;
 }
 
-.registrationlist__link__item:hover {
+.reviews__link__item:hover {
   background-color: var(--green);
   color: var(--white);
   transition-duration: 0.2s, 0.3s;
 }
 
-.registrationlist__link__item:focus {
+.reviews__link__item:focus {
   transition: background 0.3s ease, color 0.2s linear;
 }
 
-.registrationlist__link__item:active {
+.reviews__link__item:active {
   background-color: var(--dark-green);
   color: var(--white);
 }
 
-.registrationlist__link__itemone {
+.reviews__link__itemone {
   display: block;
   background-color: var(--white-green);
   border-radius: 5px;
   padding: 10px 30px;
-
-
   font-size: 18px;
   color: var(--black);
 
@@ -428,17 +428,17 @@ tbody tr:nth-child(odd):hover {
   cursor: pointer;
 }
 
-.registrationlist__link__itemone:hover {
+.reviews__link__itemone:hover {
   background-color: var(--green);
   color: var(--white);
   transition-duration: 0.2s, 0.3s;
 }
 
-.registrationlist__link__itemone:focus {
+.reviews__link__itemone:focus {
   transition: background 0.3s ease, color 0.2s linear;
 }
 
-.registrationlist__link__itemone:active {
+.reviews__link__itemone:active {
   background-color: var(--dark-green);
   color: var(--white);
 }
@@ -450,7 +450,7 @@ tbody tr:nth-child(odd):hover {
   } */
 /* катигории-кнопки */
 
-.registrationlist__table__change {
+.reviews__table__change {
   outline: none;
   border: 1px;
   border-color: var(--white-green);
@@ -470,16 +470,16 @@ tbody tr:nth-child(odd):hover {
   padding: 3px 10px;
 }
 
-.registrationlist__table__change:hover {
+.reviews__table__change:hover {
   background-color: var(--green);
   color: var(--white);
 }
 
-.registrationlist__table__change:focus {
+.reviews__table__change:focus {
   transition: background 0.3s ease, color 0.2s linear;
 }
 
-.registrationlist__table__change:active {
+.reviews__table__change:active {
   background-color: var(--dark-green);
   color: var(--white);
 }
@@ -575,7 +575,7 @@ footer {
 }
 
 .footer__logo {
-  width: 200px;
+  width: 100px;
 }
 @media (max-width: 1024px) {
   /*----------------header---------------*/
