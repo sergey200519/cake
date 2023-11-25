@@ -1,9 +1,31 @@
 {% load static %}
 
 <section class="popupwrapper none" id="registration_popup">
-    <form class="popupwrapper__popup register__form" action="/user/login/" method="post">
-      <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none">
-
+  {% if register_form.errors %}
+        {% for error in register_form.errors %}
+          {{ error | escape }}
+        {% endfor %}
+      {% endif %}  
+      {% for error in register_form.errors %}
+          {{ error | escape }}
+        {% endfor %}
+  <form class="popupwrapper__popup register__form" action="{% url 'authapp:register' %}" method="post">
+    {% csrf_token %}
+    {% if register_form.errors %}
+      {% for field in register_form %}
+          {% for error in field.errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+      {% endfor %}
+      {% for error in register_form.non_field_errors %}
+          <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+          </div>
+      {% endfor %}
+  {% endif %}
+      <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none">  
           <g id="style-stroke-1">
             <g id="close-2">
               <path id="vector-7" fill-rule="evenodd" clip-rule="evenodd"
@@ -15,31 +37,42 @@
             </g>
           </g>
         </svg></div>
-      <h1 class="register__form__title">Регистрация</h1>
+        <h1 class="register__form__title">Регистрация</h1>
+      {% comment %} {{ register_form.as_p }} {% endcomment %}
       <div class="register__form__style flex">
         <div class="register__form__group flex">
-          <input class="register__form__input" placeholder=" " type="text">
-          <label class="register__form__label">Имя</label>
+          {{ register_form.first_name }}
+          {% comment %} <input class="register__form__input" placeholder=" " type="text"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.first_name.id_for_label }}">Имя</label>
         </div>
         <div class="register__form__group flex">
-          <input class="register__form__input" placeholder=" " type="text">
-          <label class="register__form__label">Фамилия</label>
+          {{ register_form.last_name }}
+          {% comment %} <input class="register__form__input" placeholder=" " type="text"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.last_name.id_for_label }}">Фамилия</label>
         </div>
         <div class="register__form__group flex">
-          <input class="register__form__input" placeholder=" " type="text">
-          <label class="register__form__label">Отчество</label>
+          {{ register_form.patronymic }}
+          {% comment %} <input class="register__form__input" placeholder=" " type="text"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.patronymic.id_for_label }}">Отчество</label>
         </div>
       </div>
       <div class="register__form__group flex">
-        <input class="register__form__input" placeholder=" " type="text" id="username_input">
-        <label class="register__form__label">Имя пользователя</label>
+        {{ register_form.username }}
+        {% comment %} <input class="register__form__input" placeholder=" " type="text" id="username_input"> {% endcomment %}
+        <label class="register__form__label" for="{{ register_form.username.id_for_label }}">Имя пользователя</label>
+      </div>
+      <div class="register__form__group flex username_error none">
+        <p>мат использовать нельзя</p>
       </div>
       <div class="register__form__group">
-        <input class="register__form__input" type="date" name="trip-start">
-        <label class="register__form__label">Дата рождения</label>
+        {{ register_form.date_of_birth }}
+        {% comment %} <input class="register__form__input" type="date" name="trip-start"> {% endcomment %}
+        <label class="register__form__label" for="{{ register_form.date_of_birth.id_for_label }}">Дата рождения</label>
       </div>
       <h4 class="register__form__title__gender">Пол</h4>
       <div class="register__form__style register__form__style__gender flex ">
+        {{ register_form.gender }}
+        {% comment %} <input type="text"  class="gender_value none"> {% endcomment %}
         <div class="radio">
           <input class="radio__input" name="male" type="radio" id="radio_1">
           <label class="radio__label" for="radio_1">Мужской</label>
@@ -51,31 +84,39 @@
       </div>
       <div class="register__form__style flex">
         <div class="register__form__group flex">
-          <input class="register__form__input" placeholder="" type="tel">
-          <label class="register__form__label">Телефон</label>
+          {{ register_form.phone }}
+          {% comment %} <input class="register__form__input" placeholder="" type="tel"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.phone.id_for_label }}">Телефон</label>
         </div>
         <div class="register__form__group flex">
-          <input class="register__form__input" placeholder=" " type="email">
-          <label class="register__form__label">E-mail:</label>
+          {{ register_form.email }}
+          {% comment %} <input class="register__form__input" placeholder=" " type="email"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.email.id_for_label }}">E-mail:</label>
         </div>
       </div>
       <div class="register__form__group flex">
-        <input class="register__form__input" placeholder=" " type="text">
-        <label class="register__form__label">Адрес</label>
+        {{ register_form.address }}
+        {% comment %} <input class="register__form__input" placeholder=" " type="text"> {% endcomment %}
+        <label class="register__form__label" for="{{ register_form.address.id_for_label }}">Адрес</label>
       </div>
       <div class="register__form__style flex">
         <div class="register__form__group flex">
-          <input class="register__form__input" placeholder=" " type="password">
-          <label class="register__form__label">Пароль:</label>
+          {{ register_form.password1 }}
+          {% comment %} <input class="register__form__input" placeholder=" " type="password"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.password1.id_for_label }}">Пароль:</label>
         </div>
         <div class="register__form__group flex">
-          <input class="register__form__input width-200" placeholder=" " type="password">
-          <label class="register__form__label">Подтверждение пароля:</label>
+          {{ register_form.password2 }}
+          {% comment %} <input class="register__form__input width-200" placeholder=" " type="password"> {% endcomment %}
+          <label class="register__form__label" for="{{ register_form.password1.id_for_label }}">Подтверждение пароля:</label>
         </div>
+      </div>
+      <div class="register__form__group flex password_error none">
+        <p>Пароли не совпадаюют</p>
       </div>
       <div class="register__form__style__captcha flex">
         <div class="register__form__group flex inline" id="user-input">
-          <input class="register__form__input" placeholder="" type="text" id="submit">
+          <input class="register__form__input register__form__input_date" placeholder="" type="text" id="submit">
           <label class="register__form__label">Введите код</label>
         </div>
         <div class="inline">
@@ -93,7 +134,8 @@
           </span>
         </label>
       </div>
-      <a class="register__form__button button" id="btn" onclick="printmsg()"
-        href="https://ya.ru/">Зарегистрироваться</a>
+      <input type="submit" value="Зарегистрироваться" class="register__form__button button" id="btn">
+      {% comment %} <a class="register__form__button button" id="btn" onclick="printmsg()"
+        href="https://ya.ru/">Зарегистрироваться</a> {% endcomment %}
     </form>
   </section>

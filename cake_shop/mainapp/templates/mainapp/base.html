@@ -105,24 +105,30 @@
                 style="fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none" />
             </g>
           </svg></a>
-        <div class="contact__one">
-          <div class="header__bottoms display__two">
-            <a class="button__indent__a button button__indent" id="login" href="#" 
-              data-popup-link="login_popup">Вход</a>
-            <a class="button__indent__a button button__indent" id="registration" href="#"
-              data-popup-link="registration_popup">Регистрация</a>
+        {% if not user.is_authenticated %}
+          <div class="contact__one">
+            <div class="header__bottoms display__two">
+              <a class="button__indent__a button button__indent" id="login" href="#" 
+                data-popup-link="login_popup">Вход</a>
+              <a class="button__indent__a button button__indent" id="registration" href="#"
+                data-popup-link="registration_popup">Регистрация</a>
+            </div>
           </div>
-        </div>
+        {% else %}
         <div class="header__other">
-          <button class="dropbutton button" id="сabinet">Кабинет</button>
+            <button class="dropbutton button" id="сabinet">Кабинет</button>
+
           <div class="drop-down">
             <a class="header__item__linktwo" data-popup-link="mypage__popup">Моя страница</a>
             <a class="header__item__linktwo" href="/pages/historyorder.html">Мои заказы</a>
-            <a class="header__item__linktwo" href="/pages/admin.html">ADMIN</a>
+            {% if user.is_staff or user.is_superuser %}
+              <a class="header__item__linktwo" href="/pages/admin.html">ADMIN</a>
+            {% endif %}
             <a class="header__item__linktwo" href="/pages/password.html">Изменить пароль</a>
-            <a class="header__item__linktwo" href="#">Выход</a>
+            <a class="header__item__linktwo" href="{% url 'authapp:logout' %}">Выход</a>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
   </header>
@@ -207,7 +213,7 @@
   <script type="module" src="{% static 'script/registerForm.js' %}"></script>
   <script type="module" src="{% static 'script/footer.js' %}"></script>
   <script src="{% static 'script/my__page.js' %}"></script>
-  <script src="{% static 'script/popup.js' %}"></script>
+  <script type="module" src="{% static 'script/popup.js' %}"></script>
   {% block script %}
   {% endblock script %}
 </body>

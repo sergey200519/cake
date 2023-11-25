@@ -6,34 +6,20 @@ from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from authapp.forms import UserLoginForm, UserRegisterForm
+
 # Create your views here.
 def index(request):
-    # if request.method == "POST":
-    #     login_form = UserLoginForm(data=request.POST)
-    #     if login_form.is_valid():
-    #         username = request.POST.get("username")
-    #         password = request.POST.get("password")
-    #         user = auth.authenticate(username=username, password=password)
-    #         if user.is_active:
-    #             auth.login(request, user)
-    #             return HttpResponseRedirect(reverse("mainapp:index"))
-    #     else:
-    #         print(form.errors)
-    # else:
-    # login_form = UserLoginForm()
-
-
-    # context = {
-    #     "title": "Вход",
-    #     "form": form
-    # }
+    login_form = UserLoginForm()
+    register_form = UserRegisterForm()
     context = {
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
         "product_categories": ProductCategories.objects.all(),
         "products": Products.objects.all(),
         "img_products": ImgProducts.objects.all(),
-        # "login_form": login_form
+        "login_form": login_form,
+        "register_form": register_form
     }
     return  render(request,'mainapp/index.html', context=context)
 

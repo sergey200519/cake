@@ -8,7 +8,7 @@
   margin-bottom: 10px;
 }
 #order{
-  z-index: 6;
+  z-index: 7;
 }
 .order__table td,
 .products__table tr {
@@ -83,6 +83,9 @@ tr:nth-child(odd):hover {
 
 .order__promo {
   gap: 20px;
+}
+.order__form{
+  border-radius: 16px !important;
 }
 .order__form__delivery {
   gap: 15px;

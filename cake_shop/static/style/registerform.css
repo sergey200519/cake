@@ -78,6 +78,9 @@
   padding: 0.8em 1.2em;
   cursor: pointer;
   text-decoration: none;
+  margin: 0 auto;
+  width: 100%;
+  background: transparent;
 }
 
 .form__button-disabled {
@@ -89,7 +92,7 @@
 
 
 .register__form__input:focus~.register__form__label,
-.register__form__input:not(:placeholder-shown)~.register__form__label {
+.register__form__input_date:not(:placeholder-shown)~.register__form__label {
   top: -18px;
   font-size: 12px;
   color: var(--gray-gray);

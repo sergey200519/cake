@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    "mainapp"
+    "mainapp",
+    "authapp",
+
+    "phonenumber_field"
 ]
 
 MIDDLEWARE = [
@@ -135,4 +138,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
+)
+
+AUTH_USER_MODEL = "authapp.User"
+
+gettext = lambda x: x
+
+LANGUAGE_CODE = 'ru'
+LANGUAGES = (
+    ('ru', gettext('Russian')),
 )

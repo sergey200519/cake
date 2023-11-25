@@ -1,33 +1,33 @@
 class MoreList {
     constructor(list, n, clouse_item) {
-        this.list = document.querySelectorAll(`${list} > li`)
-        this.list[n - 1].classList.add("list__more")
-        this.on = document.querySelector(`${list} > .list__more`)
+        // this.list = document.querySelectorAll(`${list} > li`)
+        // this.list[n - 1].classList.add("list__more")
+        // this.on = document.querySelector(`${list} > .list__more`)
 
-        this.create_close(list, clouse_item)
-        this.clouse_item(n)
+        // this.create_close(list, clouse_item)
+        // this.clouse_item(n)
 
-        this.on.addEventListener("click", () => {
-            this.on.classList.add("onclick")
-            let i = 1
-            this.list.forEach(element => {
-                if (i > n) {
-                    element.classList.remove("none")
-                }
-                i++
-            });
-        })
+        // this.on.addEventListener("click", () => {
+        //     this.on.classList.add("onclick")
+        //     let i = 1
+        //     this.list.forEach(element => {
+        //         if (i > n) {
+        //             element.classList.remove("none")
+        //         }
+        //         i++
+        //     });
+        // })
 
-        this.clouse.addEventListener("click", () => {
-            this.on.classList.remove("onclick")
-            let i = 1
-            this.list.forEach(element => {
-                if (i > n) {
-                    element.classList.add("none")
-                }
-                i++
-            });
-        })
+        // this.clouse.addEventListener("click", () => {
+        //     this.on.classList.remove("onclick")
+        //     let i = 1
+        //     this.list.forEach(element => {
+        //         if (i > n) {
+        //             element.classList.add("none")
+        //         }
+        //         i++
+        //     });
+        // })
     }
 
     create_close(list, clouse_item) {
