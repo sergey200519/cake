@@ -1,0 +1,61 @@
+{% load static %}
+
+<section class="reviews">
+    <div class="reviews__container container">
+      {% if add_review %}
+        <div class="reviews__swiper__line"></div>
+
+        <div class="reviews__name">
+          <h2 id="reviews__test">Оставьте отзыв по этому заказу</h2>
+          <h3 class="reviews__text">Пожалуйста, оцените этот заказ</h3>
+        </div>
+      
+        <form class="reviews__form" action="{% url 'mainapp:add_review' products.id %}" method="post">
+          {% csrf_token %}
+          <div class="reviews__rating" data-total-value="0">
+            <div class="reviews__rating__item" data-item-value="5">★</div>
+            <div class="reviews__rating__item" data-item-value="4">★</div>
+            <div class="reviews__rating__item" data-item-value="3">★</div>
+            <div class="reviews__rating__item" data-item-value="2">★</div>
+            <div class="reviews__rating__item" data-item-value="1">★</div>
+          </div>
+          {{ review_form.rating }}
+          {{ review_form.text }}
+          <div class="reviews__item flex">
+            <div class="raviews__file">
+              <input class="inputfile" type="file" name="file" id="file" data-multiple-caption="{count} файлов выбрано"
+                multiple>
+              <label for="file"><span>Добавить фото</span></label>
+            </div>
+    
+            <div>
+              <input type="submit" value="Оставить отзыв" class="reviews-button button">
+            </div>
+          </div>
+        </form>
+      {% endif %}
+      <div class="reviews__swiper__line"></div>
+      
+      
+        {% for review in reviews %}
+        {% if review.status == 'active' %}
+        <div class="reviews__info">
+                <div class="reviews__avatar__gap flex">
+                    <div><img class="reviews__avatar" src="{% static 'img/avatar.svg' %}" alt=""></div>
+                    <div class="reviews__users__name">{{ review.author.first_name }} </div>
+                </div>
+                <div class="reviews__rating_users" data-star-count="{{ review.rating }}">
+                    <div class="reviews__rating__item_users">★</div>
+                    <div class="reviews__rating__item_users">★</div>
+                    <div class="reviews__rating__item_users">★</div>
+                    <div class="reviews__rating__item_users">★</div>
+                    <div class="reviews__rating__item_users">★</div>
+                </div>
+                <p class="reviews__avatar__text">{{ review.text }}</p>
+                <p class="reviews__data">{{ review.date_add.day }}.{{ review.date_add.month }}.{{ review.date_add.year }}</p>
+              </div>
+              {% endif %}    
+        {% endfor %}
+        
+    </div>
+  </section>

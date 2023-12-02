@@ -1,30 +1,9 @@
 {% load static %}
 
 <section class="popupwrapper none" id="registration_popup">
-  {% if register_form.errors %}
-        {% for error in register_form.errors %}
-          {{ error | escape }}
-        {% endfor %}
-      {% endif %}  
-      {% for error in register_form.errors %}
-          {{ error | escape }}
-        {% endfor %}
   <form class="popupwrapper__popup register__form" action="{% url 'authapp:register' %}" method="post">
     {% csrf_token %}
-    {% if register_form.errors %}
-      {% for field in register_form %}
-          {% for error in field.errors %}
-              <div class="alert alert-danger">
-                  <strong>{{ error|escape }}</strong>
-              </div>
-          {% endfor %}
-      {% endfor %}
-      {% for error in register_form.non_field_errors %}
-          <div class="alert alert-danger">
-              <strong>{{ error|escape }}</strong>
-          </div>
-      {% endfor %}
-  {% endif %}
+    
       <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none">  
           <g id="style-stroke-1">
             <g id="close-2">
@@ -112,7 +91,7 @@
         </div>
       </div>
       <div class="register__form__group flex password_error none">
-        <p>Пароли не совпадаюют</p>
+        <p>Пароли не совпадаюют или не заполнены</p>
       </div>
       <div class="register__form__style__captcha flex">
         <div class="register__form__group flex inline" id="user-input">
@@ -134,8 +113,38 @@
           </span>
         </label>
       </div>
+      
+      {% if register_form.errors %}
+      <div class="register__swiper__line"></div>
+        <div class="register__errors">
+          <ul>
+            {% for field in register_form %}
+              {% for error in field.errors %}
+                <li class="register__errors__text">{{ error|escape }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+
+        </div>
+        <div class="register__swiper__line mt-10"></div>
+      {% endif %}
       <input type="submit" value="Зарегистрироваться" class="register__form__button button" id="btn">
       {% comment %} <a class="register__form__button button" id="btn" onclick="printmsg()"
         href="https://ya.ru/">Зарегистрироваться</a> {% endcomment %}
+        {% comment %} {% if register_form.errors %}
+      {% for field in register_form %}
+          {% for error in field.errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+      {% endfor %}
+      {% for error in register_form.non_field_errors %}
+          <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+          </div>
+      {% endfor %}
+  {% endif %} {% endcomment %}
+          
     </form>
   </section>

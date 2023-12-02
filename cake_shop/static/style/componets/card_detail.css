@@ -266,6 +266,10 @@
 .swiper-wrapper {
     margin-top: 0;
 }
+.reviews__form{
+    display: flex;
+    flex-direction: column;
+}
 #reviews__test {
     display: block;
     margin-bottom: 20px;
@@ -284,6 +288,7 @@
   }
   
 .reviews__rating{
+    width: fit-content;
     margin-bottom: 20px;
 }
 .reviews__avatar__gap{
@@ -341,12 +346,20 @@ align-items: center;
     display: inline-flex;
     flex-direction: row-reverse;
 }
+.reviews__rating_users {
+    display: flex;
+}
 
-.reviews__rating__item {
+.reviews__rating__item,
+.reviews__rating__item_users {
     font-size: 30px;
     color: var(--gray);
     cursor: pointer;
     transition: .3s;
+}
+
+.reviews__rating__item_users-active {
+    color: var(--light-gold);
 }
 
 .reviews__rating__item:hover,

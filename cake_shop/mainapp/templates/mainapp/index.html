@@ -28,6 +28,7 @@
               </ul>
           </div>
       {% endfor %}
+      </section>
 
 
       
@@ -106,10 +107,20 @@
       </div>
     </section>
 
-{% endblock content %}
+{% endblock %}
 
 {% block script %}
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="{% static 'script/tabs.js' %}"></script>
   <script src="{% static 'script/accordion.min.js' %}"></script>
-{% endblock script %}
+  <script type="module" src="{% static 'script/script.js' %}"></script>
+  <script>
+    let popup = {{ popup | safe }}
+    if (popup == "reg") {
+      document.querySelector("#registration_popup").classList.remove("none")
+    }
+    if (popup == "login") {
+      document.querySelector("#login_popup").classList.remove("none")
+    }
+  </script>
+{% endblock %}

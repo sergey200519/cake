@@ -13,6 +13,8 @@ from authapp.models import User
 
 from django.db.models import Q
 
+import json
+
 # Create your views here.
 def login(request):
     
@@ -47,20 +49,26 @@ def login(request):
     
 
 def register(request):
+    errors_flag = False
+    popup = "null"
     if request.method == "POST":
         print("post --------------------------------------->")
         form = UserRegisterForm(data=request.POST)
         if form.is_valid():
                 print("valid                 --------------------------------------->")
                 form.save()
-                return HttpResponseRedirect(reverse("authapp:login"))
+                popup = "'login'"
         else:
+            popup = "'reg'"
             messages.set_level(request, messages.ERROR)
             messages.error(request, form.errors)
             print(form.errors, "------------------->errors")
 
+        
+
     login_form = UserLoginForm()
     register_form = form
+
     context = {
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
@@ -68,7 +76,8 @@ def register(request):
         "products": Products.objects.all(),
         "img_products": ImgProducts.objects.all(),
         "login_form": login_form,
-        "register_form": register_form
+        "register_form": register_form,
+        "popup": popup
     }
 
     return render(request, "mainapp/index.html", context=context)

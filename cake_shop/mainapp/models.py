@@ -1,9 +1,21 @@
 from typing import Any
 from django.db import models
 
+from authapp.models import User
+
 # Create your models here.
 class ProductCategories(models.Model):
+    EXCLUSIVE = "exclusive"
+    NOTEXCLUSIVE = "notexclusive"
+
+    EXCLUSIVE_CHOICES = (
+        (EXCLUSIVE, "эксклюзив"),
+        (NOTEXCLUSIVE, "не эксклюзив"),
+    )
+
     name = models.CharField(max_length=64)
+    exclusive = models.CharField(verbose_name="Эсклюзивность",choices=EXCLUSIVE_CHOICES, max_length=15, default=EXCLUSIVE_CHOICES[1])
+    сount_not_exclusive = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -13,6 +25,14 @@ class ProductCategories(models.Model):
 
 
 class Products(models.Model):
+    EXCLUSIVE = "exclusive"
+    NOTEXCLUSIVE = "notexclusive"
+
+    EXCLUSIVE_CHOICES = (
+        (EXCLUSIVE, "эксклюзив"),
+        (NOTEXCLUSIVE, "не эксклюзив"),
+    )
+
     name = models.TextField(verbose_name="Название")
     ingredients = models.CharField(verbose_name="Ингредиенты", max_length=128)
     category = models.ForeignKey(ProductCategories, on_delete=models.CASCADE, verbose_name="Категория")
@@ -33,11 +53,12 @@ class Products(models.Model):
     article_two_thousand = models.PositiveIntegerField(verbose_name="Артиул 2000г", unique=True)
     price_two_thousand = models.DecimalField(verbose_name="Цена 2000г", max_digits=10, decimal_places=2)
 
+    exclusive = models.CharField(verbose_name="Эсклюзивность",choices=EXCLUSIVE_CHOICES, max_length=15, default=EXCLUSIVE_CHOICES[1])
 
     rating = models.FloatField(null=True, blank=True, default=0)
     summ_rating = models.FloatField(null=True, blank=True, default=0)
     count_reviews = models.PositiveIntegerField(null=True, blank=True, default=0)
-    
+
 
     def __str__(self):
         return f"{self.name} | {self.category}"
@@ -45,6 +66,15 @@ class Products(models.Model):
     class Meta:
         verbose_name_plural = "Продукты"
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+        if self.exclusive == "notexclusive":
+            self.category.сount_not_exclusive += 1
+            self.category.save()
+        elif self.exclusive == "exclusive" and self.category.exclusive == "notexclusive":
+            self.category.exclusive = "exclusive"
+            self.category.save()
 
 class ImgProducts(models.Model):
     image = models.ImageField(upload_to='cakes_images', verbose_name="Фото", blank=True)
@@ -77,6 +107,8 @@ class Reviews(models.Model):
     rating = models.FloatField(null=True, blank=True, default=0)
     text = models.TextField(verbose_name="Коментарий")
     product = models.ForeignKey(Products, on_delete=models.CASCADE, default=None)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_add = models.DateTimeField(auto_now_add=True)
 
 
     def save(self, *args, **kwargs):

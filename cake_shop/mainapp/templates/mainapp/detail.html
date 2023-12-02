@@ -1,0 +1,154 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+
+  
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/swiper.css' %}">
+    <link rel="stylesheet" href="{% static 'style/componets/card_detail.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+{% endblock %}
+
+{% block popups %}
+  <div class="popupwrapper none" id="zoompopup">
+    <div class="popupwrapper__popup zoom">
+      <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none">
+          <g id="close">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M6.21991 6.21479C6.51281 5.92189 6.98768 5.92189 7.28057 6.21479L17.7854 16.7196C18.0783 17.0125 18.0783 17.4874 17.7854 17.7803C17.4925 18.0732 17.0177 18.0732 16.7248 17.7803L6.21991 7.27545C5.92702 6.98255 5.92702 6.50768 6.21991 6.21479Z"
+              fill="#000000" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M17.7853 6.21479C18.0782 6.50769 18.0782 6.98256 17.7853 7.27545L7.28038 17.7802C6.98749 18.0731 6.51261 18.0731 6.21972 17.7802C5.92683 17.4873 5.92683 17.0124 6.21973 16.7195L16.7247 6.21478C17.0176 5.92189 17.4924 5.9219 17.7853 6.21479Z"
+              fill="#000000" />
+          </g>
+        </svg></div>
+      <!-- <img class="zoom__img" src="" alt="" srcset=""> -->
+      <div class="swiper">
+        <div class="left_event left"><img src="{% static 'img/left.png' %}" alt=""></div>
+        <div class="right_event right"><img src="{% static 'img/right.png' %}" alt=""></div>
+        <div class="content_swiper">
+
+          {% for img in img_products %}
+              <img src="{{ img.image.url }}" alt="">
+          {% endfor %}
+    
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock popups %}
+
+{% block content %}
+<main class="main container">
+  <div class="main__left section_swiper">
+    <div class="swiper-container gallery-top">
+      <div class="swiper-wrapper">
+          {% for img in img_products %}
+              <div class="swiper-slide" data-zoom="zoom" data-popup-link="zoompopup"
+              style="background-image:url({{ img.image.url }})"></div>
+          {% endfor %}
+      </div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next swiper-button-white"></div>
+      <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+    <div class="swiper-container gallery-thumbs">
+      <div class="swiper-wrapper">
+        {% for img in img_products %}
+        <div class="swiper-slide" style="background-image:url({{ img.image.url }})"></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="main__right">
+    <div class="main__list__category">
+      <p class="main__right__categorytext">--- {{ products.category }} ---</p>
+    </div>
+    <h2 class="main__list__name">{{ products.name }}</h2>
+    <div class="main__right__ingredient">
+      <p class="main__list__compound">{{ products.ingredients }}</p>
+    </div>
+    <div class="main__right__weight">
+      <p class="main__right__weighttext">Вес товара, г</p>
+      <ul class="main__weight__list flex">
+        <li class="main__weight__link tabs-nav__btn--active" data-path="one" tabindex="0">400</li>
+        <li class="main__weight__link" data-path="two" tabindex="0">600</li>
+        <li class="main__weight__link" data-path="three" tabindex="0">800</li>
+        <li class="main__weight__link" data-path="four" tabindex="0">1000</li>
+        <li class="main__weight__link" data-path="five" tabindex="0">2000</li>
+      </ul>
+      <div class="main__weight__container tabs-item tabs-item--active" data-target="one">
+        <div class="card__item__two">{{ products.price_four_hundred }} руб.</div>
+        <div class="main__right__article">
+          <p class="main__right__articletext">Артикул: {{ products.article_four_hundred }}</p>
+        </div>
+      </div>
+      <div class="main__weight__container tabs-item" data-target="two">
+        <div class="card__item__two">{{ products.price_six_hundred }} руб.</div>
+        <div class="main__right__article">
+          <p class="main__right__articletext">Артикул: {{ products.article_six_hundred }}</p>
+        </div>
+      </div>
+      <div class="main__weight__container tabs-item" data-target="three">
+        <div class="card__item__two">{{ products.price_eight_hundred }} руб.</div>
+        <div class="main__right__article">
+          <p class="main__right__articletext">Артикул: {{ products.article_eight_hundred }}</p>
+        </div>
+      </div>
+      <div class="main__weight__container tabs-item" data-target="four">
+        <div class="card__item__two">{{ products.price_one_thousand }} руб.</div>
+        <div class="main__right__article">
+          <p class="main__right__articletext">Артикул: {{ products.article_one_thousand }}</p>
+        </div>
+      </div>
+      <div class="main__weight__container tabs-item" data-target="five">
+        <div class="card__item__two">{{ products.price_two_thousand }} руб.</div>
+        <div class="main__right__article">
+          <p class="main__right__articletext">Артикул: {{ products.article_two_thousand }}</p>
+        </div>
+      </div>
+      <div class="main__button flex">
+        <a class="main__righ__button button" href="#">В корзину</a>
+        <a class="main__righ__buttontwo buttontwo" href="">Купить</a>
+      </div>
+    </div>
+    <div class="main__right__discription">
+      <p class="main__list__text">{{ products.description }}</p>
+    </div>
+  </div>
+</main>
+
+{% include "mainapp/reviews.html" %}
+
+{% endblock %}
+
+
+
+{% block script %}
+  <script src="{% static 'script/swiper.js' %}"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      freeMode: true,
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true,
+    });
+    var galleryTop = new Swiper('.gallery-top', {
+      spaceBetween: 10,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      thumbs: {
+        swiper: galleryThumbs
+      }
+    });
+  </script>
+  <script src="{% static 'script/detaile.js' %}"></script>
+  <script src="{% static 'script/star.js' %}"></script>
+  <script src="{% static 'script/file__add.js' %}"></script>
+  <script type="module" src="{% static 'script/zoom.js' %}"></script>
+{% endblock  %}

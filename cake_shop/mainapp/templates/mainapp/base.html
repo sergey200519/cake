@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{% static 'style/registerform.css' %}">
   {% block style %}
   
-  {% endblock style %}
+  {% endblock %}
   <title>{{ title }}</title>
 </head>
 
@@ -40,7 +40,11 @@
 
   {% include "mainapp/popups/mypage_popup.html" %}
 
+  <!-- ***** other popups ***** -->
+
+  {% block popups %}
   
+  {% endblock %}
 
   <!-- ***** header ***** -->
 
@@ -50,7 +54,7 @@
         <button class="header__burger__btn" id="burger">
           <span></span><span></span><span></span>
         </button>
-        <a href="/index.html">
+        <a href="{% url 'mainapp:index' %}">
           <picture class="header__logo">
             <img class="header__logo__img" src="{% static 'img/header-logonew.png' %}">
           </picture>
@@ -139,7 +143,7 @@
 
   {% block content %}
   
-  {% endblock content %}
+  {% endblock %}
 
 
 
@@ -208,14 +212,13 @@
   <script defer src="{% static 'script/swiper-main.js' %}"></script>
   <script src="{% static 'script/burger.js' %}"></script>
   <script type="module" src="{% static 'script/product.js' %}"></script>
-  <script type="module" src="{% static 'script/script.js' %}"></script>
   <script type="module" src="{% static 'script/login.js' %}"></script>
   <script type="module" src="{% static 'script/registerForm.js' %}"></script>
   <script type="module" src="{% static 'script/footer.js' %}"></script>
   <script src="{% static 'script/my__page.js' %}"></script>
   <script type="module" src="{% static 'script/popup.js' %}"></script>
   {% block script %}
-  {% endblock script %}
+  {% endblock %}
 </body>
 
 </html>

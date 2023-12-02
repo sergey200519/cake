@@ -4,7 +4,7 @@
     {% if product.category == product_category %}
 
     <li class="product card">
-        <a href="/pages/card__one.html">
+        <a href="{% url 'mainapp:detail' product.id %}">
         <div class="product__image">
             <div class="product__switch image-switch">
                 {% for img in img_products %}
@@ -27,13 +27,18 @@
             <p class="list__compound card__item">{{ product.ingredients }}</p>
             </div>
             <div class="list__link">
-            <ul class="flex">
-                <li class="list__link__item"><img class="list__star" src="{% static 'img/star.png' %}" alt="#"></li>
-                <li class="list__link__item df"><a class="list__link__rating" href="#">4.9</a></li>
-                <li class="list__link__item"><a class="list__link__reviews" href="#">.</a></li>
-                <li class="list__link__item mt-2"><a class="list__link__reviews"
-                    href="/pages/card__one.html#reviews__test">19 отзывов</a></li>
-            </ul>
+              {% if product.count_reviews == 0 %}
+                <p>Нет отзывов</p>
+              {% else %}
+                <ul class="flex">
+                  <li class="list__link__item"><img class="list__star" src="{% static 'img/star.png' %}" alt="#"></li>
+                  <li class="list__link__item df"><a class="list__link__rating" href="#">{{ product.rating }}</a></li>
+                  <li class="list__link__item"><a class="list__link__reviews" href="#">.</a></li>
+                  <li class="list__link__item mt-2"><a class="list__link__reviews"
+                      href="/pages/card__one.html#reviews__test">{{ product.count_reviews }} отзывов</a></li>
+              </ul>
+              {% endif %}
+            
             </div>
         </div>
         <p class="list__right__weighttext card__item">Вес товара, г</p>
