@@ -1,8 +1,10 @@
 from django import forms
+from django.db import models
 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 
-from authapp.models import User
+from authapp.models import User, ImgUser
+from phonenumber_field.modelfields import PhoneNumberField
 
 class UserLoginForm(AuthenticationForm):
 
@@ -44,3 +46,27 @@ class UserRegisterForm(UserCreationForm):
         self.fields["date_of_birth"].widget.attrs["class"] = "register__form__input register__form__input_date"
         self.fields["password2"].widget.attrs["class"] = "register__form__input width-200 register__form__input_date"
         
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ("image", "first_name", "last_name", "patronymic",
+                  "username", "date_of_birth", "gender", "phone",
+                  "email", "address")
+        
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+
+        self.fields["date_of_birth"] = forms.DateField(widget=DateInput,required=True)
+        # self.fields["image"] = forms.ImageField()
+
+        for filed_name , field in self.fields.items():
+            field.widget.attrs["class"] = "form__input"
+        
+        self.fields["gender"].widget.attrs["class"] = "none"
+
+        self.fields["image"].widget.attrs["class"] = "none"
+        self.fields["image"].widget.attrs["id"] = "mypage__photoi"
+        self.fields["image"].widget.attrs["accept"] = ".jpg,.jpeg,.svg,.png"
+
+
+

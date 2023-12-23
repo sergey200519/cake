@@ -6,6 +6,7 @@ const popupLinks = document.querySelectorAll("[data-popup-link]");
 
 class Popup {
     constructor(popupLink) {
+        
         this.popupLink = popupLink;
         this.popup = document.querySelector(`#${this.popupLink.getAttribute("data-popup-link")}`)
         this.popupBody = this.popup.querySelector(".popupwrapper__popup")
@@ -15,7 +16,7 @@ class Popup {
         if (this.popupBody.nodeName == "FORM") {
             this.popupInputs.forEach(input => {
                 changeLabel(input)
-                input.addEventListener("focus", (e) =>  {
+                input.addEventListener("focus", (e) => {
                     changeLabel(e.target)
                 })
                 input.addEventListener("blur", (e) => {
@@ -29,7 +30,7 @@ class Popup {
         this.popupLink.addEventListener("click", () => {
             self.popupOpen()
         })
-        
+
         this.popupCloseEl.addEventListener("click", () => {
             self.popupClose()
         });
@@ -59,5 +60,9 @@ class Popup {
 }
 
 popupLinks.forEach(element => {
-    new Popup(element)
+    try {
+        new Popup(element)
+    } catch (err) {
+        console.log("Failed open popup");
+    }
 })

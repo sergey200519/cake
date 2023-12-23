@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     "mainapp",
     "authapp",
 
-    "phonenumber_field"
+    "phonenumber_field",
+
+    # "authapp.apps.AuthappConfig"
 ]
 
 MIDDLEWARE = [

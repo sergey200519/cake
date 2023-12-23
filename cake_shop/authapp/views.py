@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from django.template import RequestContext
+from django.views.generic import DetailView, UpdateView
 
 
 from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 from authapp.forms import UserLoginForm, UserRegisterForm
 from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides
-from authapp.models import User
+from authapp.models import User, ImgUser
 
 from django.db.models import Q
+
+from authapp.forms import UserProfileForm
 
 import json
 
@@ -87,3 +90,56 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse("mainapp:index"))
+
+def profile_edit(request):
+    print(request.method, "<--------------------------------", request.method == "POST")
+    if request.method == "POST":
+        form = UserProfileForm(data=request.POST,files=request.FILES,instance=request.user)
+        print(form.is_valid())
+        if form.is_valid():
+            form.save()
+
+        else:
+            print(form.errors, "<-------------------------------- erros")
+            print(form.data)
+            
+    context = {
+        "title": "Главная",
+        "swiper_slides": SwiperSlides.objects.all(),
+        "product_categories": ProductCategories.objects.all(),
+        "products": Products.objects.all(),
+        "img_products": ImgProducts.objects.all(),
+        "popup": "null"
+    }
+
+    return render(request, "mainapp/index.html", context=context)
+
+
+
+# class ProfileFormView(UpdateView,BaseClassContextMixin,UserDispatchMixin):
+#     # model = User
+#     form_class = UserProfileForm
+#     success_url = reverse_lazy('authapp:index')
+
+
+#     def post(self, request, *args, **kwargs):
+#         form =UserProfileForm(data=request.POST,files=request.FILES,instance=request.user)
+#         profile_form = UserProfileEditForm(data=request.POST,files=request.FILES,instance=request.user.userprofile)
+#         if form.is_valid() and profile_form.is_valid():
+#             form.save()
+#         return redirect(self.success_url)
+
+#     def get_context_data(self, **kwargs):
+#         context = super(ProfileFormView, self).get_context_data()
+#         context['profile'] = UserProfileEditForm(instance=self.request.user.userprofile)
+#         return context
+
+
+#     def form_valid(self, form):
+#         messages.set_level(self.request,messages.SUCCESS)
+#         messages.success(self.request,'Вы успешно сохранили профиль')
+#         super().form_valid(form)
+#         return HttpResponseRedirect(self.get_success_url())
+
+#     def get_object(self, queryset=None):
+#         return User.objects.get(id=self.request.user.pk)

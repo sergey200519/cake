@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import DetailView
-from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides, Reviews
+from django.views.generic import DetailView, UpdateView
+from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides, Reviews, \
+    ExclusiveCategories, ExclusiveProducts, ImgExclusive
 
 from django.contrib import auth
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
-from authapp.forms import UserLoginForm, UserRegisterForm
+from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from mainapp.forms import ReviewsForm
 
 # Create your views here.
@@ -15,11 +16,11 @@ def index(request):
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
         "product_categories": ProductCategories.objects.all(),
-        "products": Products.objects.filter(exclusive="notexclusive"),
+        "products": Products.objects.all(),
         "img_products": ImgProducts.objects.all(),
         "popup": "null"
     }
-    return  render(request,'mainapp/index.html', context=context)
+    return render(request, "mainapp/index.html", context=context)
 
 
 class ProductDetail(DetailView):
@@ -60,3 +61,28 @@ def add_review(request, pk):
         else:
             print(form.errors, "------------------->errors")
     return  HttpResponseRedirect(reverse("mainapp:detail", args=(pk,)))
+
+def exclusive(request):
+    context = {
+        "title": "Эксклюзивы",
+        "swiper_slides": SwiperSlides.objects.all(),
+        "exclusive_categories": ExclusiveCategories.objects.all(),
+        "exclusives": ExclusiveProducts.objects.all(),
+        "img_exclusives": ImgExclusive.objects.all(),
+    }
+    return  render(request,'mainapp/exclusive.html', context=context)
+
+
+class ExclusiveDetail(DetailView):
+    model = ExclusiveProducts
+    template_name = "mainapp/detail_ex.html"
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["products"] = context["object"]
+        context["title"] = context["products"].name
+        context["img_products"] = ImgExclusive.objects.filter(exclusive=self.kwargs["pk"])
+        return context
+    

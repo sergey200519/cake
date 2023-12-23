@@ -37,8 +37,10 @@
   {% include "mainapp/popups/registration_popup.html" %}
 
   <!-- ***** mypage ***** -->
-
-  {% include "mainapp/popups/mypage_popup.html" %}
+  {% if user.is_authenticated %}
+    {% include "mainapp/popups/mypage_popup.html" %}
+  {% endif %}
+  
 
   <!-- ***** other popups ***** -->
 
@@ -66,7 +68,7 @@
               <a href="/pages/about__max.html" class="header__item__link">О нас
               </a>
             </li>
-            <li class="header__item"><a href="/pages/exclusive.html" class="header__item__link">
+            <li class="header__item"><a href="{% url 'mainapp:exclusive' %}" class="header__item__link">
                 Эксклюзив
               </a></li>
             <li class="header__item"><a href="/pages/partners.html" class="header__item__link">
@@ -215,7 +217,9 @@
   <script type="module" src="{% static 'script/login.js' %}"></script>
   <script type="module" src="{% static 'script/registerForm.js' %}"></script>
   <script type="module" src="{% static 'script/footer.js' %}"></script>
-  <script src="{% static 'script/my__page.js' %}"></script>
+  {% if user.is_authenticated %}
+    <script src="{% static 'script/my__page.js' %}"></script>
+  {% endif %}
   <script type="module" src="{% static 'script/popup.js' %}"></script>
   {% block script %}
   {% endblock %}

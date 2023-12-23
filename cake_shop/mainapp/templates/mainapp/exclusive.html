@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+
+  
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/componets/slide__carts__exclusive.css' %}">
+    <link rel="stylesheet" href="{% static 'style/exclusive.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+  
+    <!--***** list *****-->
+
+    <section class="list">
+      {% for exclusive_category in exclusive_categories %}
+          <div class="container">        
+              <h2 class="second__level__heading mb-20">{{ exclusive_category.name }}</h2>
+              <ul class="list__cakes">
+                  {% include 'mainapp/exclusive_products.html' %}
+              </ul>
+          </div>
+      {% endfor %}
+      </section>
+      
+{% endblock %}
+
+{% block script %}
+  <script type="module" src="{% static 'script/script.js' %}"></script>
+{% endblock %}

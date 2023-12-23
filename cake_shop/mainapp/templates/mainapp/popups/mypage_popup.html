@@ -1,7 +1,9 @@
 {% load static %}
 
 <section class="popupwrapper none mypage" id="mypage__popup">
-    <form class="form mypage__form popupwrapper__popup" action="/user/login/" method="post">
+    <form class="form mypage__form popupwrapper__popup" action="{% url 'authapp:profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% comment %} {{ profile_form.as_p }} {% endcomment %}
        <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g >
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -16,41 +18,47 @@
         <div class="flex mypage__link">
             <div class="mypage__photo__left">
                 <div class="mypage__photo">
-                    <label for="mypage__photoi" class="mypage__photo__link"><img src="{% static 'img/user.svg' %}"
+                    <label for="mypage__photoi" class="mypage__photo__link"><img src="{{ user.image.url }}"
                             class="mypage__photo__img" alt=""></label>
                 </div>
-                <input type="file" class="none" id="mypage__photoi" accept=".jpg,.jpeg,.svg,.png">
+                {{ profile_form.image }}
+                
+                {% comment %} <input type="file" class="none" id="mypage__photoi" accept=".jpg,.jpeg,.svg,.png"> {% endcomment %}
                 <!-- <label for="mypage__photoi" class="button">Изменить фото</label> -->
 
             </div>
             <div class="form__style__two">
                 <div class="form__group">
-                    <input class="form__input" placeholder=" " type="text">
+                    {{ profile_form.first_name }}
+                    {% comment %} <input class="form__input" placeholder=" " type="text"> {% endcomment %}
                     <label class="form__label">Имя</label>
                 </div>
                 <div class="form__group">
-                    <input class="form__input" placeholder=" " type="text">
+                    {{ profile_form.last_name }}
                     <label class="form__label">Фамилия</label>
                 </div>
                 <div class="form__group">
-                    <input class="form__input" placeholder=" " type="text">
+                    {{ profile_form.patronymic }}
+                    {% comment %} <input class="form__input" placeholder=" " type="text"> {% endcomment %}
                     <label class="form__label">Отчество</label>
                 </div>
 
                 <div class="form__group">
-                    <input class="form__input" placeholder=" " type="text">
+                    {{ profile_form.username }}
+                    {% comment %} <input class="form__input" placeholder=" " type="text"> {% endcomment %}
                     <label class="form__label">Имя пользователя</label>
                 </div>
             </div>
         </div>
         <div class="form__group">
-            <input class="form__input" type="date" name="trip-start">
+            {{ profile_form.date_of_birth }}
+            {% comment %} <input class="form__input" type="date" name="trip-start"> {% endcomment %}
             <label class="form__label">Дата рождения</label>
         </div>
         <h4 class="form__title__gender">Пол</h4>
         <div class="form__style form__style__gender flex ">
+            {{ profile_form.gender }}
             <div class="radio">
-
                 <input class="radio__input" name="male" type="radio" id="radio_m">
                 <label class="radio__label" for="radio_m">Мужской</label>
             </div>
@@ -62,18 +70,21 @@
         </div>
         <div class="form__style flex">
             <div class="form__group flex">
-                <input class="form__input" placeholder="" type="tel">
+                {{ profile_form.phone }}
+                {% comment %} <input class="form__input" placeholder="" type="tel"> {% endcomment %}
                 <label class="form__label">Телефон</label>
             </div>
             <div class="form__group flex">
-                <input class="form__input" placeholder=" " type="email">
+                {{ profile_form.email }}
+                {% comment %} <input class="form__input" placeholder=" " type="email"> {% endcomment %}
                 <label class="form__label">E-mail:</label>
             </div>
         </div>
         <div class="form__group flex">
-            <input class="form__input" placeholder=" " type="text">
+            {{ profile_form.address }}
+            {% comment %} <input class="form__input" placeholder=" " type="text"> {% endcomment %}
             <label class="form__label">Адрес</label>
         </div>
-        <a class="form__button button" onclick="printmsg()" href="https://ya.ru/">Сохранить</a>
+        <input type="submit" value="Сохранить" class="form__button button">
     </form>
 </section>

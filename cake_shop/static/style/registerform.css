@@ -99,12 +99,21 @@
 }
 
 
-.register__form__input:focus~.register__form__label,
-.register__form__input:not(:placeholder-shown)~.register__form__label {
+.register__form__input:focus~.register__form__label {
   top: -18px;
   font-size: 12px;
   color: var(--gray-gray);
 }
+
+.register__form__input_date:focus~.register__form__label,
+.register__form__input_date:not(:placeholder-shown)~.register__form__label {
+  top: -18px;
+  font-size: 12px;
+  color: var(--gray-gray);
+}
+
+
+
 
 .register__form__style {
   justify-content: space-between;

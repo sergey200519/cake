@@ -25,3 +25,4 @@ mypagePhotoI.addEventListener("input", () => {
     fileRead.readAsDataURL(mypagePhotoI.files[0]);
 })
 
+console.log(mypagePhotoI.value);
