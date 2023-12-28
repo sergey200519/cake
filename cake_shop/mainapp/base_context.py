@@ -10,7 +10,7 @@ def base_context(request):
     user = request.user
     if user.is_authenticated:
         data = {
-            "image": user.image.url,
+            # "image": user.image.url,
             "first_name": user.first_name,
             "last_name": user.last_name,
             "patronymic": user.patronymic,

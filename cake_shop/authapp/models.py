@@ -14,7 +14,7 @@ class User(AbstractUser):
         (FEMALE,"Женский"),
     )
 
-    image = models.ImageField(upload_to='users_image',blank=True)
+    image = models.ImageField(upload_to='users_image', null=True, blank=True)
 
     phone = PhoneNumberField(unique=True, blank=True, verbose_name="Номер телефона")
     email = models.EmailField(unique=True, blank=True, verbose_name="Электроная почта")
@@ -22,6 +22,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождение")
     address = models.CharField(verbose_name="Адресс", blank=True, max_length=200)
     patronymic = models.CharField(verbose_name="Отчество", max_length=150)
+
 
 class ImgUser(models.Model):
     image = models.ImageField(upload_to='users_img', verbose_name="Фото", blank=True)

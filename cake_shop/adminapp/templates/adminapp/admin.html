@@ -1,0 +1,32 @@
+{% extends 'adminapp/admin_base.html' %}
+
+
+
+{% block content %}
+    <section class="admin">
+        <div class="container">
+        <div class="admin__container">
+            <h1 class="admin__info h-15">ADMIN</h1>
+            <div class="g-20">
+            <ul class="admin__link">
+                <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:categories' %}">Категории</a></li>
+                <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:products' %}">Продукты</a></li>
+                <li class="admin__link__a"><a class="admin__link__item" href="/pages/orderlist.html">Заказы</a></li>
+            </ul>
+            <ul class="admin__link h-10">
+                <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:users' %}">Пользователи</a>
+                </li>
+                <li class="admin__link__a"><a class="admin__link__item" href="/pages/support.html">Потдержка</a></li>
+                <li class="admin__link__a"><a class="admin__link__item" href="/pages/promo.html">Промокоды</a></li>
+            </ul>
+            <ul class="admin__link">
+                <li class="admin__link__a admin__orders"><a class="admin__link__item admin__link__orders"
+                    href="/pages/slider.html">Слайдеры</a></li>
+                <li class="admin__link__a admin__reviews"><a class="admin__link__item admin__link__orders"
+                    href="/pages/reviews.html">Отзывы</a></li>
+            </ul>
+            </div>
+        </div>
+        </div>
+    </section>
+{% endblock %}

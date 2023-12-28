@@ -18,8 +18,14 @@
         <div class="flex mypage__link">
             <div class="mypage__photo__left">
                 <div class="mypage__photo">
-                    <label for="mypage__photoi" class="mypage__photo__link"><img src="{{ user.image.url }}"
+                    {% if user.image %}
+                        <label for="mypage__photoi" class="mypage__photo__link"><img src="{{ user.image.url }}"
                             class="mypage__photo__img" alt=""></label>
+                    {% else %}
+                    <label for="mypage__photoi" class="mypage__photo__link"><img src="{% static 'img/user.svg' %}" class="mypage__photo__img"
+                        alt=""></label>
+                    {% endif %}
+                    
                 </div>
                 {{ profile_form.image }}
                 

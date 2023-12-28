@@ -1,0 +1,219 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'style/products.css' %}">
+    <link rel="stylesheet" href="{% static 'style/addproduct.css' %}">
+
+{% endblock %}
+    
+
+{% block content %}
+    <!------ addproduct ------>
+
+    <section class="popupwrapper none" id="addproduct">
+        <form class="addproduct__form popupwrapper__popup" action="{% url 'adminapp:product_create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="popupwrapper__clouse">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="close">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M6.21991 6.21479C6.51281 5.92189 6.98768 5.92189 7.28057 6.21479L17.7854 16.7196C18.0783 17.0125 18.0783 17.4874 17.7854 17.7803C17.4925 18.0732 17.0177 18.0732 16.7248 17.7803L6.21991 7.27545C5.92702 6.98255 5.92702 6.50768 6.21991 6.21479Z"
+                            fill="#000000" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M17.7853 6.21479C18.0782 6.50769 18.0782 6.98256 17.7853 7.27545L7.28038 17.7802C6.98749 18.0731 6.51261 18.0731 6.21972 17.7802C5.92683 17.4873 5.92683 17.0124 6.21973 16.7195L16.7247 6.21478C17.0176 5.92189 17.4924 5.9219 17.7853 6.21479Z"
+                            fill="#000000" />
+                    </g>
+                </svg>
+            </div>
+            <h1 class="addproduct__form__title">Добавление продукта</h1>
+            <div class="addproduct__form__group flex">
+                {{ form.name }}
+                <label class="addproduct__form__label">Наименование продукта</label>
+            </div>
+            <div class="addproduct__form__group flex">
+                {{ form.ingredients }}
+                <label class="addproduct__form__label">Ингредиенты</label>
+            </div>
+            <p class="generate products__link__item  mb-20">сгенерировать</p>
+            <h2 class="addproduct__text__one">Вес(гр)</h2>
+            <div class="flex">
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">400</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_four_hundred }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_four_hundred }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">600</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_six_hundred }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_six_hundred }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">800</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_eight_hundred }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_eight_hundred }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">1000</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_one_thousand }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_one_thousand }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">2000</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_two_thousand }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_two_thousand }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+            </div>
+            <div class="addproduct__form__group flex">
+                {{ form.description }}
+                <label class="addproduct__form__label">Описание</label>
+            </div>
+            <div class="addproduct__form__group">
+                <p><label for="id_category">Категория:</label>
+                    {{ form.category }}
+                    {% comment %} <select name="category" required id="id_category">
+                        <option value="" selected>---------</option>
+                        <option value="1">мороженное</option>
+                    </select> {% endcomment %}
+                </p>
+            </div>
+            <div class="addproduct__btns flex">
+                <div class="raviews__file">
+                    {% comment %} <input class="inputfile" type="file" name="file" id="file"
+                        data-multiple-caption="{count} файлов выбрано" multiple> {% endcomment %}
+                    {{ formset.files }}
+                    <label for="file"><span class="addproduct__file">Добавить фото</span></label>
+                </div>
+                <div class="addproduct__button">
+                    {% comment %} <a class="addproduct-button__add button">Добавить</a> {% endcomment %}
+                    <input class="addproduct-button__add button" value="Добавить" type="submit">
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="products">
+        <div class="container">
+            <h1 class="products__info mb-5">Продукты</h1>
+            <ul class="products__link mb-5">
+                <li class="products__link__a"><a class="products__link__itemone" href="{% url 'adminapp:index' %}">Назад</a>
+                </li>
+                <li class="products__link__a"><a class="products__link__item" data-popup-link="addproduct">Добавить
+                        продукт</a></li>
+            </ul>
+            <div class="table-responsive">
+                <table class="products__table">
+                    <thead class="products__table__header">
+                        <tr>
+                            <td class="products__header__bold">№</td>
+                            <td class="products__header__bold">Продукты</td>
+                            <td class="products__header__bold">Категория</td>
+                            <td class="products__header__bold">Ингредиенты</td>
+                            <td class="products__header__bold">Цена (кг/руб)</td>
+                            <td class="products__header__bold">-----</td>
+                            <td class="products__header__bold">-----</td>
+                            <td class="products__header__bold">-----</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr class="products__table__body">
+                                <td class="products__header__regular">{{ product.id }}</td>
+                                <td class="products__header__regular">{{ product.name }}</td>
+                                <td class="products__header__regular">{{ product.category }}</td>
+                                <td class="products__header__regular">{{ product.ingredients }}</td>
+                                <td class="products__header__regular">{{ product.price_one_thousand }}</td>
+                                <td class="products__header__regular"><a class="products_a"
+                                        href="{% url 'mainapp:detail' product.id %}">Просмотреть</a></td>
+                                <td class="products__header__regular"><a class="products_a"
+                                        href="{% url 'adminapp:product_update' product.id %}">Изменить</a></td>
+                                <td class="products__header__regular"><a class="products_a del_item"
+                                        href="{% url 'adminapp:product_remove' product.id %}">удалить</a></td>
+                            </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'script/file__add.js' %}"></script>
+    <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
+    <script>
+        let articles = {{ data }};
+
+        let articlesList = []
+
+
+        articles.forEach(article => {
+            articlesList.push(...article)
+        })
+
+        document.querySelector(".generate").addEventListener("click", generate)
+
+        function generate() {
+            articleFourHundred = document.querySelector("input[name='article_four_hundred']")
+            articleSixHundred = document.querySelector("input[name='article_six_hundred']")
+            articleEightHundred = document.querySelector("input[name='article_eight_hundred']")
+            articleOneThousand = document.querySelector("input[name='article_one_thousand']")
+            articleTwoThousand = document.querySelector("input[name='article_two_thousand']")
+
+
+            max = Math.max.apply(null, articlesList);
+
+            articleFourHundred.value =  max + 1
+            articleSixHundred.value = max + 2
+            articleEightHundred.value = max + 3
+            articleOneThousand.value = max + 4
+            articleTwoThousand.value = max + 5
+        }
+    </script>
+{% endblock %}
+
+    

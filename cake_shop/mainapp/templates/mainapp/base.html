@@ -61,31 +61,7 @@
             <img class="header__logo__img" src="{% static 'img/header-logonew.png' %}">
           </picture>
         </a>
-        <nav class="header__menu">
-          <div class="whiteblock"></div>
-          <ul class="header__menu__list">
-            <li class="header__item">
-              <a href="/pages/about__max.html" class="header__item__link">О нас
-              </a>
-            </li>
-            <li class="header__item"><a href="{% url 'mainapp:exclusive' %}" class="header__item__link">
-                Эксклюзив
-              </a></li>
-            <li class="header__item"><a href="/pages/partners.html" class="header__item__link">
-                Партнеры
-              </a></li>
-            <li class="header__item"><a href="/pages/contacts__map.html" class="header__item__link">
-                Контакты
-              </a></li>
-            <li class="header__item display"><a class="header__item__link" data-popup-link="login_popup">Вход</a></li>
-            <li class="header__item display"><a class="header__item__link" data-popup-link="registration_popup">Регистрация</a></li>
-            <li class="header__item display"><a class="header__item__link" data-popup-link="mypage__popup">Моя страница</a></li>
-            <li class="header__item display"><a class="header__item__link" href="/pages/historyorder.html">Мои заказы</a></li>
-            <li class="header__item display"><a class="header__item__link" href="/pages/admin.html">ADMIN</a></li>
-            <li class="header__item display"><a class="header__item__link" href="/pages/password.html">Изменить пароль</a></li>
-            <li class="header__item display"><a class="header__item__link" href="#">Выход</a></li>
-          </ul>
-        </nav>
+        {% include "mainapp/menu/center_menu.html" %}
         <a class="header__recycle" data-popup-link="order">
 
           <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -111,30 +87,7 @@
                 style="fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none" />
             </g>
           </svg></a>
-        {% if not user.is_authenticated %}
-          <div class="contact__one">
-            <div class="header__bottoms display__two">
-              <a class="button__indent__a button button__indent" id="login" href="#" 
-                data-popup-link="login_popup">Вход</a>
-              <a class="button__indent__a button button__indent" id="registration" href="#"
-                data-popup-link="registration_popup">Регистрация</a>
-            </div>
-          </div>
-        {% else %}
-        <div class="header__other">
-            <button class="dropbutton button" id="сabinet">Кабинет</button>
-
-          <div class="drop-down">
-            <a class="header__item__linktwo" data-popup-link="mypage__popup">Моя страница</a>
-            <a class="header__item__linktwo" href="/pages/historyorder.html">Мои заказы</a>
-            {% if user.is_staff or user.is_superuser %}
-              <a class="header__item__linktwo" href="/pages/admin.html">ADMIN</a>
-            {% endif %}
-            <a class="header__item__linktwo" href="/pages/password.html">Изменить пароль</a>
-            <a class="header__item__linktwo" href="{% url 'authapp:logout' %}">Выход</a>
-          </div>
-        </div>
-        {% endif %}
+        {% include "mainapp/menu/desktop_menu.html" %}
       </div>
     </div>
   </header>

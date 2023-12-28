@@ -189,6 +189,7 @@
 }
 
 .addproduct-button__add {
+    background: transparent;
     width: 50%;
     padding: 1.2em;
 }
@@ -196,4 +197,7 @@
 .raviews__file {
     display: grid;
     width: 50%;
+}
+.generate {
+    text-align: center;
 }

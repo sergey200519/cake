@@ -1,0 +1,166 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'style/products.css' %}">
+    <link rel="stylesheet" href="{% static 'style/addproduct.css' %}">
+
+    <style>
+        .addproduct__form {
+            max-height: fit-content;
+            width: 80%;
+        }
+        .products__link__item {
+            text-align: center;
+        }
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .images li {
+            position: relative;
+            width: 19%;
+        }
+        .images li a {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+        }
+        .images img {
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}
+    
+
+{% block content %}
+    <!------ addproduct ------>
+
+
+        <form class="addproduct__form popupwrapper__popup" action="{% url 'adminapp:product_update' product.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1 class="addproduct__form__title">Изменения продукта</h1>
+            <div class="addproduct__form__group flex">
+                {{ form.name }}
+                <label class="addproduct__form__label">Наименование продукта</label>
+            </div>
+            <div class="addproduct__form__group flex">
+                {{ form.ingredients }}
+                <label class="addproduct__form__label">Ингредиенты</label>
+            </div>
+            <h2 class="addproduct__text__one">Вес(гр)</h2>
+            <div class="flex">
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">400</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_four_hundred }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_four_hundred }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">600</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_six_hundred }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_six_hundred }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">800</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_eight_hundred }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_eight_hundred }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">1000</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_one_thousand }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_one_thousand }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+                <div class="addproduct__item">
+                    <div class="addproduct__form__group flex">
+                        <h2 class="addproduct__text__two">2000</h2>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.price_two_thousand }}
+                        <label class="addproduct__form__label">Цена</label>
+                    </div>
+                    <div class="addproduct__form__group flex">
+                        {{ form.article_two_thousand }}
+                        <label class="addproduct__form__label">Артикул</label>
+                    </div>
+                </div>
+            </div>
+            <div class="addproduct__form__group flex">
+                {{ form.description }}
+                <label class="addproduct__form__label">Описание</label>
+            </div>
+            <div class="addproduct__form__group">
+                <p><label for="id_category">Категория:</label>
+                    {{ form.category }}
+                    {% comment %} <select name="category" required id="id_category">
+                        <option value="" selected>---------</option>
+                        <option value="1">мороженное</option>
+                    </select> {% endcomment %}
+                </p>
+            </div>
+            <ul class="images">
+                {% for file in files %}
+                    <li><img src="{{ file.image.url }}"></a> <a href="{% url 'adminapp:product_img_remove' file.id product.id %}"><img src="{% static 'img/close.svg' %}"></a></li>
+                {% empty %}
+                    <li>У этого продукта нет фото</li>
+                {% endfor %}
+            </ul>
+            <div class="addproduct__btns flex mb-20">
+                <div class="raviews__file">
+                    {% comment %} <input class="inputfile" type="file" name="file" id="file"
+                        data-multiple-caption="{count} файлов выбрано" multiple> {% endcomment %}
+                    {{ formset.files }}
+                    <label for="file"><span class="addproduct__file">Добавить фото</span></label>
+                </div>
+                <div class="addproduct__button">
+                    <input class="addproduct-button__add button" value="Сохранить" type="submit">
+                </div>
+            </div>
+            <a href="{% url 'adminapp:products' %}" class="products__link__item  mb-20">Выйти</a>
+        </form>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'script/file__add.js' %}"></script>
+{% endblock %}
+
+    

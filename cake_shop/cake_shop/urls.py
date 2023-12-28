@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("mainapp.urls", namespace="mainapp")),
     path("user/", include("authapp.urls", namespace="authapp")),
+    path("vip-admin/", include("adminapp.urls", namespace="adminapp")),
 ]
-urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

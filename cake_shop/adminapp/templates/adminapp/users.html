@@ -1,0 +1,80 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/registrationlist.css' %}">
+{% endblock %}
+    
+
+{% block content %}
+  <section class="registrationlist">
+    <div class="container">
+      <h1 class="registrationlist__info mb-5">Пользователи</h1>
+      <ul class="registrationlist__link mb-5">
+        <li class="registrationlist__link__a"><a class="registrationlist__link__itemone"
+            href="{% url 'adminapp:index' %}">Назад</a>
+        </li>
+      </ul>
+      <div class="table-responsive mb-5">
+        <table class="registrationlist__table">
+          <thead class="registrationlist__table__header">
+            <tr>
+              <td class="registrationlist__header__bold">№</td>
+              <td class="registrationlist__header__bold">Статус</td>
+              <td class="registrationlist__header__bold">Фамилия</td>
+              <td class="registrationlist__header__bold">Имя</td>
+              <td class="registrationlist__header__bold">Отчество</td>
+              <td class="registrationlist__header__bold">Имя пользователя</td>
+              <td class="registrationlist__header__bold">Дата рождения</td>
+              <td class="registrationlist__header__bold">Пол</td>
+              <td class="registrationlist__header__bold">Email@</td>
+              <td class="registrationlist__header__bold">Телефон</td>
+              <td class="registrationlist__header__bold">Город</td>
+              <td class="registrationlist__header__bold">-----</td>
+              <td class="registrationlist__header__bold">-----</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+              <tr class="registrationlist__table__body">
+                <td class="registrationlist__header__regular">{{ user.id }}</td>
+                {% if user.is_active %}
+                <td class="registrationlist__header__bold"><img src="{% static 'img/ок.svg' %}" alt=""></td>
+                {% else %}
+                <td class="registrationlist__header__bold"><img src="{% static 'img/clous.svg' %}" alt=""></td>
+                {% endif %}
+                <td class="registrationlist__header__regular">{{ user.last_name }}</td>
+                <td class="registrationlist__header__regular">{{ user.first_name }}</td>
+                <td class="registrationlist__header__regular">{{ user.patronymic }}</td>
+                <td class="registrationlist__header__regular">{{ user.username }}</td>
+                <td class="registrationlist__header__regular">{{ user.date_of_birth.day }}.{{ user.date_of_birth.month }}.{{ user.date_of_birth.year }}</td>
+                <td class="registrationlist__header__regular">{{ user.gender }}</td>
+                <td class="registrationlist__header__regular">{{ user.email }}</td>
+                <td class="registrationlist__header__regular">{{ user.phone }}</td>
+                <td class="registrationlist__header__regular">{{ user.address }}</td>
+  
+                <td class="registrationlist__header__regular"><a class="registrationlist_a"
+                    href="/detail/1/">Просмотреть</a></td>
+                <td class="registrationlist__header__regular">    
+                  {% if user.is_superuser %}
+                    Администратор
+                  {% elif user.is_active %}
+                    <a class="registrationlist_a"
+                      href="{% url 'adminapp:user_notactive' user.id %}">Забанить</a>
+                  {% else %}
+                  <a class="registrationlist_a"
+                      href="{% url 'adminapp:user_active' user.id %}">Активировать</a>
+                  {% endif %}
+                
+                </td>
+              </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% if not user.is_authenticated %}
+          <div class="contact__one">
+            <div class="header__bottoms display__two">
+              <a class="button__indent__a button button__indent" id="login" href="#" 
+                data-popup-link="login_popup">Вход</a>
+              <a class="button__indent__a button button__indent" id="registration" href="#"
+                data-popup-link="registration_popup">Регистрация</a>
+            </div>
+          </div>
+        {% else %}
+        <div class="header__other">
+            <button class="dropbutton button" id="сabinet">Кабинет</button>
+
+          <div class="drop-down">
+            <a class="header__item__linktwo" data-popup-link="mypage__popup">Моя страница</a>
+            <a class="header__item__linktwo" href="/pages/historyorder.html">Мои заказы</a>
+            {% if user.is_staff or user.is_superuser %}
+              <a class="header__item__linktwo" href="{% url 'adminapp:index' %}">ADMIN</a>
+            {% endif %}
+            <a class="header__item__linktwo" href="/pages/password.html">Изменить пароль</a>
+            <a class="header__item__linktwo" href="{% url 'authapp:logout' %}">Выход</a>
+          </div>
+        </div>
+        {% endif %}
