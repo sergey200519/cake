@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic import ListView, TemplateView, CreateView, DeleteView, UpdateView, DetailView
 
-from mainapp.models import Products, ProductCategories, ImgProducts
+from mainapp.models import Products, ProductCategories, ImgProducts, Reviews
 from mainapp.mixin import CustomDispatchMixin
 
 from authapp.models import User
@@ -241,3 +241,36 @@ def admin_user_active(request, pk):
     user.is_active = True
     user.save()
     return HttpResponseRedirect(reverse("adminapp:users"))
+
+
+
+class ReviewsListView(ListView, CustomDispatchMixin):
+    model = Reviews
+    template_name = "adminapp/reviews.html"
+    context_object_name = "reviews"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Отзывы"
+        return context
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_review_approve(request, pk):
+    review = Reviews.objects.get(id=pk)
+    review.status = "active"
+    review.new = False
+    review.save()
+    return HttpResponseRedirect(reverse("adminapp:reviews"))
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_review_cancel(request, pk):
+    review = Reviews.objects.get(id=pk)
+    review.status = "notactive"
+    review.new = False
+    review.save()
+    return HttpResponseRedirect(reverse("adminapp:reviews"))
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_review_remove(request, pk):
+    Reviews.objects.get(id=pk).delete()
+    return HttpResponseRedirect(reverse("adminapp:reviews"))

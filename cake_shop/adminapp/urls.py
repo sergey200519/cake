@@ -2,7 +2,8 @@ from django.urls import path
 from adminapp.views import IndexTemplateView, \
     ProductsListView, admin_product_create, admin_product_remove, admin_product_update, admin_product_img_remove, \
     CategoriesListView, creaate_categories, CategoryUpdateView, admin_category_remove, \
-    UsersListView, admin_user_active, admin_user_notactive
+    UsersListView, admin_user_active, admin_user_notactive, \
+    ReviewsListView, admin_review_approve, admin_review_cancel, admin_review_remove
     
 
 
@@ -23,5 +24,10 @@ urlpatterns = [
 
     path("users/", UsersListView.as_view(), name="users"),
     path("user_notactive/<int:pk>/", admin_user_notactive, name="user_notactive"),
-    path("user_active/<int:pk>/", admin_user_active, name="user_active")
+    path("user_active/<int:pk>/", admin_user_active, name="user_active"),
+
+    path("reviews/", ReviewsListView.as_view(), name="reviews"),
+    path("review_approve/<int:pk>/", admin_review_approve, name="review_approve"),
+    path("review_cancel/<int:pk>/", admin_review_cancel, name="review_cancel"),
+    path("review_remove/<int:pk>/", admin_review_remove, name="review_remove")
 ]

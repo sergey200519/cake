@@ -58,19 +58,20 @@
         </div>
         <div class="form__group">
             {{ profile_form.date_of_birth }}
+            <p class="none user_date_of_birth">{{ user.date_of_birth.day }}.{{ user.date_of_birth.month }}.{{ user.date_of_birth.year }}</p>
             {% comment %} <input class="form__input" type="date" name="trip-start"> {% endcomment %}
             <label class="form__label">Дата рождения</label>
         </div>
         <h4 class="form__title__gender">Пол</h4>
-        <div class="form__style form__style__gender flex ">
+        <div class="form__style form__style__gender form__style__gender_p flex ">
             {{ profile_form.gender }}
             <div class="radio">
-                <input class="radio__input" name="male" type="radio" id="radio_m">
-                <label class="radio__label" for="radio_m">Мужской</label>
+                <input class="radio__input" name="male" type="radio" id="radio_mp">
+                <label class="radio__label" for="radio_mp">Мужской</label>
             </div>
             <div class="radio">
-                <input class="radio__input" name="male" type="radio" id="radio_w" checked>
-                <label class="radio__label" for="radio_w">Женский</label>
+                <input class="radio__input" name="male" type="radio" id="radio_wp" checked>
+                <label class="radio__label" for="radio_wp">Женский</label>
 
             </div>
         </div>

@@ -41,7 +41,12 @@
         {% if review.status == 'active' %}
         <div class="reviews__info">
                 <div class="reviews__avatar__gap flex">
+                  {% if review.author.image %}
+                    <div><img class="reviews__avatar" src="{{ review.author.image.url }}" alt=""></div>
+                  {% else %}
                     <div><img class="reviews__avatar" src="{% static 'img/avatar.svg' %}" alt=""></div>
+                  {% endif %}
+                    
                     <div class="reviews__users__name">{{ review.author.first_name }} </div>
                 </div>
                 <div class="reviews__rating_users" data-star-count="{{ review.rating }}">

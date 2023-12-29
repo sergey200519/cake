@@ -32,7 +32,6 @@
               <td class="registrationlist__header__bold">Телефон</td>
               <td class="registrationlist__header__bold">Город</td>
               <td class="registrationlist__header__bold">-----</td>
-              <td class="registrationlist__header__bold">-----</td>
             </tr>
           </thead>
           <tbody>
@@ -49,13 +48,17 @@
                 <td class="registrationlist__header__regular">{{ user.patronymic }}</td>
                 <td class="registrationlist__header__regular">{{ user.username }}</td>
                 <td class="registrationlist__header__regular">{{ user.date_of_birth.day }}.{{ user.date_of_birth.month }}.{{ user.date_of_birth.year }}</td>
-                <td class="registrationlist__header__regular">{{ user.gender }}</td>
+                <td class="registrationlist__header__regular">
+                  {% if user.gender == 'M' %}
+                    М
+                  {% else %}
+                    Ж
+                  {% endif %}
+                </td>
                 <td class="registrationlist__header__regular">{{ user.email }}</td>
                 <td class="registrationlist__header__regular">{{ user.phone }}</td>
                 <td class="registrationlist__header__regular">{{ user.address }}</td>
   
-                <td class="registrationlist__header__regular"><a class="registrationlist_a"
-                    href="/detail/1/">Просмотреть</a></td>
                 <td class="registrationlist__header__regular">    
                   {% if user.is_superuser %}
                     Администратор

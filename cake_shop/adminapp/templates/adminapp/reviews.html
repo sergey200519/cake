@@ -1,0 +1,71 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'style/reviews.css' %}">
+{% endblock %}
+    
+
+{% block content %}
+<section class="reviews">
+    <div class="container">
+      <h1 class="reviews__info mb-5">Отзывы</h1>
+      <ul class="reviews__link mb-5">
+        <li class="reviews__link__a"><a class="reviews__link__itemone" href="{% url 'adminapp:index' %}">Назад</a>
+        </li>
+      </ul>
+      <div class="table-responsive mb-5">
+        <table class="reviews__table">
+          <thead class="reviews__table__header">
+            <tr>
+              <td class="reviews__header__bold">№</td>
+              <td class="reviews__header__bold">Дата, время</td>
+              <td class="reviews__header__bold">Статус</td>
+              <td class="reviews__header__bold">Пользователь</td>
+              <td class="reviews__header__bold">Оценка</td>
+              <td class="reviews__header__bold">Сообщение</td>
+              <td class="reviews__header__bold">-----</td>
+              <td class="reviews__header__bold">-----</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for review in reviews %}
+              <tr class="reviews__table__body">
+                <td class="reviews__header__regular">{{ review.id }}</td>
+                <td class="reviews__header__regular">{{ review.date_add.day }}.{{ review.date_add.month }}.{{ review.date_add.year }}</td>
+                <td class="reviews__header__regular">
+                  {% if review.new %}
+                    <img src="{% static 'img/three__dots.svg' %}" alt="">
+                  {% elif review.status == 'active' %}
+                    <img src="{% static 'img/ок.svg' %}" alt="">
+                  {% else %}
+                    <img src="{% static 'img/clous.svg' %}" alt="">
+                  {% endif %}  
+                  </td>
+                <td class="reviews__header__regular">{{ review.author.username }}</td>
+                <td class="reviews__header__regular">{{ review.rating }}</td>
+                <td class="reviews__header__regular">{{ review.text }}</td>
+                {% if review.status == 'active' %}
+                <td class="reviews__header__regular"><a class="reviews_a" href="{% url 'adminapp:review_cancel' review.id %}">Отменить</a>
+                </td>
+                {% else %}
+                <td class="reviews__header__regular"><a class="reviews_a" href="{% url 'adminapp:review_approve' review.id %}">Одобрить</a>
+                </td>
+                {% endif %}
+                
+                <td class="reviews__header__regular"><a class="reviews_a" href="{% url 'adminapp:review_remove' review.id %}">Удалить</a>
+                </td>
+              </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
+{% endblock %}

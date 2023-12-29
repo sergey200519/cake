@@ -57,12 +57,16 @@ class UserProfileForm(UserChangeForm):
         super(UserProfileForm, self).__init__(*args, **kwargs)
 
         self.fields["date_of_birth"] = forms.DateField(widget=DateInput,required=True)
+        
         # self.fields["image"] = forms.ImageField()
-
+        
         for filed_name , field in self.fields.items():
             field.widget.attrs["class"] = "form__input"
+            field.widget.attrs["id"] = f"id_{filed_name}_profile"
         
-        self.fields["gender"].widget.attrs["class"] = "none"
+        self.fields["gender"].widget.attrs["class"] = "none profile_gender"
+
+        self.fields["date_of_birth"].widget.attrs["class"] = "form__input date_of_birth_profile"
 
         self.fields["image"].widget.attrs["class"] = "none"
         self.fields["image"].widget.attrs["id"] = "mypage__photoi"

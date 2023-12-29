@@ -125,6 +125,7 @@ class Reviews(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, default=None)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_add = models.DateTimeField(auto_now_add=True)
+    new = models.BooleanField(default=True)
 
 
     def save(self, *args, **kwargs):
@@ -164,11 +165,5 @@ class Reviews(models.Model):
     #     self.product.save()
 
 
-class ReviewsImgs(models.Model):
-    
-
-
-    image = models.ImageField(upload_to='reviews_images', blank=True)
-    review = models.ForeignKey(Reviews, on_delete=models.CASCADE, default=None)
     
 
