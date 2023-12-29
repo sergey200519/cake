@@ -1,0 +1,98 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'style/slider.css' %}">
+  <link rel="stylesheet" href="{% static 'style/addslider.css' %}">
+{% endblock %}
+    
+
+{% block content %}
+    <section class="popupwrapper none" id="addslider">
+        <form class="addslider__form popupwrapper__popup" action="{% url 'adminapp:slides' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="popupwrapper__clouse">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="close">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M6.21991 6.21479C6.51281 5.92189 6.98768 5.92189 7.28057 6.21479L17.7854 16.7196C18.0783 17.0125 18.0783 17.4874 17.7854 17.7803C17.4925 18.0732 17.0177 18.0732 16.7248 17.7803L6.21991 7.27545C5.92702 6.98255 5.92702 6.50768 6.21991 6.21479Z"
+                    fill="#000000" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M17.7853 6.21479C18.0782 6.50769 18.0782 6.98256 17.7853 7.27545L7.28038 17.7802C6.98749 18.0731 6.51261 18.0731 6.21972 17.7802C5.92683 17.4873 5.92683 17.0124 6.21973 16.7195L16.7247 6.21478C17.0176 5.92189 17.4924 5.9219 17.7853 6.21479Z"
+                    fill="#000000" />
+                </g>
+            </svg>
+            </div>
+            <h1 class="addslider__form__title">Добавление слайдера</h1>
+            <div class="addslider__form__group flex">
+                {{ form.title }}
+                {% comment %} <input class="addslider__form__input" placeholder=" " type="text"> {% endcomment %}
+                <label class="addslider__form__label">Заголовок h1</label>
+            </div>
+            <div class="addslider__form__group flex">
+                {{ form.description }}
+                {% comment %} <input class="addslider__form__input" placeholder=" " type="text"> {% endcomment %}
+                <label class="addslider__form__label">Заголовок h2</label>
+            </div>
+            <div class="addslider__btns flex">
+            <div class="raviews__file">
+                {% comment %} <input class="inputfile" type="file" name="file" id="file" data-multiple-caption="{count} файлов выбрано"
+                multiple> {% endcomment %}
+                {{ form.img }}
+                <label for="file"><span class="addslider__file">Добавить фото</span></label>
+            </div>
+            <div class="addslider__button">
+                {% comment %} <a class="addslider-button__add button">Добавить</a> {% endcomment %}
+                <input class="addslider-button__add button" value="Добавить" type="submit">
+            </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="slider">
+        <div class="container">
+          <h1 class="slider__info mb-5">Слайдер</h1>
+          <ul class="slider__link mb-5">
+            <li class="slider__link__a"><a class="slider__link__itemone" href="{% url 'adminapp:index' %}">Назад</a>
+            </li>
+            <li class="slider__link__a"><a class="slider__link__item" data-popup-link="addslider">Добавить
+                слайдер</a></li>
+          </ul>
+          <div class="table-responsive mb-5">
+            <table class="slider__table">
+              <thead class="slider__table__header">
+                <tr>
+                  <td class="slider__header__bold">№</td>
+                  <td class="slider__header__bold">Фото</td>
+                  <td class="slider__header__bold">Заголовок h1</td>
+                  <td class="slider__header__bold">Заголовок h2</td>
+                  <td class="slider__header__bold">-----</td>
+                  <td class="slider__header__bold">-----</td>
+    
+                </tr>
+              </thead>
+              <tbody>
+                {% for slide in slides  %}
+                <tr class="slider__table__body">
+                    <td class="slider__header__regular">{{ slide.id }}</td>
+                    <td class="slider__header__regular"><img class="slider__img" src="{{ slide.img.url }}" alt=""></td>
+                    <td class="slider__header__regular">{{ slide.title }}</td>
+                    <td class="slider__header__regular">{{ slide.description }}</td>
+                    <td class="slider__header__regular"><a class="slider_a" href="{% url 'adminapp:slides_update' slide.id %}">Изменить</a>
+                    </td>
+                    <td class="slider__header__regular"><a class="slider_a del_item" href="{% url "adminapp:slide_remove" slide.id %}">удалить</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'script/file__add.js' %}"></script>
+    <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
+{% endblock %}

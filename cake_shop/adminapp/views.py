@@ -1,15 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic import ListView, TemplateView, CreateView, DeleteView, UpdateView, DetailView
 
-from mainapp.models import Products, ProductCategories, ImgProducts, Reviews
+from mainapp.models import Products, ProductCategories, ImgProducts, Reviews, SwiperSlides
 from mainapp.mixin import CustomDispatchMixin
 
 from authapp.models import User
 
-from adminapp.forms import CreateProductForm, UploadFileForm, CategoryCreateForm
+from adminapp.forms import CreateProductForm, UploadFileForm, CategoryCreateForm, SlidesForm
 
 import json
 
@@ -274,3 +274,54 @@ def admin_review_cancel(request, pk):
 def admin_review_remove(request, pk):
     Reviews.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:reviews"))
+
+class SlidesListView(ListView, CustomDispatchMixin):
+    model = SwiperSlides
+    template_name = "adminapp/slides.html"
+    context_object_name = "slides"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Слайдер"
+        context["form"] = SlidesForm()
+        return context
+    
+    def post(self, request, **kwargs):
+        form = SlidesForm(data=request.POST,files=request.FILES)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(reverse("adminapp:slides"))
+    
+
+class SlideUpdateView(UpdateView, CustomDispatchMixin):
+    model = SwiperSlides
+    fields = ["title", "description", "img"]
+    template_name = "adminapp/slides_update.html"
+    context_object_name = "slide"
+    success_url = reverse_lazy("adminapp:slides")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = {
+            "title": context["object"].title,
+            "description": context["object"].description,
+            "img": context["object"].img.url,
+            # "slide": context["object"]
+        }
+        context["title"] = "Админка | Изменение слайд"
+        context["form"] = SlidesForm(data)
+        return context
+    
+    def post(self, request, **kwargs):
+        instance = get_object_or_404(SwiperSlides, id=kwargs.get("pk"))
+        form = SlidesForm(data=request.POST,files=request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
+        return HttpResponseRedirect(reverse("adminapp:slides"))
+    
+@user_passes_test(lambda u: u.is_superuser)
+def admin_slide_remove(request, pk):
+    SwiperSlides.objects.get(id=pk).delete()
+    return HttpResponseRedirect(reverse("adminapp:slides"))

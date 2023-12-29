@@ -54,7 +54,7 @@
                 </td>
                 {% endif %}
                 
-                <td class="reviews__header__regular"><a class="reviews_a" href="{% url 'adminapp:review_remove' review.id %}">Удалить</a>
+                <td class="reviews__header__regular"><a class="reviews_a del_item" href="{% url 'adminapp:review_remove' review.id %}">Удалить</a>
                 </td>
               </tr>
             {% endfor %}

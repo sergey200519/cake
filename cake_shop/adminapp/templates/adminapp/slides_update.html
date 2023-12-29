@@ -1,0 +1,51 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'style/addslider.css' %}">
+  <style>
+    .popupwrapper {
+      position: static;
+      background: transparent;
+    }
+  </style>
+{% endblock %}
+    
+
+{% block content %}
+    <section class="popupwrapper" id="addslider">
+        <form class="addslider__form popupwrapper__popup" action="{% url 'adminapp:slides_update' slide.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1 class="addslider__form__title">Изменение слайда</h1>
+            <div class="addslider__form__group flex">
+                {{ form.title }}
+                {% comment %} <input class="addslider__form__input" placeholder=" " type="text"> {% endcomment %}
+                <label class="addslider__form__label">Заголовок h1</label>
+            </div>
+            <div class="addslider__form__group flex">
+                {{ form.description }}
+                {% comment %} <input class="addslider__form__input" placeholder=" " type="text"> {% endcomment %}
+                <label class="addslider__form__label">Заголовок h2</label>
+            </div>
+            <div class="addslider__btns flex">
+            <div class="raviews__file">
+                {% comment %} <input class="inputfile" type="file" name="file" id="file" data-multiple-caption="{count} файлов выбрано"
+                multiple> {% endcomment %}
+                {{ form.img }}
+                <label for="file"><span class="addslider__file">Добавить фото</span></label>
+            </div>
+            <div class="addslider__button">
+                {% comment %} <a class="addslider-button__add button">Добавить</a> {% endcomment %}
+                <input class="addslider-button__add button" value="Сохранить" type="submit">
+            </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'script/file__add.js' %}"></script>
+    <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
+{% endblock %}

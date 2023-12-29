@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import BaseFormSet
 
-from mainapp.models import Products, ProductCategories, ImgProducts
+from mainapp.models import Products, ProductCategories, ImgProducts, SwiperSlides
 
 
 class CreateProductForm(forms.Form):
@@ -77,3 +77,20 @@ class CategoryCreateForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super(CategoryCreateForm, self).__init__(*args,**kwargs)
         self.fields["name"].widget.attrs["class"] = "addcategories__form__input"
+
+class SlidesForm(forms.ModelForm):
+    
+    class Meta:
+        model = SwiperSlides
+        fields = ("title", "description", "img")
+
+    def __init__(self,*args,**kwargs):
+        super(SlidesForm, self).__init__(*args,**kwargs)
+
+        self.fields["img"].widget.attrs["class"] = "inputfile"
+        self.fields["img"].widget.attrs["name"] = "file"
+        self.fields["img"].widget.attrs["id"] = "file"
+        self.fields["img"].widget.attrs["data-multiple-caption"] = "{count} файлов выбрано"
+
+        self.fields["title"].widget.attrs["class"] = "addslider__form__input"
+        self.fields["description"].widget.attrs["class"] = "addslider__form__input"
