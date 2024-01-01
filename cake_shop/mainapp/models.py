@@ -6,6 +6,7 @@ from authapp.models import User
 # Create your models here.
 class ProductCategories(models.Model):
 
+
     name = models.CharField(max_length=64)
 
     def __str__(self):
