@@ -19,7 +19,7 @@
   
     <!--***** list *****-->
 
-    <section class="list">
+    {% comment %} <section class="list">
       {% for product_category in product_categories %}
           <div class="container">        
               <h2 class="second__level__heading mb-30">{{ product_category.name }}</h2>
@@ -28,7 +28,7 @@
               </ul>
           </div>
       {% endfor %}
-      </section>
+      </section> {% endcomment %}
 
 
       

@@ -16,10 +16,10 @@ def index(request):
     context = {
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
-        "product_categories": ProductCategories.objects.all(),
-        "products": Products.objects.all(),
-        "img_products": ImgProducts.objects.all(),
-        "popup": "null"
+        # "product_categories": ProductCategories.objects.all(),
+        # "products": Products.objects.all(),
+        # "img_products": ImgProducts.objects.all(),
+        "popup": "null",
     }
     return render(request, "mainapp/index.html", context=context)
 
