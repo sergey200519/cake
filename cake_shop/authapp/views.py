@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 
 
 from authapp.forms import UserLoginForm, UserRegisterForm
-from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides
+# from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides
 from authapp.models import User, ImgUser
 
 from django.db.models import Q

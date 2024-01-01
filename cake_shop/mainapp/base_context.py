@@ -1,6 +1,6 @@
 from authapp.models import ImgUser
 from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm
-from adminapp.forms import ApplicationsForm
+# from adminapp.forms import ApplicationsForm
 
 
 
@@ -29,12 +29,12 @@ def base_context(request):
             "login_form": login_form,
             "register_form": register_form,
             "profile_form": profile_form,
-            "application_form": ApplicationsForm()
+            # "application_form": ApplicationsForm()
         }
     else:
         context = {
             "login_form": login_form,
             "register_form": register_form,
-            "application_form": ApplicationsForm()
+            # "application_form": ApplicationsForm()
         }
     return context

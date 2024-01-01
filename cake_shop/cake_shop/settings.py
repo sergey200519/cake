@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     "mainapp",
     "authapp",
-    "adminapp",
+    # "adminapp",
 
     "phonenumber_field",
 

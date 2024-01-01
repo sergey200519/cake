@@ -141,14 +141,12 @@
 
       <div class="footer__form ">
         <h2 class="footer__title title">Служба потдержки</h2>
-        <form action="{% url 'mainapp:application_add' %}" method="post">
+        {% comment %} <form action="{% url 'mainapp:application_add' %}" method="post">
           {% csrf_token %}
           {{ application_form.username }}
-          {% comment %} <input type="text" placeholder="Фамилия, имя и отчество*"> {% endcomment %}
+         
           {{ application_form.email }}
-          {% comment %} <input type="text" placeholder="E-mail*"> {% endcomment %}
           {{ application_form.report }}
-          {% comment %} <textarea placeholder="Сообщение"></textarea> {% endcomment %}
           <div class="footer__captcha flex">
             <input class="" placeholder="Введите код" type="text" id="captcha-footer">
             <div class="footer__inline">
@@ -157,10 +155,9 @@
             </div>
             <div class="footer_widtch"></div>
           </div>
-          {% comment %} <button class="footer-button button">Отправить</button> {% endcomment %}
           <input type="submit" value="Отправить" class="footer-button button">
           <div class="footer__line"></div>
-        </form>
+        </form> {% endcomment %}
       </div>
       <p class="footer__text display__three">Каждый наш торт - это произведение искусства, созданное специально для вас.
         Закажите
