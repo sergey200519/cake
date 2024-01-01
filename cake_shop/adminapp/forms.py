@@ -3,6 +3,8 @@ from django.forms import BaseFormSet
 
 from mainapp.models import Products, ProductCategories, ImgProducts, SwiperSlides
 
+from adminapp.models import Applications
+
 
 class CreateProductForm(forms.Form):
     def __init__(self,*args,**kwargs):
@@ -94,3 +96,19 @@ class SlidesForm(forms.ModelForm):
 
         self.fields["title"].widget.attrs["class"] = "addslider__form__input"
         self.fields["description"].widget.attrs["class"] = "addslider__form__input"
+
+
+
+
+class ApplicationsForm(forms.ModelForm):
+
+    class Meta:
+        model = Applications
+        fields = ("username", "email", "report")
+
+    def __init__(self,*args,**kwargs):
+        super(ApplicationsForm, self).__init__(*args,**kwargs)
+
+        self.fields["username"].widget.attrs["placeholder"] = "Фамилия, имя и отчество"
+        self.fields["email"].widget.attrs["placeholder"] = "E-mail*"
+        self.fields["report"].widget.attrs["placeholder"] = "Сообщение"

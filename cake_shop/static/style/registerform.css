@@ -93,7 +93,7 @@
 
 .form__button-disabled {
   color: var(--dark);
-  background-color: var(--gray);
+  background-color: var(--gray) !important;
   pointer-events: none;
   font-size: 700;
 }

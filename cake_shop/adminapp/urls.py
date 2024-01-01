@@ -4,7 +4,8 @@ from adminapp.views import IndexTemplateView, \
     CategoriesListView, creaate_categories, CategoryUpdateView, admin_category_remove, \
     UsersListView, admin_user_active, admin_user_notactive, \
     ReviewsListView, admin_review_approve, admin_review_cancel, admin_review_remove, \
-    SlidesListView, SlideUpdateView, admin_slide_remove
+    SlidesListView, SlideUpdateView, admin_slide_remove, \
+    ApplicationsListView, admin_application_remove
     
 
 
@@ -35,4 +36,7 @@ urlpatterns = [
     path("slides/", SlidesListView.as_view(), name="slides"),
     path("slides_update/<int:pk>/", SlideUpdateView.as_view(), name="slides_update"),
     path("slides_remove/<int:pk>/", admin_slide_remove, name="slide_remove"),
+
+    path("applications/", ApplicationsListView.as_view(), name="applications"),
+    path("applications_remove/<int:pk>/", admin_application_remove, name="application_remove")
 ]

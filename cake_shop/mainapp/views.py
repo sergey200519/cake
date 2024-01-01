@@ -9,6 +9,7 @@ from django.urls import reverse, reverse_lazy
 
 from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from mainapp.forms import ReviewsForm
+from adminapp.forms import ApplicationsForm
 
 # Create your views here.
 def index(request):
@@ -86,3 +87,11 @@ class ExclusiveDetail(DetailView):
         context["img_products"] = ImgExclusive.objects.filter(exclusive=self.kwargs["pk"])
         return context
     
+
+
+def application_add(request):
+    if request.method == "POST":
+        form = ApplicationsForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

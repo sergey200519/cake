@@ -1,0 +1,53 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/support.css' %}">
+{% endblock %}
+    
+
+{% block content %}
+<section class="support">
+    <div class="container">
+      <h1 class="support__info mb-5">Потдержка</h1>
+      <ul class="support__link mb-5">
+        <li class="support__link__a"><a class="support__link__itemone" href="{% url 'adminapp:index' %}">Назад</a>
+        </li>
+      </ul>
+      <div class="table-responsive mb-5">
+        <table class="support__table">
+          <thead class="support__table__header">
+            <tr>
+              <td class="support__header__bold">Дата, время</td>
+              <td class="support__header__bold">ФИО</td>
+              <td class="support__header__bold">Email@</td>
+              <td class="support__header__bold width-300">Сообщение</td>
+              <td class="support__header__bold">-----</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for application in applications %}
+              <tr class="support__table__body">
+                <td class="support__header__regular">
+                  {{ application.times_send.day }}.{{ application.times_send.month }}.{{ application.times_send.year }} | {{ application.times_send.hour }}:{{ application.times_send.minute }}
+                </td>
+                <td class="support__header__regular">{{ application.username }}</td>
+                <td class="support__header__regular">{{ application.email }}</td>
+                <td class="support__header__regular width-300">
+                  {{ application.report }}
+                </td>
+                <td class="support__header__regular"><a class="support_a del_item" href="{% url 'adminapp:application_remove' application.id %}">удалить</a>
+                </td>
+              </tr>
+            {% endfor %}  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
+{% endblock %}

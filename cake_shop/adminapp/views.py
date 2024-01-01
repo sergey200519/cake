@@ -10,7 +10,7 @@ from mainapp.mixin import CustomDispatchMixin
 from authapp.models import User
 
 from adminapp.forms import CreateProductForm, UploadFileForm, CategoryCreateForm, SlidesForm
-
+from adminapp.models import Applications
 import json
 
 # Create your views here.
@@ -325,3 +325,19 @@ class SlideUpdateView(UpdateView, CustomDispatchMixin):
 def admin_slide_remove(request, pk):
     SwiperSlides.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:slides"))
+
+
+class ApplicationsListView(ListView, CustomDispatchMixin):
+    model = Applications
+    template_name = "adminapp/support.html"
+    context_object_name = "applications"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Потдержка"
+        return context
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_application_remove(request, pk):
+    Applications.objects.get(id=pk).delete()
+    return HttpResponseRedirect(reverse("adminapp:applications"))

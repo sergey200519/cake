@@ -164,6 +164,7 @@ class Reviews(models.Model):
     #         self.product.rating = 0
     #     self.product.save()
 
-
+class BasketProducts(models.Model):
+    image = models.ImageField(upload_to="basket_product_images", verbose_name="Фото", blank=True)
+    name = models.TextField(verbose_name="Название")
     
-
