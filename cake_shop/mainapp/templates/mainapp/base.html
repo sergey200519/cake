@@ -25,8 +25,9 @@
 </head>
 
 <body>
-
-  {% include "mainapp/popups/order_popup.html" %}
+  {% if user.is_authenticated %}
+    {% include "mainapp/popups/order_popup.html" %}
+  {% endif %}
 
   <!-- ***** login ***** -->
 
@@ -179,6 +180,7 @@
     <script src="{% static 'script/my__page.js' %}"></script>
   {% endif %}
   <script type="module" src="{% static 'script/popup.js' %}"></script>
+  <script type="module" src="{% static 'script/basket_delete.js' %}"></script>
   {% block script %}
   {% endblock %}
 </body>

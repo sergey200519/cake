@@ -7,8 +7,8 @@ urlpatterns = [
     path("detail/<int:pk>/", ProductDetail.as_view(), name="detail"),
     path("add_review/<int:pk>/", add_review, name="add_review"),
 
-    path("exclusive", exclusive, name="exclusive"),
+    path("exclusive/", exclusive, name="exclusive"),
     path("detail_ex/<int:pk>/", ExclusiveDetail.as_view(), name="detail_ex"),
 
-    path("application_add", application_add, name="application_add"),
+    path("application_add/", application_add, name="application_add")
 ]

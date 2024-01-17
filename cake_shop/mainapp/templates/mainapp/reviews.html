@@ -10,7 +10,7 @@
           <h3 class="reviews__text">Пожалуйста, оцените этот заказ</h3>
         </div>
       
-        <form class="reviews__form" action="{% url 'mainapp:add_review' products.id %}" method="post">
+        <form class="reviews__form" action="{% url 'mainapp:add_review' product.id %}" method="post">
           {% csrf_token %}
           <div class="reviews__rating" data-total-value="0">
             <div class="reviews__rating__item" data-item-value="5">★</div>

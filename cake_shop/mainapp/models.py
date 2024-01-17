@@ -15,34 +15,25 @@ class ProductCategories(models.Model):
     class Meta:
         verbose_name_plural = "Категории"
 
+class BaseProduct(models.Model):
+    article = models.PositiveIntegerField(verbose_name="Артиул", unique=True)
+    weight = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
 
-class Products(models.Model):
+    def __str__(self):
+        return f"id:{self.article}|m:{self.weight}|price:{self.price}"
 
+class Product(models.Model):
     name = models.TextField(verbose_name="Название")
     ingredients = models.CharField(verbose_name="Ингредиенты", max_length=128)
     category = models.ForeignKey(ProductCategories, on_delete=models.CASCADE, verbose_name="Категория")
     description = models.TextField(verbose_name="Описание", null=True)
 
-    article_four_hundred = models.PositiveIntegerField(verbose_name="Артиул 400г", unique=True)
-    price_four_hundred = models.DecimalField(verbose_name="Цена 400г", max_digits=10, decimal_places=2)
-
-    article_six_hundred = models.PositiveIntegerField(verbose_name="Артиул 600г", unique=True)
-    price_six_hundred = models.DecimalField(verbose_name="Цена 600г", max_digits=10, decimal_places=2)
-
-    article_eight_hundred = models.PositiveIntegerField(verbose_name="Артиул 800г", unique=True)
-    price_eight_hundred = models.DecimalField(verbose_name="Цена 800г", max_digits=10, decimal_places=2)
-
-    article_one_thousand = models.PositiveIntegerField(verbose_name="Артиул 1000г", unique=True)
-    price_one_thousand = models.DecimalField(verbose_name="Цена 1000г", max_digits=10, decimal_places=2)
-
-    article_two_thousand = models.PositiveIntegerField(verbose_name="Артиул 2000г", unique=True)
-    price_two_thousand = models.DecimalField(verbose_name="Цена 2000г", max_digits=10, decimal_places=2)
-
+    products = models.ManyToManyField(BaseProduct)
 
     rating = models.FloatField(null=True, blank=True, default=0)
     summ_rating = models.FloatField(null=True, blank=True, default=0)
     count_reviews = models.PositiveIntegerField(null=True, blank=True, default=0)
-
 
     def __str__(self):
         return f"{self.name} | {self.category}"
@@ -50,15 +41,18 @@ class Products(models.Model):
     class Meta:
         verbose_name_plural = "Продукты"
 
-class ImgProducts(models.Model):
+
+class ImgProduct(models.Model):
     image = models.ImageField(upload_to='cakes_images', verbose_name="Фото", blank=True)
-    product = models.ForeignKey(Products, verbose_name="Продукт", on_delete=models.CASCADE, default=None)
+    product = models.ForeignKey(Product, verbose_name="Продукт", on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return f'Фото к "{self.product}"'
 
     class Meta:
-        verbose_name_plural = "Фото к продуктам"
+        verbose_name_plural = "Фото к продуктам--"
+
+
 
 
 
@@ -84,8 +78,8 @@ class ExclusiveProducts(models.Model):
     ingredients = models.CharField(verbose_name="Ингредиенты", max_length=128)
     category = models.ForeignKey(ExclusiveCategories, on_delete=models.CASCADE, verbose_name="Категория")
     description = models.TextField(verbose_name="Описание", null=True)
-    price = models.DecimalField(verbose_name="Цена", max_digits=10, decimal_places=2)
-    article = models.PositiveIntegerField(verbose_name="Артиул", unique=True)
+
+    exclusive = models.ForeignKey(BaseProduct, verbose_name="Эксклюзив", on_delete=models.CASCADE)
 
 
     def __str__(self):
@@ -123,7 +117,7 @@ class Reviews(models.Model):
     
     rating = models.FloatField(null=True, blank=True, default=0)
     text = models.TextField(verbose_name="Коментарий")
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, default=None)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, default=None)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_add = models.DateTimeField(auto_now_add=True)
     new = models.BooleanField(default=True)
@@ -165,7 +159,4 @@ class Reviews(models.Model):
     #         self.product.rating = 0
     #     self.product.save()
 
-class BasketProducts(models.Model):
-    image = models.ImageField(upload_to="basket_product_images", verbose_name="Фото", blank=True)
-    name = models.TextField(verbose_name="Название")
-    
+

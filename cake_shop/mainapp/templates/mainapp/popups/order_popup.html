@@ -106,96 +106,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="order__table__body">
-                            <td class=""><img class="order__img" src="/img/cake/cake12.jpg" alt=""></td>
-                            <td class="order__header__regular">Наполеон</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake14.jpg" alt=""></td>
-                            <td class="order__header__regular">Картошка</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
-                        <tr>
-                            <td class=""><img class="order__img" src="/img/cake/cake11.jpg" alt=""></td>
-                            <td class="order__header__regular">Чудо</td>
-                            <td class="order__header__regular">2</td>
-                            <td class="order__header__bold">0,6</td>
-                            <td class="order__header__bold">---</td>
-                            <td class="order__header__bold">1290</td>
-                            <td class="order__header__regular"><a class="order_a"
-                                    href="/site-admin/product_remove/1/">Отменить</a></td>
-                        </tr>
+                        {% for basket in baskets %}
+                            <tr class="order__table__body">
+                                <td class="">
+                                    {% if  basket.image %}
+                                        <img class="order__img" src="{{ basket.image.url }}" alt="">
+                                    {% endif %}
+                                </td>
+                                <td class="order__header__regular">{{ basket.name }}</td>
+                                <td class="order__header__regular">{{ basket.count }}</td>
+                                <td class="order__header__bold">
+                                    {% if not basket.weight_gram == 0 %}
+                                        {{ basket.weight_gram }}
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </td>
+                                <td class="order__header__bold">
+                                    {% if not basket.discount == 0 %}
+                                        {{ basket.discount }}
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </td>
+                                <td class="order__header__bold">{{ basket.summ }}</td>
+                                <td class="order__header__regular">
+                                    <a class="order_a basket_delete" data-basket-id="{{ basket.id }}">Отменить</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        
                     </tbody>
                 </table>
             </div>

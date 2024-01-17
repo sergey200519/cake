@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic import ListView, TemplateView, CreateView, DeleteView, UpdateView, DetailView
 
-from mainapp.models import Products, ProductCategories, ImgProducts, Reviews, SwiperSlides
+from mainapp.models import ProductCategories, Reviews, SwiperSlides, Product, ImgProduct, BaseProduct
 from mainapp.mixin import CustomDispatchMixin
 
 from authapp.models import User
@@ -24,7 +24,7 @@ class IndexTemplateView(TemplateView, CustomDispatchMixin):
     
 
 class ProductsListView(ListView, CustomDispatchMixin):
-    model = Products
+    model = Product
     template_name = "adminapp/products_admin.html"
     context_object_name = "products"
 
@@ -32,8 +32,8 @@ class ProductsListView(ListView, CustomDispatchMixin):
         context = super().get_context_data(**kwargs)
 
         products_json = []
-        for item in Products.objects.all():
-            products_json.append([item.article_four_hundred, item.article_six_hundred, item.article_eight_hundred, item.article_one_thousand, item.article_two_thousand])
+        for item in BaseProduct.objects.all():
+            products_json.append(item.article)
 
         context["title"] = "Админка | Товары"
         context["data"] = json.dumps(products_json)
@@ -69,17 +69,40 @@ def admin_product_create(request):
             article_two_thousand = data["article_two_thousand"]
             price_two_thousand = data["price_two_thousand"]
 
+            base_product_400 = BaseProduct.objects.create(article=article_four_hundred, \
+                                                      weight=400, \
+                                                      price=price_four_hundred)
+            base_product_600 = BaseProduct.objects.create(article=article_six_hundred, \
+                                                      weight=600, \
+                                                      price=price_six_hundred)
+            base_product_800 = BaseProduct.objects.create(article=article_eight_hundred, \
+                                                      weight=800, \
+                                                      price=price_eight_hundred)
+            base_product_1000 = BaseProduct.objects.create(article=article_one_thousand, \
+                                                       weight=1000, \
+                                                       price=price_one_thousand)
+            base_product_2000 = BaseProduct.objects.create(article=article_two_thousand, \
+                                                       weight=2000, \
+                                                       price=price_two_thousand)
+            base_products = (base_product_400, base_product_600, base_product_800, base_product_1000, base_product_2000)
+            
+            new_product = Product.objects.create(name=name, \
+                                                 ingredients=ingredients, \
+                                                 description=description, \
+                                                 category=category)
+            for product in base_products:
+                new_product.products.add(product)
 
-            new_product = Products.objects.create(name=name, ingredients=ingredients, description=description, category=category, \
-                article_four_hundred=article_four_hundred, price_four_hundred=price_four_hundred, \
-                article_six_hundred=article_six_hundred, price_six_hundred=price_six_hundred, \
-                article_eight_hundred=article_eight_hundred, price_eight_hundred=price_eight_hundred, \
-                article_one_thousand=article_one_thousand, price_one_thousand=price_one_thousand, \
-                article_two_thousand=article_two_thousand, price_two_thousand=price_two_thousand)
+            # new_product = Products.objects.create(name=name, ingredients=ingredients, description=description, category=category, \
+            #     article_four_hundred=article_four_hundred, price_four_hundred=price_four_hundred, \
+            #     article_six_hundred=article_six_hundred, price_six_hundred=price_six_hundred, \
+            #     article_eight_hundred=article_eight_hundred, price_eight_hundred=price_eight_hundred, \
+            #     article_one_thousand=article_one_thousand, price_one_thousand=price_one_thousand, \
+            #     article_two_thousand=article_two_thousand, price_two_thousand=price_two_thousand)
 
             for uploaded_file in request.FILES.getlist("files"):
                 # print(f"test ---> {uploaded_file}")
-                ImgProducts.objects.create(image=uploaded_file, product=new_product)
+                ImgProduct.objects.create(image=uploaded_file, product=new_product)
             
         else:
             print(form.errors)
@@ -88,33 +111,33 @@ def admin_product_create(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_product_remove(request, pk):
-    Products.objects.get(id=pk).delete()
+    Product.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:products"))
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_product_update(request, pk):
-    product = Products.objects.get(id=pk)
-    files = ImgProducts.objects.filter(product=pk)
+    product = Product.objects.get(id=pk)
+    files = ImgProduct.objects.filter(product=pk)
     data = {
         "name": product.name,
         "ingredients": product.ingredients,
         "description": product.description,
         "category": (product.category.id, product.category.name),
 
-        "article_four_hundred": product.article_four_hundred,
-        "price_four_hundred": product.price_four_hundred,
+        "article_four_hundred": product.products.get(weight=400).article,
+        "price_four_hundred": product.products.get(weight=400).price,
 
-        "article_six_hundred": product.article_six_hundred,
-        "price_six_hundred": product.price_six_hundred,
+        "article_six_hundred": product.products.get(weight=600).article,
+        "price_six_hundred": product.products.get(weight=600).price,
 
-        "article_eight_hundred": product.article_eight_hundred,
-        "price_eight_hundred": product.price_eight_hundred,
+        "article_eight_hundred": product.products.get(weight=800).article,
+        "price_eight_hundred": product.products.get(weight=800).price,
 
-        "article_one_thousand": product.article_one_thousand,
-        "price_one_thousand": product.price_one_thousand,
+        "article_one_thousand": product.products.get(weight=1000).article,
+        "price_one_thousand": product.products.get(weight=1000).price,
 
-        "article_two_thousand": product.article_two_thousand,
-        "price_two_thousand": product.price_two_thousand
+        "article_two_thousand": product.products.get(weight=2000).article,
+        "price_two_thousand": product.products.get(weight=2000).price
     }
     if request.method == "POST":
         
@@ -122,29 +145,60 @@ def admin_product_update(request, pk):
         if form.is_valid():
             
             data = form.data
-            product.name = data["name"]
-            product.ingredients = data["ingredients"]
-            product.description = data["description"]
-            product.category = ProductCategories.objects.get(id=data["category"])
+            name = data["name"]
+            ingredients = data["ingredients"]
+            description = data["description"]
+            category = ProductCategories.objects.get(id=data["category"])
 
-            product.article_four_hundred = data["article_four_hundred"]
-            product.price_four_hundred = data["price_four_hundred"]
+            article_four_hundred = data["article_four_hundred"]
+            price_four_hundred = data["price_four_hundred"]
 
-            product.article_six_hundred = data["article_six_hundred"]
-            product.price_six_hundred = data["price_six_hundred"]
+            article_six_hundred = data["article_six_hundred"]
+            price_six_hundred = data["price_six_hundred"]
 
-            product.article_eight_hundred = data["article_eight_hundred"]
-            product.price_eight_hundred = data["price_eight_hundred"]
+            article_eight_hundred = data["article_eight_hundred"]
+            price_eight_hundred = data["price_eight_hundred"]
 
-            product.article_one_thousand = data["article_one_thousand"]
-            product.price_one_thousand = data["price_one_thousand"]
+            article_one_thousand = data["article_one_thousand"]
+            price_one_thousand = data["price_one_thousand"]
 
-            product.article_two_thousand = data["article_two_thousand"]
-            product.price_two_thousand = data["price_two_thousand"]
+            article_two_thousand = data["article_two_thousand"]
+            price_two_thousand = data["price_two_thousand"]
+
+            base_product_400 = BaseProduct.objects.get(article=product.products.get(weight=400).article)
+            base_product_400.article = article_four_hundred
+            base_product_400.price = price_four_hundred
+            base_product_400.save()
+
+            base_product_600 = BaseProduct.objects.get(article=product.products.get(weight=600).article)
+            base_product_600.article = article_six_hundred
+            base_product_600.price = price_six_hundred
+            base_product_600.save()
+            
+            base_product_800 = BaseProduct.objects.get(article=product.products.get(weight=800).article)
+            base_product_800.article = article_eight_hundred
+            base_product_800.price = price_eight_hundred
+            base_product_800.save()
+
+            base_product_1000 = BaseProduct.objects.get(article=product.products.get(weight=1000).article)
+            base_product_1000.article = article_one_thousand
+            base_product_1000.price = price_one_thousand
+            base_product_1000.save()
+
+            base_product_2000 = BaseProduct.objects.get(article=product.products.get(weight=2000).article)
+            base_product_2000.article = article_two_thousand
+            base_product_2000.price = price_two_thousand
+            base_product_2000.save()
+            
+
+            product.name = name
+            product.ingredients = ingredients
+            product.description = description
+            product.category = category
             product.save()
 
             for uploaded_file in request.FILES.getlist("files"):
-                ImgProducts.objects.create(image=uploaded_file, product=product)
+                ImgProduct.objects.create(image=uploaded_file, product=product)
         else:
             print(form.errors)
 
@@ -161,7 +215,7 @@ def admin_product_update(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_product_img_remove(request, pk, id):
-    ImgProducts.objects.get(id=pk).delete()
+    ImgProduct.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:product_update", args=[id]))
 
 

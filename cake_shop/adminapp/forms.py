@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import BaseFormSet
 
-from mainapp.models import Products, ProductCategories, ImgProducts, SwiperSlides
+from mainapp.models import ProductCategories, SwiperSlides
 
 from adminapp.models import Applications
 

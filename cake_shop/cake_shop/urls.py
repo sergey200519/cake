@@ -25,5 +25,6 @@ urlpatterns = [
     path("", include("mainapp.urls", namespace="mainapp")),
     path("user/", include("authapp.urls", namespace="authapp")),
     path("vip-admin/", include("adminapp.urls", namespace="adminapp")),
+    path("basket/", include("basketapp.urls", namespace="basketapp")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

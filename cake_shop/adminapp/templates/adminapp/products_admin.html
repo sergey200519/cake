@@ -165,7 +165,13 @@
                                 <td class="products__header__regular">{{ product.name }}</td>
                                 <td class="products__header__regular">{{ product.category }}</td>
                                 <td class="products__header__regular">{{ product.ingredients }}</td>
-                                <td class="products__header__regular">{{ product.price_one_thousand }}</td>
+                                <td class="products__header__regular">
+                                    {% for product_ch in product.products.all %}
+                                        {% if product_ch.weight == 1000 %}
+                                            {{ product_ch.price }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
                                 <td class="products__header__regular"><a class="products_a"
                                         href="{% url 'mainapp:detail' product.id %}">Просмотреть</a></td>
                                 <td class="products__header__regular"><a class="products_a"
@@ -186,14 +192,9 @@
     <script src="{% static 'script/file__add.js' %}"></script>
     <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
     <script>
-        let articles = {{ data }};
-
-        let articlesList = []
+        let articlesList = {{ data }}
 
 
-        articles.forEach(article => {
-            articlesList.push(...article)
-        })
 
         document.querySelector(".generate").addEventListener("click", generate)
 
@@ -204,8 +205,9 @@
             articleOneThousand = document.querySelector("input[name='article_one_thousand']")
             articleTwoThousand = document.querySelector("input[name='article_two_thousand']")
 
-
-            max = Math.max.apply(null, articlesList);
+            if (articlesList.length > 0) max = Math.max.apply(null, articlesList);
+            else max = 0
+            
 
             articleFourHundred.value =  max + 1
             articleSixHundred.value = max + 2

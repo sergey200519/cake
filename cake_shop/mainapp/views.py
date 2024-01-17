@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, UpdateView
-from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides, Reviews, \
-    ExclusiveCategories, ExclusiveProducts, ImgExclusive
+from mainapp.models import ProductCategories, SwiperSlides, Reviews, \
+    ExclusiveCategories, ExclusiveProducts, ImgExclusive, \
+    Product, ImgProduct
 
 from django.contrib import auth
 from django.http import HttpResponseRedirect
@@ -17,15 +18,15 @@ def index(request):
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
         "product_categories": ProductCategories.objects.all(),
-        "products": Products.objects.all(),
-        "img_products": ImgProducts.objects.all(),
+        "products": Product.objects.all(),
+        "img_products": ImgProduct.objects.all(),
         "popup": "null"
     }
     return render(request, "mainapp/index.html", context=context)
 
 
 class ProductDetail(DetailView):
-    model = Products
+    model = Product
     template_name = "mainapp/detail.html"
 
     def get_context_data(self, **kwargs):
@@ -39,8 +40,8 @@ class ProductDetail(DetailView):
             add_review = False
 
 
-        context["title"] = context["products"].name
-        context["img_products"] = ImgProducts.objects.filter(product=self.kwargs["pk"])
+        context["title"] = context["product"].name
+        context["img_products"] = ImgProduct.objects.filter(product=self.kwargs["pk"])
         context["reviews"] = Reviews.objects.filter(product=self.kwargs["pk"])
         context["review_form"] = ReviewsForm()
         context["add_review"] = add_review
@@ -56,7 +57,7 @@ def add_review(request, pk):
             #     if item.author == request.user:
             #         flag = False
             #         break
-            product = Products.objects.get(id=pk)
+            product = Product.objects.get(id=pk)
             Reviews.objects.create(status="notactive", rating=form.data["rating"], 
                                    text=form.data["text"], product=product, author=request.user)
         else:
@@ -95,3 +96,5 @@ def application_add(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+        
+

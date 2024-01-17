@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 
 
 from authapp.forms import UserLoginForm, UserRegisterForm
-from mainapp.models import ProductCategories, Products, ImgProducts, SwiperSlides
+from mainapp.models import ProductCategories, Product, ImgProduct, SwiperSlides
 from authapp.models import User, ImgUser
 
 from django.db.models import Q
@@ -76,8 +76,8 @@ def register(request):
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
         "product_categories": ProductCategories.objects.all(),
-        "products": Products.objects.all(),
-        "img_products": ImgProducts.objects.all(),
+        "products": Product.objects.all(),
+        "img_products": ImgProduct.objects.all(),
         "login_form": login_form,
         "register_form": register_form,
         "popup": popup
@@ -107,8 +107,8 @@ def profile_edit(request):
         "title": "Главная",
         "swiper_slides": SwiperSlides.objects.all(),
         "product_categories": ProductCategories.objects.all(),
-        "products": Products.objects.all(),
-        "img_products": ImgProducts.objects.all(),
+        "products": Product.objects.all(),
+        "img_products": ImgProduct.objects.all(),
         "popup": "null"
     }
 
