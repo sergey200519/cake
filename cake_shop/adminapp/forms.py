@@ -7,6 +7,8 @@ from adminapp.models import Applications
 
 
 class CreateProductForm(forms.Form):
+
+    # TODO: REMOVE
     def __init__(self,*args,**kwargs):
         super(CreateProductForm, self).__init__(*args,**kwargs)
     

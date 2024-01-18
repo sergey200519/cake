@@ -25,5 +25,5 @@ class User(AbstractUser):
 
 
 class ImgUser(models.Model):
-    image = models.ImageField(upload_to='users_img', verbose_name="Фото", blank=True)
+    image = models.ImageField(upload_to="users_img", verbose_name="Фото", blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)

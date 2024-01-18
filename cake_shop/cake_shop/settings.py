@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "authapp",
     "adminapp",
     "basketapp",
+    "orderapp",
 
     "phonenumber_field",
 
