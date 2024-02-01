@@ -5,6 +5,8 @@ from mainapp.models import ProductCategories, SwiperSlides
 
 from adminapp.models import Applications
 
+from orderapp.models import PromoCode
+
 
 class CreateProductForm(forms.Form):
 
@@ -114,3 +116,22 @@ class ApplicationsForm(forms.ModelForm):
         self.fields["username"].widget.attrs["placeholder"] = "Фамилия, имя и отчество"
         self.fields["email"].widget.attrs["placeholder"] = "E-mail*"
         self.fields["report"].widget.attrs["placeholder"] = "Сообщение"
+
+class DateInput(forms.DateInput):
+    input_type = "date"
+
+class PromoForm(forms.ModelForm):
+
+    class Meta:
+        model = PromoCode
+        fields = "__all__"
+
+    def __init__(self,*args,**kwargs):
+        super(PromoForm, self).__init__(*args,**kwargs)
+        for filed_name , field in self.fields.items():
+            field.widget.attrs["class"] = "addpromo__form__input"
+            field.required=True
+
+
+        self.fields["date"] = forms.DateField(widget=DateInput,required=True)
+        self.fields["date"].widget.attrs["class"] = "addpromo__form__input"

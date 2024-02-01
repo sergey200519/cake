@@ -9,8 +9,11 @@ from mainapp.mixin import CustomDispatchMixin
 
 from authapp.models import User
 
-from adminapp.forms import CreateProductForm, UploadFileForm, CategoryCreateForm, SlidesForm
+from adminapp.forms import CreateProductForm, UploadFileForm, CategoryCreateForm, SlidesForm, PromoForm
 from adminapp.models import Applications
+
+from orderapp.models import Order, PromoCode
+
 import json
 
 # Create your views here.
@@ -395,3 +398,64 @@ class ApplicationsListView(ListView, CustomDispatchMixin):
 def admin_application_remove(request, pk):
     Applications.objects.get(id=pk).delete()
     return HttpResponseRedirect(reverse("adminapp:applications"))
+
+
+class OrdersListView(ListView, CustomDispatchMixin):
+    model = Order
+    template_name = "adminapp/orders_admin.html"
+    context_object_name = "orders"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Заказы"
+        context["orders"] = Order.objects.all().order_by("-id")
+        return context
+    
+class PromoListView(ListView, CustomDispatchMixin):
+    model = PromoCode
+    template_name = "adminapp/promo_admin.html"
+    context_object_name = "promocodes"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Админка | Промокоды"
+        context["promo_form"] = PromoForm()
+        return context
+    
+@user_passes_test(lambda u: u.is_superuser)
+def admin_promo_create(request):
+    if request.method == "POST":
+        form = PromoForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            form.save()
+    return HttpResponseRedirect(reverse("adminapp:promo"))
+
+class PromoUpdateView(UpdateView, CustomDispatchMixin):
+    model = PromoCode
+    fields = "__all__"
+    template_name = "adminapp/promo_update.html"
+    success_url = reverse_lazy("adminapp:promo")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = {
+            "promo_code": context["object"].promo_code,
+            "discount": context["object"].discount,
+            "date": context["object"].date
+        }
+        context["title"] = "Админка | Изменение промоода"
+        context["promo_form"] = PromoForm(data)
+        context["promo"] = context["object"]
+        return context
+    
+    def post(self, request, **kwargs):
+        form = PromoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        return super(PromoUpdateView, self).post(request, **kwargs)
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_promo_remove(request, pk):
+    PromoCode.objects.get(id=pk).delete()
+    return HttpResponseRedirect(reverse("adminapp:promo"))

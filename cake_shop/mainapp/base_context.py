@@ -4,6 +4,7 @@ from adminapp.forms import ApplicationsForm
 
 from basketapp.models import BasketProducts
 
+from orderapp.forms import CreateOrder
 
 
 def base_context(request):
@@ -32,7 +33,10 @@ def base_context(request):
             "register_form": register_form,
             "profile_form": profile_form,
             "application_form": ApplicationsForm(),
-            "baskets": BasketProducts.objects.filter(user=user)
+            "baskets": BasketProducts.objects.filter(user=user),
+            "basket_summ": BasketProducts.get_total_price(user=user),
+            "basket_count": BasketProducts.get_count(user=user),
+            "order_form": CreateOrder()
         }
     else:
         context = {

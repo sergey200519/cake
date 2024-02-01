@@ -17,13 +17,16 @@ orderdeliveryList.forEach(element => {
 //         })
 //     }
 // })
+const orderStatus = document.querySelector("#order_delivery_status")
 function hideInputs() {
     if (orderdeliveryList[0].checked) {
         orderdelivery.forEach(element => {
+            orderStatus.value = "delivery"
             element.classList.remove("none")
         })   
     } else {
         orderdelivery.forEach(element => {
+            orderStatus.value = "pickup"
             element.classList.add("none")
         })
     }

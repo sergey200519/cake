@@ -10,7 +10,6 @@ class BasketProducts(models.Model):
     count = models.PositiveIntegerField()
     weight = models.FloatField(default=0)
     weight_gram = models.FloatField(default=0)
-    discount = models.FloatField(default=0)
     price = models.FloatField()
     summ = models.FloatField(default=0)
 
@@ -22,17 +21,22 @@ class BasketProducts(models.Model):
     @staticmethod
     def get_count(user):
         count = 0
+        # TODO: make filter
         for item in BasketProducts.objects.all():
             if  item.user == user:
                 count += item.count
         return count
+    
+    @staticmethod
+    def get_total_price(user):
+        price = 0
+        for item in BasketProducts.objects.filter(user=user):
+            price += item.price * item.count
+        return price
 
     def save(self, *args, **kwargs):
         
         self.summ = self.price * self.count
-        if self.discount > 0:
-            discount_summm = self.summ * (self.discount / 100)
-            self.summ -= discount_summm
         
         self.weight_gram = self.weight / 1000
 

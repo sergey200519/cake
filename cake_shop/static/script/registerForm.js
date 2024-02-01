@@ -105,7 +105,7 @@ class RegisterForm {
                 word += str[i]
             }
         }
-        if (word != "") {
+        if (word != "") { 
             answer.push(word)
         }
         return answer

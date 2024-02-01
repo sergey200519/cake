@@ -1,0 +1,67 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/historyorder.css' %}">
+{% endblock %}
+    
+
+{% block content %}
+<section class="historyorder">
+    <div class="container">
+      <h1 class="historyorder__info mb-5">Мои заказы</h1>
+      <div class="table-responsive mb-5 overflow_yscroll">
+        <table class="historyorder__table">
+          <thead class="historyorder__table__header">
+            <tr>
+              <td class="historyorder__header__bold">№</td>
+              <td class="historyorder__header__bold">Статус</td>
+              <td class="historyorder__header__bold">Дата</td>
+              <td class="historyorder__header__bold">Скидка (%)</td>
+              <td class="historyorder__header__bold">Сумма (руб.)</td>
+              <td class="historyorder__header__bold">-----</td>
+              <td class="historyorder__header__bold">-----</td>
+              <td class="historyorder__header__bold">-----</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+              <tr class="historyorder__table__body">
+                <td class="historyorder__header__regular">{{ order.id }}</td>
+                <td class="historyorder__header__regular">
+                  {% if order.status_completed == "completed" %}
+                    <img src="{% static 'img/ок.svg' %}" alt="">
+                  {% elif order.status_completed == "notcompleted" %}
+                    <img src="{% static 'img/three__dots.svg' %}" alt="">
+                  {% else %}
+                    <img src="{% static 'img/clous.svg' %}" alt="">
+                  {% endif %}
+                </td>
+                <td class="historyorder__header__regular">{{ order.date.day }}.{{ order.date.month }}.{{ order.date.year }}</td>
+                <td class="historyorder__header__regular">{{ order.discount }}</td>
+                <td class="historyorder__header__regular">{{ order.total_summ }}</td>
+                <td class="historyorder__header__regular"><a class="historyorder_a"
+                    href="{% url 'orderapp:detail' order.id %}">Просмотреть</a></td>
+                <td class="historyorder__header__regular"><a class="historyorder_a"
+                    href="{% url 'orderapp:repeat_order' order.id %}">Повторить</a>
+                </td>
+                {% if order.status_completed != "cancelled" %}
+                  <td class="historyorder__header__regular"><a class="historyorder_a"
+                    href="{% url 'orderapp:cancel_order' order.id %}">Отменить</a></td>
+                {% else %}
+                  <td class="historyorder__header__regular">-----</td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+    
+{% endblock %}

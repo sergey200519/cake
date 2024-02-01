@@ -1,19 +1,29 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/order.css' %}">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #order_u {
+            position: static;
+            width: auto;
+            height: auto;
+            background: transparent;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
 
-<section class="popupwrapper none" id="order">
-    <form class="order__form popupwrapper__popup form" action="{% url 'orderapp:create_order' %}" method="post">
+{% block content %}
+<section class="popupwrapper" id="order_u">
+    <form class="order__form popupwrapper__popup form" action="{% url 'orderapp:update' order.id %}" method="post">
         {% csrf_token %}
-            <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="close">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M6.21991 6.21479C6.51281 5.92189 6.98768 5.92189 7.28057 6.21479L17.7854 16.7196C18.0783 17.0125 18.0783 17.4874 17.7854 17.7803C17.4925 18.0732 17.0177 18.0732 16.7248 17.7803L6.21991 7.27545C5.92702 6.98255 5.92702 6.50768 6.21991 6.21479Z"
-                                fill="#000000" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M17.7853 6.21479C18.0782 6.50769 18.0782 6.98256 17.7853 7.27545L7.28038 17.7802C6.98749 18.0731 6.51261 18.0731 6.21972 17.7802C5.92683 17.4873 5.92683 17.0124 6.21973 16.7195L16.7247 6.21478C17.0176 5.92189 17.4924 5.9219 17.7853 6.21479Z"
-                                fill="#000000" />
-                        </g>
-            </svg></div>
-        <h1 class="form__title">Оформление заказа</h1>
+        <h1 class="form__title">Изменение заказа № {{ order.id }}</h1>
         <div class="order__parent flex">
             <div class="order__left">
                 <div class="form__style flex">
@@ -88,16 +98,6 @@
                         <label class="radio__label" for="order_delivery_input2">Самовывоз</label>
                     </div>
                 </div>
-             <!-- <div class="order__form__delivery flex">
-                <div class="order__form__group">
-                    <input name="order_delivery_input" type="radio" id="order_delivery_input1">
-                    <label for="order_delivery_input1">Доставка</label>
-                </div>
-                <div class="order__form__group">
-                    <input name="order_delivery_input" type="radio" id="order_delivery_input2" checked>
-                    <label for="order_delivery_input2">Самовывоз</label>
-                </div>
-            </div> -->
                 <div class="order__promo flex">
                     <div class="form__group flex">
                         {{ order_form.promo_code }}
@@ -107,7 +107,7 @@
                 </div>
                 <div class="order__promo flex">
                     <div class="form__group flex">
-                        <p>Итоговая стоимость заказа: <span id="order_total_price">{{ basket_summ }} руб.</span></p>
+                        <p>Итоговая стоимость заказа: <span id="order_total_price">{{ order.total_summ }} руб.</span></p>
                     </div>
                 </div>
             </div>
@@ -121,35 +121,31 @@
                             <td class="order__header__bold">Цена (шт)</td>
                             <td class="order__header__bold">Кол-во (шт)</td>
                             <td class="order__header__bold">Сумма (руб)</td>
-                            <td class="order__header__bold">-----</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for basket in baskets %}
+                        {% for product in products %}
                             <tr class="order__table__body">
                                 <td class="">
-                                    {% if  basket.image %}
-                                        <img class="order__img" src="{{ basket.image.url }}" alt="">
+                                    {% if  product.image %}
+                                        <img class="order__img" src="{{ product.image.url }}" alt="">
                                     {% endif %}
                                 </td>
-                                <td class="order__header__regular">{{ basket.name }}</td>
+                                <td class="order__header__regular">{{ product.name }}</td>
                                 <td class="order__header__regular">
-                                    {% if not basket.weight_gram == 0 %}
-                                        {{ basket.weight_gram }}
+                                    {% if not product.weight_gram == 0 %}
+                                        {{ product.weight_gram }}
                                     {% else %}
                                         ---
                                     {% endif %}
                                 </td>
                                 <td class="order__header__bold">
-                                    {{ basket.price }}
+                                    {{ product.product.price }}
                                 </td>
                                 <td class="order__header__bold">
-                                    {{ basket.count }}
+                                    {{ product.count }}
                                 </td>
-                                <td class="order__header__bold">{{ basket.summ }}</td>
-                                <td class="order__header__regular">
-                                    <a class="order_a basket_delete" data-basket-id="{{ basket.id }}">Отменить</a>
-                                </td>
+                                <td class="order__header__bold">{{ product.summ }}</td>
                             </tr>
                         {% endfor %}
                         
@@ -158,16 +154,13 @@
             </div>
 
         </div>
-        <div class="order__form__checkbox">
-            <label class="checkbox" for="checkboxtwo">
-                <input class="checkbox__inp" type="checkbox" id="checkboxtwo" checked>
-                <span class="checkbox__inner">
-                    Я согласен на <a class="order__agreement" href="/pages/personalization.html">обработку
-                        персональных данных</a>
-                </span>
-            </label>
-        </div>
-        <input type="submit" class="form__button button order_btn" id="btn" value="Оформить заказ">
+        <input type="submit" class="form__button button order_btn" id="btn" value="Сохранить">
         {% comment %} <a class="form__button button" id="btn" onclick="printmsg()" href="https://ya.ru/">Оформить заказ</a> {% endcomment %}
     </form>
 </section>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'script/order_update.js' %}"></script>
+    <script src="{% static 'script/order.js' %}"></script>
+{% endblock %}

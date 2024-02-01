@@ -1,0 +1,98 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/orderlist.css' %}">
+    <link rel="stylesheet" href="{% static 'style/addorderlist.css' %}">
+{% endblock %}
+    
+
+{% block content %}
+  <section class="orderlist">
+    <div class="container">
+      <h1 class="orderlist__info mb-5">Заказы</h1>
+      <ul class="orderlist__link mb-5">
+        <li class="orderlist__link__a"><a class="orderlist__link__itemone" href="{% url 'adminapp:index' %}">Назад</a>
+        </li>
+        {% comment %} <li class="orderlist__link__a"><a class="orderlist__link__item" data-popup-link="addorderlist">Добавить
+            заказ</a></li> {% endcomment %}
+      </ul>
+      <div class="table-responsive mb-5">
+        <table class="orderlist__table">
+          <thead class="orderlist__table__header">
+            <tr>
+              <td class="orderlist__header__bold">№</td>
+              <td class="orderlist__header__bold">Статус</td>
+              <td class="orderlist__header__bold">Автор</td>
+              <td class="orderlist__header__bold">Дата</td>
+              <td class="orderlist__header__bold">Ф.И.О.</td>
+              <td class="orderlist__header__bold">Телефон</td>
+              <td class="orderlist__header__bold">Email@</td>
+              <td class="orderlist__header__bold">Индекс</td>
+              <td class="orderlist__header__bold">Регион</td>
+              <td class="orderlist__header__bold">Город</td>
+              <td class="orderlist__header__bold">Улица</td>
+              <td class="orderlist__header__bold">Дом-кв</td>
+              <td class="orderlist__header__bold orderlist__padding">%</td>
+              <td class="orderlist__header__bold">Сумма (руб.)</td>
+              <td class="orderlist__header__bold">-----</td>
+              <td class="orderlist__header__bold">-----</td>
+              <td class="orderlist__header__bold">-----</td>
+              <td class="orderlist__header__bold">-----</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr class="orderlist__table__body">
+                <td class="orderlist__header__regular ">{{ order.id }}</td>
+                <td class="orderlist__header__regular ">
+                  {% if order.status_completed == "completed" %}
+                    <img src="{% static 'img/ок.svg' %}" alt="">
+                  {% elif order.status_completed == "notcompleted" %}
+                    <img src="{% static 'img/three__dots.svg' %}" alt="">
+                  {% else %}
+                    <img src="{% static 'img/clous.svg' %}" alt="">
+                  {% endif %}
+                </td>
+                <td class="orderlist__header__regular ">{{ order.status_owner }}</td>
+                <td class="orderlist__header__regular ">{{ order.date.day }}.{{ order.date.month }}.{{ order.date.year }}</td>
+                <td class="orderlist__header__regular ">{{ order.user_fullname }}</td>
+                <td class="orderlist__header__regular ">{{ order.phone }}</td>
+                <td class="orderlist__header__regular ">{{ order.email }}</td>
+                <td class="orderlist__header__regular ">{{ order.index }}</td>
+                <td class="orderlist__header__regular ">{{ order.region }}</td>
+                <td class="orderlist__header__regular ">{{ order.city }}</td>
+                <td class="orderlist__header__regular ">{{ order.street }}</td>
+                <td class="orderlist__header__regular ">{{ order.num_house }}-{{ order.num_flat }}</td>
+                <td class="orderlist__header__regular ">{{ order.discount }}</td>
+                <td class="orderlist__header__regular ">{{ order.total_summ }}</td>
+                <td class="orderlist__header__regular "><a class="orderlist_a" href="{% url 'orderapp:detail' order.id %}">Просмотр</a></td>
+                <td class="orderlist__header__regular ">
+                  {% if order.status_completed == "cancelled" or order.status_completed == "notcompleted" %}
+                    <a class="orderlist_a" href="{% url 'orderapp:complete_order' order.id %}">Завершить</a>
+
+                  {% else %}
+                   <a class="orderlist_a" href="{% url 'orderapp:cancel_order' order.id %}">Отменить</a>
+                  {% endif %}
+                </td>
+                <td class="orderlist__header__regular "><a class="orderlist_a"
+                    href="{% url 'orderapp:update' order.id %}">Изменить</a>
+                </td>
+                <td class="orderlist__header__regular "><a class="orderlist_a del_item"
+                    href="{% url 'orderapp:remove' order.id %}">Удалить</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+    <script type="module" src="{% static 'script/del_item_admin.js' %}"></script>
+{% endblock %}
+
+    

@@ -11,13 +11,13 @@
             <ul class="admin__link">
                 <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:categories' %}">Категории</a></li>
                 <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:products' %}">Продукты</a></li>
-                <li class="admin__link__a"><a class="admin__link__item" href="/pages/orderlist.html">Заказы</a></li>
+                <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:orders' %}">Заказы</a></li>
             </ul>
             <ul class="admin__link h-10">
                 <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:users' %}">Пользователи</a>
                 </li>
                 <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:applications' %}">Потдержка</a></li>
-                <li class="admin__link__a"><a class="admin__link__item" href="/pages/promo.html">Промокоды</a></li>
+                <li class="admin__link__a"><a class="admin__link__item" href="{% url 'adminapp:promo' %}">Промокоды</a></li>
             </ul>
             <ul class="admin__link">
                 <li class="admin__link__a admin__orders"><a class="admin__link__item admin__link__orders"

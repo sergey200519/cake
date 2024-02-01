@@ -63,20 +63,17 @@
           </picture>
         </a>
         {% include "mainapp/menu/center_menu.html" %}
+        {% if user.is_authenticated %}
         <a class="header__recycle" data-popup-link="order">
-
+          <p id="basketcout">{{ basket_count }}</p>
           <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
           <svg class="header__recycle__svg" width="800px" height="800px" viewBox="0 0 32 32" id="svg5" version="1.1">
-
             <defs id="defs2" />
-
             <g id="layer1" transform="translate(-12,-292)">
-
               <path
                 d="m 21,316.00586 c -1.645008,0 -3,1.35499 -3,3 0,1.64501 1.354992,3 3,3 1.645008,0 3,-1.35499 3,-3 0,-1.64501 -1.354992,-3 -3,-3 z m 0,2 c 0.564129,0 1,0.43587 1,1 0,0.56413 -0.435871,1 -1,1 -0.564129,0 -1,-0.43587 -1,-1 0,-0.56413 0.435871,-1 1,-1 z"
                 id="circle5400"
                 style="fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none" />
-
               <path
                 d="m 35.999999,316.00586 c -1.645008,0 -3,1.35499 -3,3 0,1.64501 1.354992,3 3,3 1.645008,0 3,-1.35499 3,-3 0,-1.64501 -1.354992,-3 -3,-3 z m 0,2 c 0.564129,0 1,0.43587 1,1 0,0.56413 -0.435871,1 -1,1 -0.564129,0 -1,-0.43587 -1,-1 0,-0.56413 0.435871,-1 1,-1 z"
                 id="circle5402"
@@ -88,6 +85,7 @@
                 style="fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none" />
             </g>
           </svg></a>
+        {% endif %}
         {% include "mainapp/menu/desktop_menu.html" %}
       </div>
     </div>
@@ -178,6 +176,7 @@
   <script type="module" src="{% static 'script/footer.js' %}"></script>
   {% if user.is_authenticated %}
     <script src="{% static 'script/my__page.js' %}"></script>
+    <script src="{% static 'script/order.js' %}"></script>
   {% endif %}
   <script type="module" src="{% static 'script/popup.js' %}"></script>
   <script type="module" src="{% static 'script/basket_delete.js' %}"></script>

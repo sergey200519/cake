@@ -1,6 +1,6 @@
 import { basketWrite } from "./besket_write.js";
 
-const btnsDelete = document.querySelectorAll(".basket_delete")
+
 
 
 function deleteBasketItem(basketId) {
@@ -19,11 +19,14 @@ function deleteBasketItem(basketId) {
       });
 }
 
-
-btnsDelete.forEach(btn => {
+function setEvents() {
+  const btnsDelete = document.querySelectorAll(".basket_delete")
+  btnsDelete.forEach(btn => {
     btn.addEventListener("click", () => {
-      console.log("ok");
-        const id = btn.getAttribute("data-basket-id")
-        deleteBasketItem(id)
+      const id = btn.getAttribute("data-basket-id")
+      deleteBasketItem(id)
     })
-})
+  })
+}
+setEvents()
+export { setEvents }

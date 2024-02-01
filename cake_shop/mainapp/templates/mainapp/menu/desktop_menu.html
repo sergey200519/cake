@@ -13,7 +13,7 @@
 
           <div class="drop-down">
             <a class="header__item__linktwo" data-popup-link="mypage__popup">Моя страница</a>
-            <a class="header__item__linktwo" href="/pages/historyorder.html">Мои заказы</a>
+            <a class="header__item__linktwo" href="{% url 'orderapp:orders' %}">Мои заказы</a>
             {% if user.is_staff or user.is_superuser %}
               <a class="header__item__linktwo" href="{% url 'adminapp:index' %}">ADMIN</a>
             {% endif %}

@@ -1,0 +1,137 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #order_d {
+            position: static;
+            width: auto;
+            height: auto;
+            background: transparent;
+            margin: auto;
+            display: block;
+        }
+        .btn_order_admin {
+            display: block;
+            padding: 10px 30px;
+            outline: 2px solid var(--green);
+            margin: 0 auto 15px auto;
+            width: fit-content;
+            border-radius: 5px;
+            color: black;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="popupwrapper" id="order_d">
+    {% if order.status_owner == "admin" %}
+        <a class="btn_order_admin" href="{% url 'orderapp:fix_order' order.id %}">Закрепить заказ</a>
+    {% endif %}
+    <div class="order__form popupwrapper__popup form">
+        <h1 class="form__title">Заказ № {{ order.id }}</h1>
+        <div class="order__parent flex">
+            <div class="order__left">
+                <div class="form__style flex">
+                    <div class="form__group flex">
+                        <p>{{ order.user_fullname }}</p>
+                    </div>
+                </div>
+
+                <div class="form__style flex">
+                    <div class="form__group flex">
+                        <p>{{ order.phone }}</p>
+                    </div>
+                </div>
+                <div class="form__style flex">
+                    <div class="form__group flex">
+                        <p>{{ order.email }}</p>
+                    </div>
+                </div>
+                {% if order.status_delivery == "delivery" %}
+                    <div class="form__group flex">
+                        <p>Индекс: {{ order.index }}</p>
+                    </div>
+                    <div class="form__group flex">
+                        <p>Регион: {{ order.region }}</p>
+                    </div>
+                    <div class="form__group flex">
+                        <p>Город: {{ order.city }}</p>
+                    </div>
+                    <div class="form__group flex">
+                        <p>Улица: {{ order.street }}</p>
+                    </div>
+                    <div class="order__home flex">
+                        <div class="form__group flex">
+                            <p>Дом: {{ order.num_house }}</p>
+                        </div>
+                        <div class="form__group flex">
+                            <p>Кв: {{ order.num_flat }}</p>
+                        </div>
+                        <div class="form__group flex">
+                            <p>Корпус: {{ order.num_building }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if order.discount > 0 %}
+                    <p>Скидка: {{ order.discount }}%</p>
+                    <br>
+                {% endif %}
+                <div class="order__promo flex">
+                    <div class="form__group flex">
+                        
+                        <p>Итоговая стоимость заказа: <span id="order_total_price">{{ order.total_summ }} руб.</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="order__right">
+                <table class="order__table">
+                    <thead class="order__table__header">
+                        <tr>
+                            <td class="order__header__bold">Фото</td>
+                            <td class="order__header__bold">Позиция</td>
+                            <td class="order__header__bold">Масса (кг)</td>
+                            <td class="order__header__bold">Цена (шт)</td>
+                            <td class="order__header__bold">Кол-во (шт)</td>
+                            <td class="order__header__bold">Сумма (руб)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr class="order__table__body">
+                                <td class="">
+                                    {% if  product.image %}
+                                        <img class="order__img" src="{{ product.image.url }}" alt="">
+                                    {% endif %}
+                                </td>
+                                <td class="order__header__regular">{{ product.name }}</td>
+                                <td class="order__header__regular">
+                                    {% if not product.weight_gram == 0 %}
+                                        {{ product.weight_gram }}
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                </td>
+                                <td class="order__header__bold">
+                                    {{ product.product.price }}
+                                </td>
+                                <td class="order__header__bold">
+                                    {{ product.count }}
+                                </td>
+                                <td class="order__header__bold">{{ product.summ }}</td>
+                            </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

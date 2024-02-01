@@ -7,7 +7,7 @@
   /*--Убрать сетку--*/
   margin-bottom: 10px;
 }
-#order{
+#order {
   z-index: 7;
 }
 .order__table td,
@@ -84,7 +84,7 @@ tr:nth-child(odd):hover {
 .order__promo {
   gap: 20px;
 }
-.order__form{
+.order__form {
   border-radius: 16px !important;
 }
 .order__form__delivery {
@@ -244,7 +244,24 @@ tr:nth-child(odd):hover {
   .order__right {
     margin-bottom: 20px;
   }
-  .form__title{
+  .form__title {
     font-size: 16px;
   }
+}
+#basketcout {
+  position: absolute;
+  background: #cc9933;
+  border-radius: 50%;
+  top: -12px;
+  right: -16px;
+  height: 25px;
+  color: white;
+  width: 25px;
+  text-align: center;
+  line-height: 25px;
+  font-size: 12px;
+}
+.order_btn {
+  background: transparent;
+  width: 100%;
 }
