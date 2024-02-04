@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.views.generic import DetailView, UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordChangeView
 
 
 from django.contrib import auth, messages
@@ -14,7 +16,7 @@ from authapp.models import User, ImgUser
 
 from django.db.models import Q
 
-from authapp.forms import UserProfileForm
+from authapp.forms import UserProfileForm, UserPasswordChangeForm
 
 import json
 
@@ -143,3 +145,20 @@ def profile_edit(request):
 
 #     def get_object(self, queryset=None):
 #         return User.objects.get(id=self.request.user.pk)
+
+class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    """
+    Изменение пароля пользователя
+    """
+    form_class = UserPasswordChangeForm
+    template_name = "authapp/user_password_change.html"
+    # success_message = 'Ваш пароль был успешно изменён!'
+    success_url = reverse_lazy("mainapp:index")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Изменение пароля"
+        return context
+
+    # def get_success_url(self):
+        # return reverse_lazy('profile_detail', kwargs={'slug': self.request.user.profile.slug})

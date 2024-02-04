@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, SetPasswordForm
 
 from authapp.models import User, ImgUser
 from phonenumber_field.modelfields import PhoneNumberField
@@ -74,3 +74,18 @@ class UserProfileForm(UserChangeForm):
 
 
 
+
+class UserPasswordChangeForm(SetPasswordForm):
+    """
+    Форма изменения пароля
+    """
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы
+        """
+        super().__init__(*args, **kwargs)
+        print(self.fields)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                "class": "password__form__input"
+            })

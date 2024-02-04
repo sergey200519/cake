@@ -17,7 +17,7 @@
             {% if user.is_staff or user.is_superuser %}
               <a class="header__item__linktwo" href="{% url 'adminapp:index' %}">ADMIN</a>
             {% endif %}
-            <a class="header__item__linktwo" href="/pages/password.html">Изменить пароль</a>
+            <a class="header__item__linktwo" href="{% url 'authapp:password_change' %}">Изменить пароль</a>
             <a class="header__item__linktwo" href="{% url 'authapp:logout' %}">Выход</a>
           </div>
         </div>
