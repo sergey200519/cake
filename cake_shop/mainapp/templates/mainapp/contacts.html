@@ -1,0 +1,57 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+  
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/contacts__map.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<section class="contacts__map">
+    <h1 class="contacts__map__name mb-20">--- Контакты ---</h1>
+    <div class="contacts__map__container container flex">
+        <div class="contacts__map__left">
+            <div class="contacts__map__item" id="map"></div>
+        </div>
+        <div class="contacts__map__right">
+            <ul>
+                <li>
+                    <strong class="contact__map__bold contact__address">Адрес</strong>
+                    <p class="contact__map__info">Иркутская область, город Саянск, микр. Южный д.45
+                    </p>
+                </li>
+                <li class="contacts__line"> </li>
+                <li>
+                    <strong class="contact__map__bold flex gap__tel">Телефоны</strong>
+                    <div class="contact__map__gap flex">
+                        <a href="" class="contact__map__tell">+7 (902) 769-51-55</a>
+                        <a href="" class="contact__map__tell">+7 (902) 178-06-82</a>
+                    </div>
+                </li>
+                <li class="contacts__line"> </li>
+                <li>
+                    <strong class="contact__map__bold contact__email">E-mail</strong>
+                    <div>
+                        <a href="" class="contact__email__one">evdok68cv@mail.ru</a>
+                        <p class="contact__email__info">По вопросам бронирования</p>
+                        <a href="" class="contact__email__two">evg1720@mail.ru</a>
+                        <p class="contact__email__info">Техническая поддержка</p>
+                    </div>
+                </li>
+                <li class="contacts__line"> </li>
+                <li>
+                    <strong class="contact__map__bold">График</strong>
+                    <p class="contact__map__info">Понедельник - пятница,</p>
+                    <p class="contact__map__info__time">с 10:00 до 19:00</p>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU"></script>
+    <script src="{% static 'script/contacts__map.js' %}"></script>
+{% endblock %}

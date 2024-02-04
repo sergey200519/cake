@@ -1,7 +1,7 @@
 
 
 <section class="popupwrapper none" id="order">
-    <form class="order__form popupwrapper__popup form" action="{% url 'orderapp:create_order' %}" method="post">
+    <form class="order__form popupwrapper__popup form form_label" action="{% url 'orderapp:create_order' %}" method="post">
         {% csrf_token %}
             <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="close">
@@ -162,7 +162,7 @@
             <label class="checkbox" for="checkboxtwo">
                 <input class="checkbox__inp" type="checkbox" id="checkboxtwo" checked>
                 <span class="checkbox__inner">
-                    Я согласен на <a class="order__agreement" href="/pages/personalization.html">обработку
+                    Я согласен на <a class="order__agreement" href="{% url 'mainapp:personalization' %}">обработку
                         персональных данных</a>
                 </span>
             </label>

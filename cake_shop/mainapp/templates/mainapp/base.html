@@ -114,14 +114,14 @@
         <div class="footer__indent">
           <nav class="footer__list">
             <ul class="footer__info">
-              <li class="footer__item"><a href="/pages/about__max.html" class="footer__link">О нас</a></li>
-              <li class="footer__item"><a href="/pages/exclusive.html" class="footer__link">Эксклюзив</a></li>
-              <li class="footer__item"><a href="/pages/partners.html" class="footer__link">Партнёры</a></li>
+              <li class="footer__item"><a href="{% url 'mainapp:about_us' %}" class="footer__link">О нас</a></li>
+              <li class="footer__item"><a href="{% url 'mainapp:exclusive' %}" class="footer__link">Эксклюзив</a></li>
+              <li class="footer__item"><a href="{% url 'mainapp:partners' %}" class="footer__link">Партнёры</a></li>
             </ul>
             <ul>
-              <li class="footer__item"><a href="/pages/offer.html" class="footer__link">Оферта</a></li>
-              <li class="footer__item"><a href="/pages/personalization.html" class="footer__link">Политика</a></li>
-              <li class="footer__item"><a href="/pages/requisites.html" class="footer__link">Реквизиты</a></li>
+              <li class="footer__item"><a href="{% url 'mainapp:offer' %}" class="footer__link">Оферта</a></li>
+              <li class="footer__item"><a href="{% url 'mainapp:personalization' %}" class="footer__link">Политика</a></li>
+              <li class="footer__item"><a href="{% url 'mainapp:requisites' %}" class="footer__link">Реквизиты</a></li>
             </ul>
           </nav>
           <ul class="footer__smail">
@@ -180,6 +180,8 @@
   {% endif %}
   <script type="module" src="{% static 'script/popup.js' %}"></script>
   <script type="module" src="{% static 'script/basket_delete.js' %}"></script>
+  <script src="{% static 'script/telMask.js' %}"></script>
+  <script src="{% static 'script/labels.js' %}"></script>
   {% block script %}
   {% endblock %}
 </body>

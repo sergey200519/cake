@@ -1,0 +1,25 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+  
+{% block style %}
+    <link rel="stylesheet" href="{% static 'style/requisites.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<section class="offer__max">
+    <div class="offer__max__container container">
+        <h1 class="offer__max__heading">Реквизиты</h1>
+        <p class="offer__max__description paragraph">Фактический адрес: 1051, Саянск, мкр.Южный, дом 48</p>
+           <p class="offer__max__description"> Наименование: ИП Евдокимова Светлана</p>
+            <p class="offer__max__description">ИНН 77047030***</p> 
+           <p class="offer__max__description">Расчетный счет 408028107******</p> 
+            <p class="offer__max__description">Банк АО «Тинькофф Банк»</p>
+            <p class="offer__max__description">Корр. счет Банка 30101810******</p>
+            <p class="offer__max__description">ИНН Банка 771****</p>
+            <p class="offer__max__description">БИК Банка 04****</p>
+            <p class="offer__max__description">Юридический адрес банка: Саянск</p>
+            <p class="offer__max__description">Корр. счет банка: 30101****</p>
+    </div>
+</section>
+{% endblock %}

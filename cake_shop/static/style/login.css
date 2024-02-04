@@ -22,7 +22,7 @@
     position: absolute;
     top: 0;
     z-index: 20;
-    color: var(--gray);
+    color: var(--dark-brown);
     transition: 0.3s;
 }
 

@@ -22,10 +22,19 @@ function addBasketProduct(productId, productArticle) {
 
 
 const basketBtns = document.querySelectorAll(".list__righ__button")
+const basketBtns2 = document.querySelectorAll(".list__righ__buttontwo")
 
 basketBtns.forEach(btn => {
     btn.addEventListener("click", (e) => {
         e.preventDefault()
         addBasketProduct(btn.getAttribute("data-product-id"), btn.getAttribute("data-product-article"))
     })
+})
+
+basketBtns2.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+      e.preventDefault()
+      addBasketProduct(btn.getAttribute("data-product-id"), btn.getAttribute("data-product-article"))
+      document.querySelector("#order").classList.remove("none")
+  })
 })

@@ -14,7 +14,7 @@ class UserLoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
-    
+                
         self.fields["username"].widget.attrs["class"] = "login__form__input formInput"
         self.fields["username"].widget.attrs["id"] = "login__tel"
         self.fields["password"].widget.attrs["class"] = "login__form__input formInput"
@@ -40,6 +40,8 @@ class UserRegisterForm(UserCreationForm):
         for filed_name , field in self.fields.items():
             field.widget.attrs["class"] = "register__form__input"
             field.required=True
+
+        self.fields["phone"].widget.attrs["class"] = "tel register__form__input"
         
         self.fields["gender"].widget.attrs["class"] = "gender_value none"
         self.fields["username"].widget.attrs["id"] = "username_input"
@@ -64,6 +66,8 @@ class UserProfileForm(UserChangeForm):
             field.widget.attrs["class"] = "form__input"
             field.widget.attrs["id"] = f"id_{filed_name}_profile"
         
+        self.fields["phone"].widget.attrs["class"] = " tel form__input"
+
         self.fields["gender"].widget.attrs["class"] = "none profile_gender"
 
         self.fields["date_of_birth"].widget.attrs["class"] = "form__input date_of_birth_profile"

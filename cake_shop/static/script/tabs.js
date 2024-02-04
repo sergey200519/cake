@@ -4,8 +4,10 @@ class Tabs {
         this.tabsBtn = this.card.querySelectorAll(".list__weight__link");
         this.tabsItem = this.card.querySelectorAll(".list__weight__container");
         this.basketBtn = this.card.querySelector(".list__righ__button")
+        this.basketBtn2 = this.card.querySelector(".list__righ__buttontwo")
         this.firstArticle = this.card.querySelector(".tabs-item--active span")
         this.basketBtn.setAttribute("data-product-article", this.firstArticle.textContent)
+        this.basketBtn2.setAttribute("data-product-article", this.firstArticle.textContent)
 
         let self = this;
         this.tabsBtn.forEach(function (element) {
@@ -28,6 +30,7 @@ class Tabs {
         this.card.querySelector(`[data-target="${path}"]`).classList.add("tabs-item--active");
         let article = this.card.querySelector(`[data-target="${path}"] .list__right__articletext span`).textContent;
         this.basketBtn.setAttribute("data-product-article", article)
+        this.basketBtn2.setAttribute("data-product-article", article)
     }
 }
 

@@ -22,11 +22,11 @@
           {{ review_form.rating }}
           {{ review_form.text }}
           <div class="reviews__item flex">
-            <div class="raviews__file">
+            {% comment %} <div class="raviews__file">
               <input class="inputfile" type="file" name="file" id="file" data-multiple-caption="{count} файлов выбрано"
                 multiple>
               <label for="file"><span>Добавить фото</span></label>
-            </div>
+            </div> {% endcomment %}
     
             <div>
               <input type="submit" value="Оставить отзыв" class="reviews-button button">

@@ -98,3 +98,44 @@ def application_add(request):
             return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
         
 
+def about_us(request):
+    context = {
+        "title": "Обо мне"
+    }
+    return render(request, "mainapp/about_us.html", context=context)
+
+def partners(request):
+    context = {
+        "title": "Партнёры"
+    }
+    return render(request, "mainapp/partners.html", context=context)
+
+def videos(request):
+    context = {
+        "title": "Видеоролики"
+    }
+    return render(request, "mainapp/videos.html", context=context)
+
+def contacts(request):
+    context = {
+        "title": "Контакты"
+    }
+    return render(request, "mainapp/contacts.html", context=context)
+
+def offer(request):
+    context = {
+        "title": "Оферта"
+    }
+    return render(request, "mainapp/offer.html", context=context)
+
+def personalization(request):
+    context = {
+        "title": "Соглашение на обработку персональных данных"
+    }
+    return render(request, "mainapp/personalization.html", context=context)
+
+def requisites(request):
+    context = {
+        "title": "Реквизиты"
+    }
+    return render(request, "mainapp/requisites.html", context=context)

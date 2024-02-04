@@ -17,6 +17,7 @@ class CreateOrder(forms.ModelForm):
             field.widget.attrs["class"] = "form__input"
             field.required = True
 
+        self.fields["phone"].widget.attrs["class"] = "tel form__input"
 
         self.fields["status_delivery"].widget.attrs["id"] = "order_delivery_status"
         self.fields["status_delivery"].widget.attrs["class"] = "none"
