@@ -35,7 +35,6 @@ class Order(models.Model):
         (NOTOWNER, "администратор")
     )
 
-    # TODO: check defaults
     status_completed = models.CharField(choices=STATUS_CHOICES, max_length=15)
     status_delivery = models.CharField(choices=DELIVERY_STATUS_CHOICES, max_length=8)
     status_owner = models.CharField(choices=OWNER_STATUS, max_length=15, default="user")
@@ -71,7 +70,6 @@ class Order(models.Model):
 
 
 class OrderProduct(models.Model):
-    # TODO: check
     product = models.ForeignKey(BaseProduct, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="basket_product_images", verbose_name="Фото", null=True, blank=True)
     name = models.TextField(verbose_name="Название")

@@ -21,7 +21,6 @@ class BasketProducts(models.Model):
     @staticmethod
     def get_count(user):
         count = 0
-        # TODO: make filter
         for item in BasketProducts.objects.all():
             if  item.user == user:
                 count += item.count

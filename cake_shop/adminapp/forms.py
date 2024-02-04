@@ -10,9 +10,6 @@ from orderapp.models import PromoCode
 
 class CreateProductForm(forms.Form):
 
-    # TODO: REMOVE
-    def __init__(self,*args,**kwargs):
-        super(CreateProductForm, self).__init__(*args,**kwargs)
     
     name = forms.CharField(label="Наименование продукта", required=True)
     ingredients = forms.CharField(max_length=128, required=True)
