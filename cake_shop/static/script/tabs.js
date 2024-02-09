@@ -5,7 +5,7 @@ class Tabs {
         this.tabsItem = this.card.querySelectorAll(".list__weight__container");
         this.basketBtn = this.card.querySelector(".list__righ__button")
         this.basketBtn2 = this.card.querySelector(".list__righ__buttontwo")
-        this.firstArticle = this.card.querySelector(".tabs-item--active span")
+        this.firstArticle = this.card.querySelector(".tabs-item--active .article_span")
         this.basketBtn.setAttribute("data-product-article", this.firstArticle.textContent)
         this.basketBtn2.setAttribute("data-product-article", this.firstArticle.textContent)
 

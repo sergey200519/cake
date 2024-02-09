@@ -1,7 +1,7 @@
 {% load static %}
 
 <section class="popupwrapper none mypage" id="mypage__popup">
-    <form class="form mypage__form popupwrapper__popup" action="{% url 'authapp:profile' %}" method="POST" enctype="multipart/form-data">
+    <form class="form mypage__form popupwrapper__popup form_label" action="{% url 'authapp:profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% comment %} {{ profile_form.as_p }} {% endcomment %}
        <div class="popupwrapper__clouse"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,8 +57,8 @@
             </div>
         </div>
         <div class="form__group">
-            {{ profile_form.date_of_birth }}
             <p class="none user_date_of_birth">{{ user.date_of_birth.day }}.{{ user.date_of_birth.month }}.{{ user.date_of_birth.year }}</p>
+            {{ profile_form.date_of_birth }}
             {% comment %} <input class="form__input" type="date" name="trip-start"> {% endcomment %}
             <label class="form__label">Дата рождения</label>
         </div>

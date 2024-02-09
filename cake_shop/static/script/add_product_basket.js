@@ -21,8 +21,8 @@ function addBasketProduct(productId, productArticle) {
 }
 
 
-const basketBtns = document.querySelectorAll(".list__righ__button")
-const basketBtns2 = document.querySelectorAll(".list__righ__buttontwo")
+const basketBtns = document.querySelectorAll(".basket_btn")
+const basketBtns2 = document.querySelectorAll(".basket_btn2")
 
 basketBtns.forEach(btn => {
     btn.addEventListener("click", (e) => {

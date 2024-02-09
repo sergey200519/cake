@@ -15,7 +15,6 @@ class CreateOrder(forms.ModelForm):
 
         for filed_name , field in self.fields.items():
             field.widget.attrs["class"] = "form__input"
-            field.required = True
 
         self.fields["phone"].widget.attrs["class"] = "tel form__input"
 
@@ -23,3 +22,9 @@ class CreateOrder(forms.ModelForm):
         self.fields["status_delivery"].widget.attrs["class"] = "none"
 
         self.fields["promo_code"].required = False
+        # self.fields["index"].required = False
+        # self.fields["region"].required = False
+        # self.fields["city"].required = False
+        # self.fields["num_house"].required = False
+        # self.fields["num_flat"].required = False
+        # self.fields["num_house"].required = False

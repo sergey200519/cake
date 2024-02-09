@@ -2,8 +2,9 @@
 
 let tabsBtn = document.querySelectorAll('.main__weight__link');
 let tabsItem = document.querySelectorAll('.main__weight__container');
+const buyBtns = document.querySelectorAll(".buy_btn") 
 
-
+let article = 0;
 
 tabsBtn.forEach(function (element) {
   element.addEventListener('click', function (e) {
@@ -15,7 +16,16 @@ tabsBtn.forEach(function (element) {
 
     tabsItem.forEach(function (element) { element.classList.remove('tabs-item--active') });
 
-
-    document.querySelector(`[data-target="${path}"]`).classList.add('tabs-item--active');
+    let activeTab = document.querySelector(`[data-target="${path}"]`);
+    activeTab.classList.add('tabs-item--active');
+    article = parseInt(activeTab.querySelector(".main__right__article span").textContent)
+    setArticle();
   });
 });
+article = parseInt(document.querySelector(".tabs-item--active .main__right__article span.article").textContent);
+function setArticle() {
+  buyBtns.forEach(btn => {
+    btn.setAttribute("data-product-article", article);
+  });
+}
+setArticle();

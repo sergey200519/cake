@@ -75,7 +75,7 @@
                         <label class="form__label" for="{{ order_form.num_building.id_for_label }}">Корпус</label>
                     </div>
                 </div>
-                <div class="emptyblock"></div>
+                <div class="emptyblock none"></div>
                 {{ order_form.status_delivery }}
                 {% comment %} <input id="order_delivery_status" class="none"> {% endcomment %}
                 <div class="form__style form__style__order flex ">
@@ -105,62 +105,16 @@
                         <label class="form__label" for="{{ order_form.promo_code.id_for_label }}">ПРОМОКОД</label>
                     </div>
                 </div>
-                <div class="order__promo flex">
-                    <div class="form__group flex">
-                        <p>Итоговая стоимость заказа: <span id="order_total_price">{{ basket_summ }} руб.</span></p>
-                    </div>
-                </div>
+                
             </div>
             <div class="order__right">
-                <table class="order__table">
-                    <thead class="order__table__header">
-                        <tr>
-                            <td class="order__header__bold">Фото</td>
-                            <td class="order__header__bold">Позиция</td>
-                            <td class="order__header__bold">Масса (кг)</td>
-                            <td class="order__header__bold">Цена (шт)</td>
-                            <td class="order__header__bold">Кол-во (шт)</td>
-                            <td class="order__header__bold">Сумма (руб)</td>
-                            <td class="order__header__bold">-----</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for basket in baskets %}
-                            <tr class="order__table__body">
-                                <td class="">
-                                    {% if  basket.image %}
-                                        <img class="order__img" src="{{ basket.image.url }}" alt="">
-                                    {% endif %}
-                                </td>
-                                <td class="order__header__regular">{{ basket.name }}</td>
-                                <td class="order__header__regular">
-                                    {% if not basket.weight_gram == 0 %}
-                                        {{ basket.weight_gram }}
-                                    {% else %}
-                                        ---
-                                    {% endif %}
-                                </td>
-                                <td class="order__header__bold">
-                                    {{ basket.price }}
-                                </td>
-                                <td class="order__header__bold">
-                                    {{ basket.count }}
-                                </td>
-                                <td class="order__header__bold">{{ basket.summ }}</td>
-                                <td class="order__header__regular">
-                                    <a class="order_a basket_delete" data-basket-id="{{ basket.id }}">Отменить</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        
-                    </tbody>
-                </table>
+                {% include "mainapp/popups/order_table.html" %}
             </div>
 
         </div>
         <div class="order__form__checkbox">
             <label class="checkbox" for="checkboxtwo">
-                <input class="checkbox__inp" type="checkbox" id="checkboxtwo" checked>
+                <input class="checkbox__inp" type="checkbox" id="checkboxtwo" checked required>
                 <span class="checkbox__inner">
                     Я согласен на <a class="order__agreement" href="{% url 'mainapp:personalization' %}">обработку
                         персональных данных</a>

@@ -1,0 +1,48 @@
+<table class="order__table">
+    <thead class="order__table__header">
+        <tr>
+            <td class="order__header__bold">Фото</td>
+            <td class="order__header__bold">Позиция</td>
+            <td class="order__header__bold">Масса (кг)</td>
+            <td class="order__header__bold">Цена (шт)</td>
+            <td class="order__header__bold">Кол-во (шт)</td>
+            <td class="order__header__bold">Сумма (руб)</td>
+            <td class="order__header__bold">-----</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for basket in baskets %}
+            <tr class="order__table__body">
+                <td class="">
+                    {% if  basket.image %}
+                        <img class="order__img" src="{{ basket.image.url }}" alt="">
+                    {% endif %}
+                </td>
+                <td class="order__header__regular">{{ basket.name }}</td>
+                <td class="order__header__regular">
+                    {% if not basket.weight_gram == 0 %}
+                        {{ basket.weight_gram }}
+                    {% else %}
+                        ---
+                    {% endif %}
+                </td>
+                <td class="order__header__bold">
+                    {{ basket.price }}
+                </td>
+                <td class="order__header__bold">
+                    {{ basket.count }}
+                </td>
+                <td class="order__header__bold extra_zero">{{ basket.summ }}</td>
+                <td class="order__header__regular">
+                    <a class="order_a basket_delete" data-basket-id="{{ basket.id }}">Отменить</a>
+                </td>
+            </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
+<div class="order__promo flex">
+    <div class="form__group flex">
+        <p>Итоговая стоимость заказа: <span id="order_total_price">{{ basket_summ }} руб.</span></p>
+    </div>
+</div>

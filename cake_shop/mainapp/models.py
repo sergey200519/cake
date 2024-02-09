@@ -18,7 +18,7 @@ class ProductCategories(models.Model):
 class BaseProduct(models.Model):
     article = models.PositiveIntegerField(verbose_name="Артиул", unique=True)
     weight = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=13, decimal_places=2)
 
     def __str__(self):
         return f"id:{self.article}|m:{self.weight}|price:{self.price}"
@@ -140,6 +140,10 @@ class Reviews(models.Model):
             self.product.rating = self.product.summ_rating / self.product.count_reviews
             
         self.product.save()
+
+    @staticmethod
+    def get_count_new_reviews():
+        return len(Reviews.objects.filter(new=True))
 
     # def delete(self, using: Any = ..., keep_parents: bool = ...) -> tuple[int, dict[str, int]]:
     #     print("drtyh ->")

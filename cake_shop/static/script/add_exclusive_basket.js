@@ -23,8 +23,8 @@ function addBasketExclusive(productId, productArticle) {
 }
 
 
-const basketBtns = document.querySelectorAll(".list__cakes .card .list__righ__button")
-const basketBtns2 = document.querySelectorAll(".list__cakes .card .list__righ__buttontwo")
+const basketBtns = document.querySelectorAll(".basket_btn_ex")
+const basketBtns2 = document.querySelectorAll(".basket_btn_ex2")
 
 basketBtns.forEach(btn => {
     btn.addEventListener("click", (e) => {

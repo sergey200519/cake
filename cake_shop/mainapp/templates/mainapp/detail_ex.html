@@ -71,16 +71,16 @@
     </div>
     <div class="main__right__weight">
       <div class="main__weight__container tabs-item tabs-item--active" data-target="one">
-        <div class="card__item__two">{{ products.price }} руб.</div>
+        <div class="card__item__two">{{ products.exclusive.price }} руб.</div>
         <div class="main__right__article">
-          <p class="main__right__articletext">Артикул: {{ products.article }}</p>
+          <p class="main__right__articletext">Артикул: {{ products.exclusive.article }}</p>
         </div>
       </div>
 
       
       <div class="main__button flex">
-        <a class="main__righ__button button" href="#">В корзину</a>
-        <a class="main__righ__buttontwo buttontwo" href="">Купить</a>
+        <a class="main__righ__button button basket_btn_ex" data-product-article="{{ products.exclusive.article }}" data-product-id="{{ products.id }}" href="#">В корзину</a>
+        <a class="main__righ__buttontwo buttontwo basket_btn_ex2" data-product-article="{{ products.exclusive.article }}" data-product-id="{{ products.id }}" href="">Купить</a>
       </div>
     </div>
     <div class="main__right__discription">
@@ -116,8 +116,8 @@
       }
     });
   </script>
-  <script src="{% static 'script/detaile.js' %}"></script>
   <script src="{% static 'script/star.js' %}"></script>
   <script src="{% static 'script/file__add.js' %}"></script>
   <script type="module" src="{% static 'script/zoom.js' %}"></script>
+  <script type="module" src="{% static 'script/add_exclusive_basket.js' %}"></script>
 {% endblock  %}

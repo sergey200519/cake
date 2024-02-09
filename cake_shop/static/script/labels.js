@@ -6,6 +6,10 @@ class Label {
         this.input = input
         this.label = this.input.nextElementSibling
         if (this.label == null || this.label.tagName.toLowerCase() != "label") return
+        if (this.input.getAttribute("type") == "date") {
+            this.label.classList.add("form__label-top")
+            return
+        }
 
         let self = this
         this.input.addEventListener("focus", () => {
@@ -23,7 +27,6 @@ class Label {
     }
 
     focusEl(self) {
-        console.log("focus");
         self.label.classList.add("form__label-top")
     }
 

@@ -167,7 +167,7 @@
 
 
 .list__more:not(.onclick) {
-  background: url("/img/logo__three.svg") no-repeat;
+  background: url("../../img/logo__three.svg") no-repeat;
   /* background-size: contain; */
   background-size: cover;
   background-position: center;
@@ -213,13 +213,13 @@
 
 .list__close {
   position: relative;
-  background: url("/img/logo__three.svg") no-repeat;
+  background: url("../../img/logo__three.svg") no-repeat;
   /* background-size: contain; */
   background-size: cover;
   background-position: center;
   cursor: pointer;
   transition: 0.3s;
-
+  min-height: 523.69px;
 }
 
 .list__close:hover {

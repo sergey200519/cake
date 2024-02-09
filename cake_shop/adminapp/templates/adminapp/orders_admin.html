@@ -60,13 +60,49 @@
                 <td class="orderlist__header__regular ">{{ order.user_fullname }}</td>
                 <td class="orderlist__header__regular ">{{ order.phone }}</td>
                 <td class="orderlist__header__regular ">{{ order.email }}</td>
-                <td class="orderlist__header__regular ">{{ order.index }}</td>
-                <td class="orderlist__header__regular ">{{ order.region }}</td>
-                <td class="orderlist__header__regular ">{{ order.city }}</td>
-                <td class="orderlist__header__regular ">{{ order.street }}</td>
-                <td class="orderlist__header__regular ">{{ order.num_house }}-{{ order.num_flat }}</td>
+                <td class="orderlist__header__regular ">
+                  {% if order.index == mull %}
+                    ----
+                  {% else %}
+                    {{ order.index }}
+                  {% endif %}
+                </td>
+                <td class="orderlist__header__regular ">
+                  {% if order.region == mull %}
+                    ----
+                  {% else %}
+                    {{ order.region }}
+                  {% endif %}
+                </td>
+                <td class="orderlist__header__regular ">
+                  {% if order.city == mull %}
+                    ----
+                  {% else %}
+                    {{ order.city }}
+                  {% endif %}
+                </td>
+                <td class="orderlist__header__regular ">
+                  {% if order.street == mull %}
+                    ----
+                  {% else %}
+                    {{ order.street }}
+                  {% endif %}
+                </td>
+                <td class="orderlist__header__regular ">
+                  {% if order.num_house == mull %}
+                    -
+                  {% else %}
+                    {{ order.num_house }}
+                  {% endif %}
+                  -
+                  {% if order.num_flat == mull %}
+                    -
+                  {% else %}
+                    {{ order.num_flat }}
+                  {% endif %}
+                </td>
                 <td class="orderlist__header__regular ">{{ order.discount }}</td>
-                <td class="orderlist__header__regular ">{{ order.total_summ }}</td>
+                <td class="orderlist__header__regular extra_zero">{{ order.total_summ }}</td>
                 <td class="orderlist__header__regular "><a class="orderlist_a" href="{% url 'orderapp:detail' order.id %}">Просмотр</a></td>
                 <td class="orderlist__header__regular ">
                   {% if order.status_completed == "cancelled" or order.status_completed == "notcompleted" %}

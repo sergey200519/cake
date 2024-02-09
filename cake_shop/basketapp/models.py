@@ -11,7 +11,7 @@ class BasketProducts(models.Model):
     weight = models.FloatField(default=0)
     weight_gram = models.FloatField(default=0)
     price = models.FloatField()
-    summ = models.FloatField(default=0)
+    summ = models.DecimalField(default=0, max_digits=13, decimal_places=2)
 
     
     article = models.IntegerField()
@@ -31,7 +31,7 @@ class BasketProducts(models.Model):
         price = 0
         for item in BasketProducts.objects.filter(user=user):
             price += item.price * item.count
-        return price
+        return round(price, 2)
 
     def save(self, *args, **kwargs):
         

@@ -40,21 +40,21 @@ class Order(models.Model):
     status_owner = models.CharField(choices=OWNER_STATUS, max_length=15, default="user")
     date = models.DateTimeField(auto_now_add=True)
     discount = models.FloatField(default=0)
-    summ = models.FloatField(default=0)
-    total_summ = models.FloatField(default=0)
+    summ = models.DecimalField(default=0, max_digits=13, decimal_places=2)
+    total_summ = models.DecimalField(default=0, max_digits=13, decimal_places=2)
     promo_code = models.CharField(max_length=100, default=None, blank=True, null=True)
 
     user_fullname = models.CharField(max_length=250, verbose_name="ФИО")
     phone = PhoneNumberField(verbose_name="Номер телефона")
     email = models.EmailField(verbose_name="Электроная почта")
 
-    index = models.CharField(max_length=50, default="С/в")
-    region = models.CharField(max_length=50, default="С/в")
-    city = models.CharField(max_length=500, default="С/в")
-    street = models.CharField(max_length=250, default="С/в")
-    num_house = models.CharField(max_length=50, default="С/в")
-    num_flat = models.CharField(max_length=50, default="С/в")
-    num_building = models.CharField(max_length=50, default="С/в")
+    index = models.CharField(max_length=50, null=True, blank=True)
+    region = models.CharField(max_length=50, null=True, blank=True)
+    city = models.CharField(max_length=500, null=True, blank=True)
+    street = models.CharField(max_length=250, null=True, blank=True)
+    num_house = models.CharField(max_length=50, null=True, blank=True)
+    num_flat = models.CharField(max_length=50, null=True, blank=True)
+    num_building = models.CharField(max_length=50, null=True, blank=True)
 
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE, null=True, blank=True)
 
@@ -68,12 +68,16 @@ class Order(models.Model):
             
         self.save()
 
+    @staticmethod
+    def get_count_new_orders():
+        return len(Order.objects.filter(status_completed="notcompleted"))
+
 
 class OrderProduct(models.Model):
     product = models.ForeignKey(BaseProduct, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="basket_product_images", verbose_name="Фото", null=True, blank=True)
     name = models.TextField(verbose_name="Название")
-    summ = models.DecimalField(max_digits=10, decimal_places=2)
+    summ = models.DecimalField(max_digits=13, decimal_places=2)
     count = models.PositiveIntegerField()
     weight_gram = models.FloatField(default=0)
     

@@ -23,6 +23,9 @@ class IndexTemplateView(TemplateView, CustomDispatchMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Главня страница aдминки"
+        context["count_new_orders"] = Order.get_count_new_orders()
+        context["count_new_reviews"] = Reviews.get_count_new_reviews()
+        context["count_new_applications"] = Applications.get_count_new_applications()
         return context
     
 
@@ -393,6 +396,13 @@ class ApplicationsListView(ListView, CustomDispatchMixin):
         context = super().get_context_data(**kwargs)
         context["title"] = "Админка | Потдержка"
         return context
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_application_read(request, pk):
+    application = Applications.objects.get(id=pk)
+    application.new = False
+    application.save()
+    return HttpResponseRedirect(reverse("adminapp:applications"))
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_application_remove(request, pk):

@@ -24,6 +24,7 @@
               <td class="support__header__bold">Email@</td>
               <td class="support__header__bold width-300">Сообщение</td>
               <td class="support__header__bold">-----</td>
+              <td class="support__header__bold">-----</td>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +37,13 @@
                 <td class="support__header__regular">{{ application.email }}</td>
                 <td class="support__header__regular width-300">
                   {{ application.report }}
+                </td>
+                <td class="support__header__regular">
+                  {% if application.new %}
+                    <a class="support_a" href="{% url 'adminapp:application_read' application.id %}">Прочитано</a>
+                  {% else %}
+                    -----
+                  {% endif %}
                 </td>
                 <td class="support__header__regular"><a class="support_a del_item" href="{% url 'adminapp:application_remove' application.id %}">удалить</a>
                 </td>

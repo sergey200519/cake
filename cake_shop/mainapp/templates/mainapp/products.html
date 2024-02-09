@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 
 {% for product in products %}
     {% if product.category == product_category %}
@@ -50,59 +51,49 @@
             <li class="list__weight__link" data-path="five" tabindex="0">2000</li>
         </ul>
         <div class="flex card__item">
-          {% for product_ch in product.products.all %}
-            {% if product_ch.weight == 400 %}
+          {% for product_ch in product.products|get_product_by_weight:400 %}
               <div class="list__weight__container tabs-item tabs-item--active" data-target="one">
-                <div class="card__item">{{ product_ch.price }} руб.</div>
+                <div class="card__item"><span class="extra_zero">{{ product_ch.price }}</span> руб.</div>
                 <div class="list__right__article">
-                  <p class="list__right__articletext">Артикул: <span>{{ product_ch.article }}</span></p>
+                  <p class="list__right__articletext">Артикул: <span class="article_span">{{ product_ch.article }}</span></p>
                 </div>
               </div>
-            {% endif %}
           {% endfor %}
 
-          {% for product_ch in product.products.all %}
-            {% if product_ch.weight == 600 %}
+          {% for product_ch in product.products|get_product_by_weight:600 %}
               <div class="list__weight__container tabs-item" data-target="two">
-                <div class="card__item">{{ product_ch.price }} руб.</div>
+                <div class="card__item"><span class="extra_zero">{{ product_ch.price }}</span> руб.</div>
                 <div class="list__right__article">
-                  <p class="list__right__articletext">Артикул: <span>{{ product_ch.article }}</span></p>
+                  <p class="list__right__articletext">Артикул: <span class="article_span">{{ product_ch.article }}</span></p>
                 </div>
               </div>
-            {% endif %}
           {% endfor %}
           
-          {% for product_ch in product.products.all %}
-            {% if product_ch.weight == 800 %}
+          {% for product_ch in product.products|get_product_by_weight:800 %}
               <div class="list__weight__container tabs-item" data-target="three">
-                <div class="card__item">{{ product_ch.price }} руб.</div>
+                <div class="card__item"><span class="extra_zero">{{ product_ch.price }}</span> руб.</div>
                 <div class="list__right__article">
-                  <p class="list__right__articletext">Артикул: <span>{{ product_ch.article }}</span></p>
+                  <p class="list__right__articletext">Артикул: <span class="article_span">{{ product_ch.article }}</span></p>
                 </div>
               </div>
-            {% endif %}
           {% endfor %}
 
-          {% for product_ch in product.products.all %}
-            {% if product_ch.weight == 1000 %}
+          {% for product_ch in product.products|get_product_by_weight:1000 %}
               <div class="list__weight__container tabs-item" data-target="four">
-                <div class="card__item">{{ product_ch.price }} руб.</div>
+                <div class="card__item"><span class="extra_zero">{{ product_ch.price }}</span> руб.</div>
                 <div class="list__right__article">
-                  <p class="list__right__articletext">Артикул: <span>{{ product_ch.article }}</span></p>
+                  <p class="list__right__articletext">Артикул: <span class="article_span">{{ product_ch.article }}</span></p>
                 </div>
               </div>
-            {% endif %}
           {% endfor %}
 
-          {% for product_ch in product.products.all %}
-            {% if product_ch.weight == 2000 %}
+          {% for product_ch in product.products|get_product_by_weight:2000 %}
               <div class="list__weight__container tabs-item" data-target="five">
-                <div class="card__item">{{ product_ch.price }} руб.</div>
+                <div class="card__item"><span class="extra_zero">{{ product_ch.price }}</span> руб.</div>
                 <div class="list__right__article">
-                  <p class="list__right__articletext">Артикул: <span>{{ product_ch.article }}</span></p>
+                  <p class="list__right__articletext">Артикул: <span class="article_span">{{ product_ch.article }}</span></p>
                 </div>
               </div>
-            {% endif %}
           {% endfor %}
         </div>
         <div class="list__card__more flex aic card__item">
@@ -113,8 +104,8 @@
             </svg>
         </div>
         <div class="list__button flex">
-            <a class="list__righ__button button" data-product-article="" data-product-id="{{ product.id }}" href="#">В корзину</a>
-            <a class="list__righ__buttontwo buttontwo basket_now" data-product-article="" data-product-id="{{ product.id }}" href="">Купить</a>
+            <a class="list__righ__button buy_btn button basket_btn" data-product-article="" data-product-id="{{ product.id }}" href="#">В корзину</a>
+            <a class="list__righ__buttontwo buy_btn buttontwo basket_now basket_btn2" data-product-article="" data-product-id="{{ product.id }}" href="">Купить</a>
         </div>
         </div>
     </li>
