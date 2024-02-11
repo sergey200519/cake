@@ -38,6 +38,26 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} | {self.category}"
 
+
+    def recalculate_reviews(self):
+        count = 0
+        summ = 0
+        for review in Reviews.objects.filter(product=self):
+            summ += review.rating
+            count += 1
+        
+        self.summ_rating = summ
+        self.count_reviews = count
+        if count == 0:
+            self.rating = 0
+        else:
+            self.rating = self.summ_rating / self.count_reviews
+        
+        self.save()
+
+         
+
+
     class Meta:
         verbose_name_plural = "Продукты"
 

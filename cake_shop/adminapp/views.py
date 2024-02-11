@@ -332,7 +332,10 @@ def admin_review_cancel(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_review_remove(request, pk):
-    Reviews.objects.get(id=pk).delete()
+    review = Reviews.objects.get(id=pk)
+    product = review.product
+    review.delete()
+    product.recalculate_reviews()
     return HttpResponseRedirect(reverse("adminapp:reviews"))
 
 class SlidesListView(ListView, CustomDispatchMixin):
